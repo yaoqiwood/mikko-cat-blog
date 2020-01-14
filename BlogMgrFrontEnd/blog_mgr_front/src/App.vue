@@ -9,7 +9,7 @@
 import IndexCollapse from './components/collapse/app/MainCollapse'
 export default {
   name: 'App',
-  components: {IndexCollapse}
+  components: { IndexCollapse }
 }
 </script>
 
