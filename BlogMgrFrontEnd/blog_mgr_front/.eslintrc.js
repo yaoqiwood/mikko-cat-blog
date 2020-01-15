@@ -21,6 +21,7 @@ module.exports = {
   ],
   // add your custom rules here
   rules: {
+    // "prettier/prettier": "error",
     // allow async-await
     'generator-star-spacing': 'off',
     // allow debugger during development

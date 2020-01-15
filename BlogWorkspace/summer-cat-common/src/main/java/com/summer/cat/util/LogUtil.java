@@ -6,16 +6,29 @@ import org.apache.log4j.Logger;
 public class LogUtil {
     private static Logger log = Logger.getLogger(LogUtil.class);
 
-    private static void info(String msg){
+    public static void info(String msg) {
         log.info(msg + getStackTrace());
     }
 
-    private static String getStackTrace(){
-        int index=2;
+    public static void error(String msg) {
+        log.error(msg + getStackTrace());
+    }
+
+    public static void error(String msg, Throwable t) {
+        log.error(msg + getStackTrace(), t);
+    }
+
+
+    public static void warn(String msg) {
+        log.warn(msg + getStackTrace());
+    }
+
+    private static String getStackTrace() {
+        int index = 2;
         StackTraceElement[] ste = new Throwable().getStackTrace();
-        for (StackTraceElement s:ste){
-            LogUtil.info(s.toString());
-        }
+//        for (StackTraceElement s : ste) {
+//            LogUtil.info(s.toString());
+//        }
         StackTraceElement s = ste[index];
         String className = s.getClassName();
         String method_name = s.getMethodName();

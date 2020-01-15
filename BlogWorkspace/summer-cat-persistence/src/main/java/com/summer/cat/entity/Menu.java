@@ -62,7 +62,8 @@ public class Menu extends Model<Menu> {
 
     private String icon;
 
-    @TableField(exist = false)
+//    @TableField(exist = false)
+//    @TableField("childMenu")
     private List<Menu> childMenu;
 
     @Override

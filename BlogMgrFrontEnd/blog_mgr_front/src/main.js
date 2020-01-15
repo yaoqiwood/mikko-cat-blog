@@ -8,6 +8,7 @@ import routes from './router'
 // import VueRouter from 'vue-router'
 import ViewUI from 'view-design'
 import 'view-design/dist/styles/iview.css'
+
 // vue Resource
 import VueResource from 'vue-resource'
 // vue locale 国际化

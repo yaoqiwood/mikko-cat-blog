@@ -35,7 +35,7 @@ public class LoginController {
             @ApiImplicitParam(name = "requestJson", value = "{\"identity\":\"13888888888\",\"password\":\"123456\"}"
                     , required = true, dataType = "String",paramType="body")
     })
-    @PostMapping("/login")
+    @PostMapping("/login.action")
     @Log(action="SignIn",modelName= "Login",description="前台密码登录接口")
     @Pass
     //5秒产生一个令牌,放入容量为0.3的令牌桶

@@ -57,5 +57,15 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
         return IteratorMenuList;
     }
 
+    /**
+     * 根据父级Id获取所有菜单
+     * @param parentId
+     * @return
+     */
+    @Override
+    public List<Menu> getAllMenu(String parentId) {
+        return menuMapper.getAllMenu(parentId);
+    }
+
 
 }

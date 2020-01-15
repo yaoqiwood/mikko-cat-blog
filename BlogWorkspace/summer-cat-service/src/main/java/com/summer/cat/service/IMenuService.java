@@ -37,5 +37,11 @@ public interface IMenuService extends IService<Menu> {
      */
     List<Menu> treeMenuList(String pId, List<Menu> list);
 
+    /**
+     * 获取菜单（根据父级Id）
+     * @param parentId
+     * @return
+     */
+    List<Menu> getAllMenu(String parentId);
 
 }

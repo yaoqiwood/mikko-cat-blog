@@ -6,12 +6,10 @@ export default {
       let promise = Vue.http.get(url)
       promise.then(
         solveResp => {
-          console.log(solveResp)
-          resolve(solveResp)
+          resolve(solveResp.data)
         },
         rejectResp => {
-          console.log(rejectResp)
-          reject(rejectResp)
+          reject(rejectResp.data)
         }
       )
     })
@@ -21,12 +19,10 @@ export default {
       let promise = Vue.http.post(url, params, NetConstants.POST_OPTIONS)
       promise.then(
         resResp => {
-          console.log(resResp)
-          resolve(resResp)
+          resolve(resResp.data)
         },
         rejectResp => {
-          console.log(rejectResp)
-          rejectResp(rejectResp)
+          rejectResp(rejectResp.data)
         })
     })
   },

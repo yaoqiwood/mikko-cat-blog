@@ -78,5 +78,18 @@ public class Constant {
         public static final String USER= "user";
     }
 
+    /**
+     * 返回信息名
+     */
+    public static class ReturnsMessage{
+        public static final String TOTAL = "total";
+        public static final String MESSAGE = "message";
+        public static final String DATA = "data";
+        public static final String SUCCESS = "success";
+        public static final String SUCCESS_MSG = "查询成功";
+        public static final String ERROR_MSG = "失败：";
+    }
+
+
 
 }

@@ -28,20 +28,14 @@
       </Header>
       <Layout style="minHeight: 85vh">
         <Sider hide-trigger
-               :style="{background: '#fff'}">
-          <Menu active-name="1-2"
-                theme="light"
-                width="auto"
-                :open-names="['1']">
-            <!-- <Submenu name="1">
-              <template slot="title">
-                <Icon type="ios-navigate"></Icon>
-                Item 1
-              </template>
-              <MenuItem name="1-1">Option 1</MenuItem>
-              <MenuItem name="1-2">Option 2</MenuItem>
-              <MenuItem name="1-3">Option 3</MenuItem>
-            </Submenu> -->
+               :style="{background: '#fff'}"
+               width="260px">
+          <Menu theme="light"
+                width="260px"
+                mode="vertical"
+                style="text-align:left"
+                accordion>
+            <main-page-side-sub-menu-item :menuItemList=menuItemList></main-page-side-sub-menu-item>
           </Menu>
         </Sider>
         <Layout :style="{padding: '0 24px 24px'}">
@@ -60,24 +54,31 @@
 </template>
 <script>
 import MainApi from '@/api/main/MainApi'
+import MainPageSideSubMenuItem from './MainPageSideSubMenuItem'
 export default {
+  name: 'MainPage',
   beforeRouteEnter (to, from, next) {
     next(vm => {
-      // 获取菜单 TODO
       vm.getAllMenuItem()
     })
   },
   data () {
     return {
-
+      menuItemList: []
     }
   },
   methods: {
     getAllMenuItem () {
+      // TODO: 获取菜单 权限配置 Cookie
       MainApi.getAllMenuItem().then(resp => {
-        console.log(resp)
+        if (resp.success) {
+          this.menuItemList = resp.data
+        }
       })
     }
+  },
+  components: {
+    MainPageSideSubMenuItem
   }
 }
 </script>
