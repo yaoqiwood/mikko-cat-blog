@@ -1,10 +1,11 @@
 package com.summer.cat.util;
 
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class LogUtil {
-    private static Logger log = Logger.getLogger(LogUtil.class);
+    private static Logger log = LoggerFactory.getLogger(LogUtil.class);
 
     public static void info(String msg) {
         log.info(msg + getStackTrace());

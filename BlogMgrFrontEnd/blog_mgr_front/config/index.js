@@ -10,16 +10,16 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/summerCat/blog':{
-        target:'http://127.0.0.1:8084',
-        changeOrigin:true
+      '/summerCat/blog': {
+        target: 'http://127.0.0.1:8084',
+        changeOrigin: true
       }
     },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
     port: 8085, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
-    autoOpenBrowser: false,
+    autoOpenBrowser: true,
     errorOverlay: true,
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
@@ -54,7 +54,8 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    // 默认带上的url前缀
+    assetsPublicPath: '/summer-cats-blog/resources/',
 
     /**
      * Source Maps

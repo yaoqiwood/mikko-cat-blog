@@ -10,7 +10,7 @@ public class Returns {
         Map<String, Object> returnsMap = new HashMap<>(3);
         returnsMap.put(Constant.ReturnsMessage.TOTAL, total);
         returnsMap.put(Constant.ReturnsMessage.MESSAGE, msg);
-        returnsMap.put(Constant.ReturnsMessage.DATA, msg);
+        returnsMap.put(Constant.ReturnsMessage.DATA, list);
         returnsMap.put(Constant.ReturnsMessage.SUCCESS, true);
         return returnsMap;
     }

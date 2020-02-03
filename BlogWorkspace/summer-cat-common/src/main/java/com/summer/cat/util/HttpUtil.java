@@ -20,7 +20,12 @@ import java.util.ArrayList;
  */
 public final class HttpUtil {
 
-    private static  Logger logger = LoggerFactory.getLogger(HttpUtil.class);
+    private static Logger logger = LoggerFactory.getLogger(HttpUtil.class);
+
+    public static final String HEADER_CONTENT_DISPOSITION = "Content-disposition";
+    public static final String HEADER_CONTENT_LENGTH = "Content-Length";
+    public static final String CONTENT_TYPE_MULTIPART_FORM_DATA = "multipart/form-data";
+    public static final String ATTACHMENT_FILENAME = "attachment; filename=";
 
     private static final MediaType CONTENT_TYPE_FORM = MediaType
             .parse("application/x-www-form-urlencoded;charset=UTF-8");

@@ -1,16 +1,12 @@
 <template>
   <div id="app">
-    <index-collapse>
-    </index-collapse>
     <router-view />
   </div>
 </template>
 
 <script>
-import IndexCollapse from './components/collapse/app/MainCollapse'
 export default {
-  name: 'App',
-  components: { IndexCollapse }
+  name: 'App'
 }
 </script>
 

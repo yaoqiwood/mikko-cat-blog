@@ -8,64 +8,69 @@ import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.DbType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import com.summer.cat.base.Constant;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static cn.hutool.core.lang.Console.scanner;
+
 /**
  * 代码生成器
+ *
  * @author summer
  * @since 2018-03-21
  */
 public class MpGenerator {
+
     public static void main(String[] args) {
         AutoGenerator mpg = new AutoGenerator();
-
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
-        gc.setOutputDir("C://");
-        gc.setFileOverride(true);
-        gc.setActiveRecord(true);// 不需要ActiveRecord特性的请改为false
-        gc.setEnableCache(false);// XML 二级缓存
-        gc.setBaseResultMap(true);// XML ResultMap
-        gc.setBaseColumnList(true);// XML columList
+        gc.setOutputDir(Constant.SYSTEM_DIR);
+        gc.setFileOverride(GeneratorConfig.fileOverride);
+        gc.setActiveRecord(GeneratorConfig.activeRecord);// 不需要ActiveRecord特性的请改为false
+        gc.setEnableCache(GeneratorConfig.enableCache);// XML 二级缓存
+        gc.setBaseResultMap(GeneratorConfig.baseResultMap);// XML ResultMap
+        gc.setBaseColumnList(GeneratorConfig.baseColumnList);// XML columList
         // .setKotlin(true) 是否生成 kotlin 代码
-        gc.setAuthor("summer");
+        gc.setAuthor(GeneratorConfig.globalAuthor);
 
         // 自定义文件命名，注意 %s 会自动填充表实体属性！
-        // gc.setMapperName("%sDao");
-        // gc.setXmlName("%sDao");
-        // gc.setServiceName("MP%sService");
-        // gc.setServiceImplName("%sServiceDiy");
-        // gc.setControllerName("%sAction");
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
         dsc.setDbType(DbType.MYSQL);
-        dsc.setTypeConvert(new MySqlTypeConvert(){
-            // 自定义数据库表字段类型转换【可选】
-            @Override
-            public DbColumnType processTypeConvert(String fieldType) {
-                System.out.println("转换类型：" + fieldType);
-                // 注意！！processTypeConvert 存在默认类型转换，如果不是你要的效果请自定义返回、非如下直接返回。
-                return super.processTypeConvert(fieldType);
-            }
-        });
-        dsc.setDriverName("com.mysql.jdbc.Driver");
-        dsc.setUsername("root");
-        dsc.setPassword("root");
-        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/summer?characterEncoding=utf8");
+//        dsc.setTypeConvert(new MySqlTypeConvert() {
+//            // 自定义数据库表字段类型转换【可选】
+//            @Override
+//            public DbColumnType processTypeConvert(String fieldType) {
+//                System.out.println("转换类型：" + fieldType);
+//                // 注意！！processTypeConvert 存在默认类型转换，如果不是你要的效果请自定义返回、非如下直接返回。
+//                return super.processTypeConvert(fieldType);
+//            }
+//        });
+//        dsc.setDriverName("com.mysql.jdbc.Driver");
+        dsc.setDriverName(GeneratorConfig.dbDriver);
+//        dsc.setUsername("root");
+        dsc.setUsername(GeneratorConfig.dbUsername);
+//        dsc.setPassword("root");
+        dsc.setPassword(GeneratorConfig.dbPassword);
+//        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/summer?characterEncoding=utf8");
+        dsc.setUrl(GeneratorConfig.dbUrl);
         mpg.setDataSource(dsc);
 
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
         // strategy.setCapitalMode(true);// 全局大写命名 ORACLE 注意
-        strategy.setTablePrefix(new String[] { "tb_"});// 此处可以修改为您的表前缀
+//        strategy.setTablePrefix(new String[] { "tb_"});// 此处可以修改为您的表前缀
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-         strategy.setInclude(new String[] { "tb_notice" }); // 需要生成的表
+        System.out.println("请输入表名：");
+        strategy.setInclude(scanner().next());
+//        strategy.setInclude(new String[]{"tb_notice"}); // 需要生成的表
         // strategy.setExclude(new String[]{"test"}); // 排除生成的表
         // 自定义实体父类
 //         strategy.setSuperEntityClass("com.baomidou.demo.TestEntity");
@@ -89,7 +94,8 @@ public class MpGenerator {
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setParent("com.summer");
+//        pc.setParent("com.summer.generate");
+        pc.setParent("summer-cat-common.src.main.java.generatorTempPath");
 //        pc.setModuleName("entity");
         mpg.setPackageInfo(pc);
 
@@ -99,9 +105,9 @@ public class MpGenerator {
         InjectionConfig cfg = new InjectionConfig() {
             @Override
             public void initMap() {
-                Map<String, Object> map = new HashMap<String, Object>();
-                map.put("abc", this.getConfig().getGlobalConfig().getAuthor() + "-mp");
-                this.setMap(map);
+//                Map<String, Object> map = new HashMap<String, Object>();
+//                map.put("abc", this.getConfig().getGlobalConfig().getAuthor() + "-mp");
+//                this.setMap(map);
             }
         };
         // 调整 xml 生成目录演示

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.summer.cat.mapper.SysAnnexConfigInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.summer.cat.entity.SysAnnexConfigInfo">
+        <id column="id" property="id" />
+        <result column="saci_annex_num" property="saciAnnexNum" />
+        <result column="saci_annex_type" property="saciAnnexType" />
+        <result column="saci_old_annex_name" property="saciOldAnnexName" />
+        <result column="saci_new_annex_name" property="saciNewAnnexName" />
+        <result column="saci_storage_path" property="saciStoragePath" />
+        <result column="saci_create_time" property="saciCreateTime" />
+        <result column="saci_creator" property="saciCreator" />
+        <result column="saci_update_time" property="saciUpdateTime" />
+        <result column="saci_updater" property="saciUpdater" />
+        <result column="saci_remark" property="saciRemark" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, saci_annex_num AS saciAnnexNum, saci_annex_type AS saciAnnexType, saci_old_annex_name AS saciOldAnnexName, saci_new_annex_name AS saciNewAnnexName, saci_storage_path AS saciStoragePath, saci_create_time AS saciCreateTime, saci_creator AS saciCreator, saci_update_time AS saciUpdateTime, saci_updater AS saciUpdater, saci_remark AS saciRemark
+    </sql>
+
+</mapper>

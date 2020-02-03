@@ -3,7 +3,8 @@
     <Collapse v-model="key">
       <Panel :name="'true'">
         <div class="backImgDiv"
-             slot="content"></div>
+             slot="content">
+        </div>
       </Panel>
     </Collapse>
   </div>

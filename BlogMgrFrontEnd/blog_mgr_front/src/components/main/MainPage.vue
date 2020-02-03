@@ -1,5 +1,7 @@
 <template>
   <div class="layout">
+    <index-collapse>
+    </index-collapse>
     <Layout>
       <Header>
         <Menu mode="horizontal"
@@ -55,6 +57,8 @@
 <script>
 import MainApi from '@/api/main/MainApi'
 import MainPageSideSubMenuItem from './MainPageSideSubMenuItem'
+import IndexCollapse from '@/components/collapse/app/MainCollapse'
+
 export default {
   name: 'MainPage',
   beforeRouteEnter (to, from, next) {
@@ -78,7 +82,7 @@ export default {
     }
   },
   components: {
-    MainPageSideSubMenuItem
+    MainPageSideSubMenuItem, IndexCollapse
   }
 }
 </script>

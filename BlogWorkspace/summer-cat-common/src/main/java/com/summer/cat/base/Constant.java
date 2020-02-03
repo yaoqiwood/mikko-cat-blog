@@ -90,6 +90,11 @@ public class Constant {
         public static final String ERROR_MSG = "失败：";
     }
 
+    // 项目位置
+    public static final String SYSTEM_DIR = System.getProperty("user.dir");
+
+    // 自定义配置加载文件名
+    public static final String USER_DEFINED_SYSTEM_PATH = "classpath:/config/system.properties";
 
 
 }

@@ -13,11 +13,14 @@ import 'view-design/dist/styles/iview.css'
 import VueResource from 'vue-resource'
 // vue locale 国际化
 import Locale from 'view-design/dist/locale/en-US'
+// vue-particles
+import VueParticles from 'vue-particles'
 
 Vue.config.productionTip = false
 Vue.use(ViewUI)
 Vue.use(VueResource)
 Vue.use(Locale)
+Vue.use(VueParticles)
 
 // const RouterConfig = {
 //   routes: Routers
