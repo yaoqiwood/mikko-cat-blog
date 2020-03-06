@@ -1,6 +1,5 @@
 package com.summer.cat.util;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -8,7 +7,7 @@ public class LogUtil {
     private static Logger log = LoggerFactory.getLogger(LogUtil.class);
 
     public static void info(String msg) {
-        log.info(msg + getStackTrace());
+        log.info('\n' + msg + getStackTrace());
     }
 
     public static void error(String msg) {
@@ -19,7 +18,6 @@ public class LogUtil {
         log.error(msg + getStackTrace(), t);
     }
 
-
     public static void warn(String msg) {
         log.warn(msg + getStackTrace());
     }
@@ -27,9 +25,9 @@ public class LogUtil {
     private static String getStackTrace() {
         int index = 2;
         StackTraceElement[] ste = new Throwable().getStackTrace();
-//        for (StackTraceElement s : ste) {
-//            LogUtil.info(s.toString());
-//        }
+        // for (StackTraceElement s : ste) {
+        // LogUtil.info(s.toString());
+        // }
         StackTraceElement s = ste[index];
         String className = s.getClassName();
         String method_name = s.getMethodName();

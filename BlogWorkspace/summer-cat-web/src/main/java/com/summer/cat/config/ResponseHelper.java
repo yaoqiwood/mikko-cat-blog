@@ -43,4 +43,12 @@ public class ResponseHelper {
         response.setResult(result);
         return response;
     }
+
+    public static <T> ResponseModel<T> accessFailure(String message) {
+        ResponseModel response = new ResponseModel();
+        response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        response.setCode(HttpStatus.UNAUTHORIZED.getReasonPhrase());
+        response.setMessage(message);
+        return response;
+    }
 }

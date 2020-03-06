@@ -1,9 +1,9 @@
 package com.summer.cat.service;
 
-import com.summer.cat.entity.SmsVerify;
-import com.baomidou.mybatisplus.service.IService;
-
 import java.util.List;
+
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.summer.cat.entity.SmsVerify;
 
 /**
  * <p>
@@ -22,9 +22,9 @@ public interface ISmsVerifyService extends IService<SmsVerify> {
      * @param type 1：登录验证，2：注册验证，3：修改密码，4：修改账号
      * @return
      */
-    List<SmsVerify> getByMobileAndCaptchaAndType(String mobile,String captcha,int type);
+    List<SmsVerify> getByMobileAndCaptchaAndType(String mobile, String captcha, int type);
 
-    SmsVerify addAndGetMobileAndCaptcha(String smsType, String mobile)throws Exception;
+    SmsVerify addAndGetMobileAndCaptcha(String smsType, String mobile) throws Exception;
 
-    void captchaCheck(String mobile,String smsType, String captcha)throws Exception;
+    void captchaCheck(String mobile, String smsType, String captcha) throws Exception;
 }

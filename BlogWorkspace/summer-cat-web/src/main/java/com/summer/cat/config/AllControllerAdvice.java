@@ -1,9 +1,5 @@
 package com.summer.cat.config;
 
-import com.summer.cat.base.BusinessException;
-import com.summer.cat.base.PublicResultConstant;
-import com.summer.cat.exception.ParamJsonException;
-import com.summer.cat.exception.UnauthorizedException;
 import org.apache.shiro.ShiroException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.exceptions.TemplateInputException;
+
+import com.summer.cat.base.BusinessException;
+import com.summer.cat.base.PublicResultConstant;
+import com.summer.cat.exception.ParamJsonException;
+import com.summer.cat.exception.UnauthorizedException;
 
 /**
  * Controller统一异常处理
@@ -67,7 +68,7 @@ public class AllControllerAdvice {
     @ExceptionHandler(ShiroException.class)
     @ResponseBody
     public ResponseModel<String> handleShiroException(ShiroException e) {
-        return ResponseHelper.validationFailure(PublicResultConstant.USER_NO_PERMITION);
+        return ResponseHelper.accessFailure(PublicResultConstant.USER_NO_PERMITION);
     }
 
     /**
@@ -78,9 +79,9 @@ public class AllControllerAdvice {
     @ExceptionHandler(BusinessException.class)
     @ResponseBody
     public ResponseModel handleBusinessException(BusinessException e) {
-        if(e instanceof BusinessException) {
-            logger.info("数据操作失败："+e.getMessage());
-            return ResponseHelper.validationFailure("数据操作失败："+e.getMessage());
+        if (e instanceof BusinessException) {
+            logger.info("数据操作失败：" + e.getMessage());
+            return ResponseHelper.validationFailure("数据操作失败：" + e.getMessage());
         }
         return ResponseHelper.validationFailure(PublicResultConstant.ERROR);
     }
@@ -96,12 +97,11 @@ public class AllControllerAdvice {
     @ExceptionHandler(value = ParamJsonException.class)
     @ResponseBody
     public ResponseModel<String> handleParamJsonException(Exception e) {
-        if(e instanceof ParamJsonException) {
-            logger.info("参数错误："+e.getMessage());
-            return ResponseHelper.validationFailure("参数错误："+ e.getMessage());
+        if (e instanceof ParamJsonException) {
+            logger.info("参数错误：" + e.getMessage());
+            return ResponseHelper.validationFailure("参数错误：" + e.getMessage());
         }
         return ResponseHelper.validationFailure(PublicResultConstant.ERROR);
     }
-
 
 }

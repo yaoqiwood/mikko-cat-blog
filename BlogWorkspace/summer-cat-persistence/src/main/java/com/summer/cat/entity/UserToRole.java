@@ -2,11 +2,12 @@ package com.summer.cat.entity;
 
 import java.io.Serializable;
 
-import com.baomidou.mybatisplus.enums.IdType;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+
 import lombok.*;
 
 /**
@@ -33,11 +34,13 @@ public class UserToRole extends Model<UserToRole> {
      */
     @TableId(value = "user_to_role_id", type = IdType.AUTO)
     private Integer userToRoleId;
+
     /**
      * 用户编号
      */
     @TableField("user_no")
     private String userNo;
+
     /**
      * 角色代号
      */

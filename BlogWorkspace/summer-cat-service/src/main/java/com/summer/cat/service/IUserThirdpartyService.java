@@ -1,8 +1,8 @@
 package com.summer.cat.service;
 
-import com.summer.cat.entity.UserThirdparty;
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.summer.cat.entity.User;
-import com.baomidou.mybatisplus.service.IService;
+import com.summer.cat.entity.UserThirdparty;
 import com.summer.cat.model.ThirdPartyUser;
 
 /**
@@ -15,6 +15,6 @@ import com.summer.cat.model.ThirdPartyUser;
  */
 public interface IUserThirdpartyService extends IService<UserThirdparty> {
 
-    User insertThirdPartyUser(ThirdPartyUser param, String password)throws Exception;
+    User insertThirdPartyUser(ThirdPartyUser param, String password) throws Exception;
 
 }

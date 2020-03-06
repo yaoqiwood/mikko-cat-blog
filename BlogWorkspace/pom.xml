@@ -14,6 +14,7 @@
         <module>summer-cat-persistence</module>
         <module>summer-cat-service</module>
         <module>summer-cat-web</module>
+        <module>summer-cat-generator</module>
     </modules>
 
     <parent>
@@ -28,6 +29,8 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <mybatisplus-spring-boot-starter.version>1.0.5</mybatisplus-spring-boot-starter.version>
         <mybatisplus.version>2.1.8</mybatisplus.version>
+        <!--  mybatis-plus    -->
+        <mybatis-plus-boot-starter.version>3.3.1</mybatis-plus-boot-starter.version>
         <fastjson.version>1.2.39</fastjson.version>
         <druid-version>1.1.5</druid-version>
         <slf4j-api.version>1.7.25</slf4j-api.version>
@@ -54,6 +57,7 @@
         <hutool.version>5.1.0</hutool.version>
         <mybatis-generator.version>1.4.0</mybatis-generator.version>
         <log4j.version>1.2.17</log4j.version>
+        <spring-boot-starter-log4j.version>1.3.8.RELEASE</spring-boot-starter-log4j.version>
     </properties>
 
     <dependencyManagement>
@@ -167,18 +171,22 @@
                 <artifactId>gson</artifactId>
                 <version>${gson.version}</version>
             </dependency>
-
             <!-- mybatis-plus begin -->
+            <!--            <dependency>-->
+            <!--                <groupId>com.baomidou</groupId>-->
+            <!--                <artifactId>mybatisplus-spring-boot-starter</artifactId>-->
+            <!--                <version>${mybatisplus-spring-boot-starter.version}</version>-->
+            <!--            </dependency>-->
             <dependency>
                 <groupId>com.baomidou</groupId>
-                <artifactId>mybatisplus-spring-boot-starter</artifactId>
-                <version>${mybatisplus-spring-boot-starter.version}</version>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus-boot-starter.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus</artifactId>
-                <version>${mybatisplus.version}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>com.baomidou</groupId>-->
+<!--                <artifactId>mybatis-plus</artifactId>-->
+<!--                <version>${mybatisplus.version}</version>-->
+<!--            </dependency>-->
             <!-- mybatis-plus end -->
             <dependency>
                 <groupId>mysql</groupId>
@@ -229,7 +237,22 @@
                 <artifactId>log4j</artifactId>
                 <version>${log4j.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-log4j</artifactId>
+                <version>${spring-boot-starter-log4j.version}</version>
+            </dependency>
+            <!--    logging 排除        -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-logging</artifactId>
+                <exclusions>
+                    <exclusion>
+                        <groupId>*</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

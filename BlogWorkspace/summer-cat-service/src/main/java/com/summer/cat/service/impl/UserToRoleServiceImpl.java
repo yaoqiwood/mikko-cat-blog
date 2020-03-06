@@ -1,14 +1,15 @@
 package com.summer.cat.service.impl;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.summer.cat.entity.UserToRole;
 import com.summer.cat.mapper.UserToRoleMapper;
 import com.summer.cat.service.IUserToRoleService;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.summer.cat.util.ComUtil;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * <p>
@@ -22,11 +23,12 @@ import java.util.List;
 public class UserToRoleServiceImpl extends ServiceImpl<UserToRoleMapper, UserToRole> implements IUserToRoleService {
 
     @Override
-//    @Cacheable(value = "UserToRole",keyGenerator="wiselyKeyGenerator")
+    // @Cacheable(value = "UserToRole",keyGenerator="wiselyKeyGenerator")
     public UserToRole selectByUserNo(String userNo) {
-        EntityWrapper<UserToRole> ew = new EntityWrapper<>();
-        ew.where("user_no={0}", userNo);
-        List<UserToRole> userToRoleList = this.selectList(ew);
-        return ComUtil.isEmpty(userToRoleList)? null: userToRoleList.get(0);
+        QueryWrapper<UserToRole> ew = new QueryWrapper<>();
+        // ew.where("user_no={0}", userNo);
+        ew.eq("user_no", userNo);
+        List<UserToRole> userToRoleList = this.list(ew);
+        return ComUtil.isEmpty(userToRoleList) ? null : userToRoleList.get(0);
     }
 }

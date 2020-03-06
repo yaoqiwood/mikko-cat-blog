@@ -1,33 +1,36 @@
 package com.summer.cat.shiro;
 
-import com.alibaba.fastjson.JSONObject;
-import com.summer.cat.base.Constant;
-import com.summer.cat.base.PublicResultConstant;
-import com.summer.cat.config.ResponseHelper;
-import com.summer.cat.service.IUserService;
-import com.summer.cat.service.SpringContextBeanService;
-import com.summer.cat.entity.User;
-import com.summer.cat.util.ComUtil;
-import com.summer.cat.util.JWTUtil;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.RequestMethod;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.PrintWriter;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.alibaba.fastjson.JSONObject;
+import com.summer.cat.base.Constant;
+import com.summer.cat.base.PublicResultConstant;
+import com.summer.cat.config.ResponseHelper;
+import com.summer.cat.entity.User;
+import com.summer.cat.service.IUserService;
+import com.summer.cat.service.SpringContextBeanService;
+import com.summer.cat.util.ComUtil;
+import com.summer.cat.util.JWTUtil;
 
 /**
  * @author grm
  *
- * 代码的执行流程preHandle->isAccessAllowed->isLoginAttempt->executeLogin
+ * 代码的执行流程 preHandle->isAccessAllowed->isLoginAttempt->executeLogin
  */
 public class JWTFilter extends BasicHttpAuthenticationFilter {
 
     private IUserService userService;
+
     /**
      * 判断用户是否想要登入。
      * 检测header里面是否包含Authorization字段即可
@@ -80,8 +83,8 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
         if (this.userService == null) {
             this.userService = SpringContextBeanService.getBean(IUserService.class);
         }
-        String userNo =  JWTUtil.getUserNo(token.getPrincipal().toString());
-        User userBean = userService.selectById(userNo);
+        String userNo = JWTUtil.getUserNo(token.getPrincipal().toString());
+        User userBean = userService.getById(userNo);
         request.setAttribute("currentUser", userBean);
     }
 
@@ -94,17 +97,18 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         httpServletResponse.setHeader("Access-control-Allow-Origin", httpServletRequest.getHeader("Origin"));
         httpServletResponse.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-        httpServletResponse.setHeader("Access-Control-Allow-Headers", httpServletRequest.getHeader("Access-Control-Request-Headers"));
+        httpServletResponse.setHeader("Access-Control-Allow-Headers",
+                httpServletRequest.getHeader("Access-Control-Request-Headers"));
         // 跨域时会首先发送一个option请求，这里我们给option请求直接返回正常状态
         if (httpServletRequest.getMethod().equals(RequestMethod.OPTIONS.name())) {
             httpServletResponse.setStatus(HttpStatus.OK.value());
             return false;
         }
         String authorization = httpServletRequest.getHeader("Authorization");
-        if (verificationPassAnnotation(request, response, httpServletRequest, authorization)){
+        if (verificationPassAnnotation(request, response, httpServletRequest, authorization)) {
             return true;
         }
-        if(ComUtil.isEmpty(authorization)){
+        if (ComUtil.isEmpty(authorization)) {
             responseError(request, response);
             return false;
         }
@@ -120,29 +124,30 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
      * @return
      * @throws Exception
      */
-    private boolean verificationPassAnnotation(ServletRequest request, ServletResponse response, HttpServletRequest httpServletRequest, String authorization) throws Exception {
-        for (String urlMethod: Constant.METHOD_URL_SET) {
+    private boolean verificationPassAnnotation(ServletRequest request, ServletResponse response,
+            HttpServletRequest httpServletRequest, String authorization) throws Exception {
+        for (String urlMethod : Constant.METHOD_URL_SET) {
             String[] split = urlMethod.split(":--:");
-            if(split[0].equals(httpServletRequest.getRequestURI())
-                    && (split[1].equals(httpServletRequest.getMethod()) ||  split[1].equals("RequestMapping"))){
-                Constant.isPass=true;
-                if(ComUtil.isEmpty(authorization)){
-                    //如果当前url不需要认证，则注入当前登录用户时，给一个空的
-                    httpServletRequest.setAttribute("currentUser",new User());
+            if (split[0].equals(httpServletRequest.getRequestURI())
+                    && (split[1].equals(httpServletRequest.getMethod()) || split[1].equals("RequestMapping"))) {
+                Constant.isPass = true;
+                if (ComUtil.isEmpty(authorization)) {
+                    // 如果当前url不需要认证，则注入当前登录用户时，给一个空的
+                    httpServletRequest.setAttribute("currentUser", new User());
                     return true;
-                }else {
+                } else {
                     super.preHandle(request, response);
                 }
             }
-            if(StringUtils.countMatches(urlMethod, "{")>0 &&
-                    StringUtils.countMatches(urlMethod, "/") == StringUtils.countMatches(split[0], "/")
-                    && (split[1].equals(httpServletRequest.getMethod()) ||  split[1].equals("RequestMapping"))){
-                if(isSameUrl(split[0],httpServletRequest.getRequestURI())){
-                    Constant.isPass=true;
-                    if(ComUtil.isEmpty(authorization)){
-                        httpServletRequest.setAttribute("currentUser",new User());
+            if (StringUtils.countMatches(urlMethod, "{") > 0
+                    && StringUtils.countMatches(urlMethod, "/") == StringUtils.countMatches(split[0], "/")
+                    && (split[1].equals(httpServletRequest.getMethod()) || split[1].equals("RequestMapping"))) {
+                if (isSameUrl(split[0], httpServletRequest.getRequestURI())) {
+                    Constant.isPass = true;
+                    if (ComUtil.isEmpty(authorization)) {
+                        httpServletRequest.setAttribute("currentUser", new User());
                         return true;
-                    }else {
+                    } else {
                         super.preHandle(request, response);
                     }
                 }
@@ -157,21 +162,21 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
      * @param requestUrl
      * @return
      */
-    private boolean isSameUrl(String localUrl,String requestUrl){
+    private boolean isSameUrl(String localUrl, String requestUrl) {
         String[] tempLocalUrls = localUrl.split("/");
         String[] tempRequestUrls = requestUrl.split("/");
-        if(tempLocalUrls.length != tempRequestUrls.length){
+        if (tempLocalUrls.length != tempRequestUrls.length) {
             return false;
         }
-        StringBuilder sbLocalUrl =new StringBuilder();
-        StringBuilder sbRequestUrl =new StringBuilder();
+        StringBuilder sbLocalUrl = new StringBuilder();
+        StringBuilder sbRequestUrl = new StringBuilder();
         for (int i = 0; i < tempLocalUrls.length; i++) {
-            if(StringUtils.countMatches(tempLocalUrls[i], "{") > 0){
-                tempLocalUrls[i]="*";
-                tempRequestUrls[i]="*";
+            if (StringUtils.countMatches(tempLocalUrls[i], "{") > 0) {
+                tempLocalUrls[i] = "*";
+                tempRequestUrls[i] = "*";
             }
-            sbLocalUrl.append(tempLocalUrls[i]+"/");
-            sbRequestUrl.append(tempRequestUrls[i]+"/");
+            sbLocalUrl.append(tempLocalUrls[i] + "/");
+            sbRequestUrl.append(tempRequestUrls[i] + "/");
         }
         return sbLocalUrl.toString().trim().equals(sbRequestUrl.toString().trim());
     }
@@ -189,7 +194,7 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
             out.flush();
         } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             if (out != null) {
                 out.close();
             }

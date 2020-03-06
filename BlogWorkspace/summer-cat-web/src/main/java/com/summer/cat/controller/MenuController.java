@@ -1,5 +1,13 @@
 package com.summer.cat.controller;
 
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.summer.cat.annotation.Pass;
 import com.summer.cat.base.Constant;
@@ -7,14 +15,8 @@ import com.summer.cat.entity.Menu;
 import com.summer.cat.service.IMenuService;
 import com.summer.cat.util.LogUtil;
 import com.summer.cat.util.Returns;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import springfox.documentation.annotations.ApiIgnore;
 
-import java.util.List;
-import java.util.Map;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * <p>
@@ -26,12 +28,13 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/permission")
-//不加入swagger ui里
+// 不加入swagger ui里
 @ApiIgnore
 public class MenuController {
     @Autowired
     private IMenuService menuService;
 
+    // @RequiresAuthentication
     @RequestMapping(value = "getMenu.action")
     @Pass
     @ResponseBody
@@ -44,5 +47,16 @@ public class MenuController {
             return Returns.mapError(Constant.ReturnsMessage.ERROR_MSG + e.getMessage());
         }
     }
-}
 
+    @RequestMapping(value = "getById.action")
+    @Pass
+    @ResponseBody
+    public Map<String, ? extends Object> getById(@RequestParam String id) {
+        try {
+            return Returns.mapOk(menuService.getById(id), "成功");
+        } catch (Exception e) {
+            LogUtil.error("失败", e);
+            return Returns.mapError("失败：" + e.getMessage());
+        }
+    }
+}

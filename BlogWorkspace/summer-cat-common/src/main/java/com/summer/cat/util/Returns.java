@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Returns {
-    public static Map<String, Object> mapOk(Object list, int total, String msg) {
+    public static Map<String, Object> mapOk(Object list, long total, String msg) {
         Map<String, Object> returnsMap = new HashMap<>(3);
         returnsMap.put(Constant.ReturnsMessage.TOTAL, total);
         returnsMap.put(Constant.ReturnsMessage.MESSAGE, msg);

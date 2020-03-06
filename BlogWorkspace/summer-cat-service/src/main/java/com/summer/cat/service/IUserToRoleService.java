@@ -1,7 +1,7 @@
 package com.summer.cat.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.summer.cat.entity.UserToRole;
-import com.baomidou.mybatisplus.service.IService;
 
 /**
  * <p>
@@ -18,6 +18,6 @@ public interface IUserToRoleService extends IService<UserToRole> {
      * @param userNo 用户ID
      * @return  结果
      */
-    UserToRole selectByUserNo(String  userNo);
+    UserToRole selectByUserNo(String userNo);
 
 }

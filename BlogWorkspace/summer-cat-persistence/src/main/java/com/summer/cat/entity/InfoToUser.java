@@ -1,13 +1,14 @@
 package com.summer.cat.entity;
 
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableName;
-import com.baomidou.mybatisplus.enums.IdType;
-import lombok.*;
-
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+
+import lombok.*;
 
 /**
  * <p>
@@ -33,12 +34,14 @@ public class InfoToUser extends Model<InfoToUser> {
      */
     @TableId(value = "info_to_user_id", type = IdType.AUTO)
     private Integer infoToUserId;
+
     /**
      * 用户账号
      */
 
     @TableField("identity_info")
     private String identityInfo;
+
     /**
      * 用户主键
      */
@@ -50,7 +53,6 @@ public class InfoToUser extends Model<InfoToUser> {
      */
     @TableField("identity_type")
     private Integer identityType;
-
 
     @Override
     protected Serializable pkVal() {

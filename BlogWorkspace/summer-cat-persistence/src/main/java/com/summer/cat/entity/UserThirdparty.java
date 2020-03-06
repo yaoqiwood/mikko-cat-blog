@@ -2,11 +2,12 @@ package com.summer.cat.entity;
 
 import java.io.Serializable;
 
-import com.baomidou.mybatisplus.enums.IdType;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+
 import lombok.*;
 
 /**
@@ -33,30 +34,36 @@ public class UserThirdparty extends Model<UserThirdparty> {
      */
     @TableId(value = "user_thirdparty_id", type = IdType.AUTO)
     private Integer userThirdpartyId;
+
     /**
      * 第三方Id
      */
     @TableField("open_id")
     private String openId;
+
     /**
      * 绑定用户的id
      */
     @TableField("user_no")
     private String userNo;
+
     /**
      * 第三方token
      */
     @TableField("access_token")
     private String accessToken;
+
     /**
      * 第三方类型 qq:QQ 微信:WX 微博:SINA
      */
     @TableField("provider_type")
     private String providerType;
+
     /**
      * 状态值（1：启用，2：禁用，3：删除）
      */
     private Integer status;
+
     /**
      * 创建时间
      */

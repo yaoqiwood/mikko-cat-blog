@@ -1,9 +1,9 @@
 package com.summer.cat.service;
 
-import com.baomidou.mybatisplus.service.IService;
-import com.summer.cat.entity.RoleToMenu;
-
 import java.util.List;
+
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.summer.cat.entity.RoleToMenu;
 
 /**
  * <p>
@@ -30,6 +30,6 @@ public interface IRoleToMenuService extends IService<RoleToMenu> {
      */
     boolean saveAll(String roleCode, List<String> menuCodes);
 
-     boolean deleteAllByRoleCode(String roleCode);
+    boolean deleteAllByRoleCode(String roleCode);
 
 }

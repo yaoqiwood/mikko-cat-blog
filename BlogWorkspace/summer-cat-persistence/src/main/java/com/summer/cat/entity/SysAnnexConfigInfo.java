@@ -1,14 +1,13 @@
 package com.summer.cat.entity;
 
 import java.io.Serializable;
-
-import com.baomidou.mybatisplus.enums.IdType;
 import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableName;
-import java.io.Serializable;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 
 /**
  * <p>
@@ -28,57 +27,66 @@ public class SysAnnexConfigInfo extends Model<SysAnnexConfigInfo> {
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
+
     /**
      * 附件编号（业务编号）
      */
     @TableField("saci_annex_num")
     private String saciAnnexNum;
+
     /**
      * 业务类型
      */
     @TableField("saci_annex_type")
     private String saciAnnexType;
+
     /**
      * 旧附件名称
      */
     @TableField("saci_old_annex_name")
     private String saciOldAnnexName;
+
     /**
      * 新附件名称
      */
     @TableField("saci_new_annex_name")
     private String saciNewAnnexName;
+
     /**
      * 存储路径
      */
     @TableField("saci_storage_path")
     private String saciStoragePath;
+
     /**
      * 创建时间
      */
     @TableField("saci_create_time")
     private Date saciCreateTime;
+
     /**
      * 创建人
      */
     @TableField("saci_creator")
     private String saciCreator;
+
     /**
      * 更新时间
      */
     @TableField("saci_update_time")
     private Date saciUpdateTime;
+
     /**
      * 更新人
      */
     @TableField("saci_updater")
     private String saciUpdater;
+
     /**
      * 备注
      */
     @TableField("saci_remark")
     private String saciRemark;
-
 
     public Integer getId() {
         return id;
@@ -175,18 +183,10 @@ public class SysAnnexConfigInfo extends Model<SysAnnexConfigInfo> {
 
     @Override
     public String toString() {
-        return "SysAnnexConfigInfo{" +
-        "id=" + id +
-        ", saciAnnexNum=" + saciAnnexNum +
-        ", saciAnnexType=" + saciAnnexType +
-        ", saciOldAnnexName=" + saciOldAnnexName +
-        ", saciNewAnnexName=" + saciNewAnnexName +
-        ", saciStoragePath=" + saciStoragePath +
-        ", saciCreateTime=" + saciCreateTime +
-        ", saciCreator=" + saciCreator +
-        ", saciUpdateTime=" + saciUpdateTime +
-        ", saciUpdater=" + saciUpdater +
-        ", saciRemark=" + saciRemark +
-        "}";
+        return "SysAnnexConfigInfo{" + "id=" + id + ", saciAnnexNum=" + saciAnnexNum + ", saciAnnexType="
+                + saciAnnexType + ", saciOldAnnexName=" + saciOldAnnexName + ", saciNewAnnexName=" + saciNewAnnexName
+                + ", saciStoragePath=" + saciStoragePath + ", saciCreateTime=" + saciCreateTime + ", saciCreator="
+                + saciCreator + ", saciUpdateTime=" + saciUpdateTime + ", saciUpdater=" + saciUpdater + ", saciRemark="
+                + saciRemark + "}";
     }
 }

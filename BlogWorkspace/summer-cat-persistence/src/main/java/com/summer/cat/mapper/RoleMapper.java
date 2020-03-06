@@ -1,7 +1,7 @@
 package com.summer.cat.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.summer.cat.entity.Role;
-import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**
  * <p>

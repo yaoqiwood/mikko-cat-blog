@@ -1,11 +1,11 @@
 package com.summer.cat.service;
 
-import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.summer.cat.entity.User;
-import com.baomidou.mybatisplus.service.IService;
-
 import java.util.Map;
+
+import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.summer.cat.entity.User;
 
 /**
  * <p>
@@ -36,21 +36,22 @@ public interface IUserService extends IService<User> {
 
     Map<String, Object> getLoginUserAndMenuInfo(User user);
 
-    void deleteByUserNo(String userNo)throws Exception;
+    void deleteByUserNo(String userNo) throws Exception;
 
-    Page<User> selectPageByConditionUser(Page<User> userPage, String info, Integer[] status, String startTime, String endTime);
+    Page<User> selectPageByConditionUser(Page<User> userPage, String info, Integer[] status, String startTime,
+            String endTime);
 
-    Map<String,Object> checkMobileAndPasswd(JSONObject requestJson)throws Exception;
+    Map<String, Object> checkMobileAndPasswd(JSONObject requestJson) throws Exception;
 
-    Map<String,Object> checkMobileAndCatcha(JSONObject requestJson)throws Exception;
+    Map<String, Object> checkMobileAndCatcha(JSONObject requestJson) throws Exception;
 
-    User checkAndRegisterUser(JSONObject requestJson)throws Exception;
+    User checkAndRegisterUser(JSONObject requestJson) throws Exception;
 
-    User updateForgetPasswd(JSONObject requestJson)throws Exception;
+    User updateForgetPasswd(JSONObject requestJson) throws Exception;
 
-    void resetMobile(User currentUser, JSONObject requestJson)throws Exception;
+    void resetMobile(User currentUser, JSONObject requestJson) throws Exception;
 
-    void resetPassWord(User currentUser, JSONObject requestJson)throws Exception;
+    void resetPassWord(User currentUser, JSONObject requestJson) throws Exception;
 
-    User insertUserByAdmin(JSONObject requestJson)throws Exception;
+    User insertUserByAdmin(JSONObject requestJson) throws Exception;
 }

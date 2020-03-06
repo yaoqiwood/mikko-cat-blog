@@ -1,9 +1,9 @@
 package com.summer.cat.service;
 
-import com.summer.cat.entity.Menu;
-import com.baomidou.mybatisplus.service.IService;
-
 import java.util.List;
+
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.summer.cat.entity.Menu;
 
 /**
  * <p>

@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.base.Charsets;
 import com.google.common.base.Strings;
 import com.google.gson.Gson;
@@ -43,7 +46,9 @@ import cn.hutool.core.io.FileUtil;
 @Controller
 @RequestMapping("/sysAnnexConfigInfo")
 public class SysAnnexConfigInfoController {
-    protected Gson gson = (new GsonBuilder()).setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+    private Gson gson = (new GsonBuilder()).setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+
+    // private Subject subject = SecurityUtils.getSubject();
 
     @Autowired
     ISysAnnexConfigInfoService service;
@@ -56,23 +61,25 @@ public class SysAnnexConfigInfoController {
         if (!Strings.isNullOrEmpty(exampleJson)) {
             item = gson.fromJson(exampleJson, SysAnnexConfigInfo.class);
         }
-        Wrapper<SysAnnexConfigInfo> wrapper = null;
+        QueryWrapper<SysAnnexConfigInfo> wrapper = null;
         if (null != item) {
             wrapper = this.service.buildWrapper(item);
         }
-        Page<SysAnnexConfigInfo> items = this.service.selectPage(new Page<>(page, rows), wrapper);
+        Page<SysAnnexConfigInfo> items = this.service.page(new Page<>(page, rows), wrapper);
         return Returns.mapOk(items.getRecords(), items.getTotal(), Constant.ReturnsMessage.SUCCESS_MSG);
     }
 
     @GetMapping("downloadImgById.action")
-    @Pass
+    @RequiresAuthentication
     public void downloadImgById(@RequestParam Integer id, HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         BufferedInputStream bis = null;
         BufferedOutputStream bos = null;
+        Subject subject = SecurityUtils.getSubject();
+        // LogUtil.info("信息：" + subject.isAuthenticated() + "");
         try {
             request.setCharacterEncoding(Charsets.UTF_8.name());
-            SysAnnexConfigInfo annexConfigInfo = this.service.selectById(id);
+            SysAnnexConfigInfo annexConfigInfo = this.service.getById(id);
             String path = SystemConfig.systemUploadDir + annexConfigInfo.getSaciStoragePath()
                     + annexConfigInfo.getSaciNewAnnexName();
             if (!FileUtil.exist(path)) {
