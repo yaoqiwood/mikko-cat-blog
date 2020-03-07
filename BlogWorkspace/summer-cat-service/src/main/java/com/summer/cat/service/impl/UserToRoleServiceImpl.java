@@ -25,6 +25,7 @@ public class UserToRoleServiceImpl extends ServiceImpl<UserToRoleMapper, UserToR
     @Override
     // @Cacheable(value = "UserToRole",keyGenerator="wiselyKeyGenerator")
     public UserToRole selectByUserNo(String userNo) {
+        // EntityWrapper<UserToRole> ew = new EntityWrapper<>();
         QueryWrapper<UserToRole> ew = new QueryWrapper<>();
         // ew.where("user_no={0}", userNo);
         ew.eq("user_no", userNo);
