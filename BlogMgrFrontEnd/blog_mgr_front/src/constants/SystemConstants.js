@@ -3,6 +3,8 @@ const ROUTER_METHOD = {
   HASH: 'hash'
 }
 
+const SUFFIX = 'summer_cat*&@^#'
+
 export default {
-  ROUTER_METHOD
+  ROUTER_METHOD, SUFFIX
 }

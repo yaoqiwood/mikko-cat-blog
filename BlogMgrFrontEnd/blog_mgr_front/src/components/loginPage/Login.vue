@@ -34,16 +34,29 @@
            class="bottom_img">
       </div>
     </div>
+    <login-form @getVerificationCodeSrc="getVerificationCodeSrc"
+                @onSubmit="onSubmit"
+                :verificationCodeSrc="verificationCodeSrc"></login-form>
   </div>
 </template>
 <script>
+import Urls from '@/router/routersUrl'
+import LoginForm from './components/LoginForm'
+import LoginApi from '@/api/login/Login'
+// import BcryptUtil from '@/utils/BcryptUtil'
+import MD5Util from '@/utils/MD5Util'
+import Constants from '@/constants/SystemConstants'
+
 export default {
   name: 'Login',
+  components: { LoginForm },
   data () {
     return {
       bottomImgUrlRandomNum: 9,
-      bottomImgUrl: 'http://127.0.0.1:8084/summerCat/blog/sysAnnexConfigInfo/downloadImgById.action?id=',
-      bottomImgStyle: ''
+      // bottomImgUrl: 'http://127.0.0.1:8084/summerCat/blog/sysAnnexConfigInfo/downloadImgById.action?id=',
+      bottomImgUrl: Urls.RMenharaImg,
+      bottomImgStyle: '',
+      verificationCodeSrc: ''
     }
   },
   mounted () {
@@ -61,6 +74,14 @@ export default {
     },
     getRandomNum (min, max) {
       return Math.floor(Math.random() * (max - min) + min)
+    },
+    getVerificationCodeSrc () {
+      this.verificationCodeSrc = LoginApi.getVerificationCodeImgSrc()
+    },
+    onSubmit (params) {
+      // BcryptUtil.hashWords(params.password)
+      let md5First = MD5Util.genMD5(params.password).toUpperCase() + Constants.SUFFIX
+      console.log(MD5Util.genMD5(md5First).toUpperCase())
     }
   }
 }

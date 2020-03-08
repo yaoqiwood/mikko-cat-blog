@@ -69,10 +69,61 @@
 .bottom_img {
   width: 240px;
   height: 320px;
-  position: relative;
-  top: 355px;
+  position: fixed;
+  // position: relative;
+  // top: 355px;
+  bottom: -63px;
+  // top: 45%;
   margin: 0 auto;
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+.center_box {
+  width: 400px;
+  height: 473px;
+  position: absolute;
+  background-color: white;
+  left: 50%;
+  transform: translateX(-25%);
+  top: 14%;
+  box-shadow: 0 0px 0 #e5e5e5, 0 0 15px rgba(0, 0, 0, .12), 0 2px 4px rgba(0, 0, 0, .05);
+  border-radius: 20px;
+}
+
+.card_heading {
+  margin-top: 15px;
+  padding-bottom: 15px;
+  text-align: center;
+  font-size: 25px;
+  line-height: 28px;
+  border-bottom: 1px solid rgba(0, 0, 0, .12);
+}
+
+.center_box_inner_box {
+  width: 300px;
+  margin: 80px auto 0px auto;
+}
+
+.center_box_inner_username,
+.center_box_inner_password,
+.center_box_inner_verification {
+  margin-top: 30px;
+}
+
+.center_box_inner_verification {
+  margin-bottom: 30px;
+  width: 180px;
+}
+
+.verification_code_box {
+  margin-left: 10px;
+  width: 110px;
+  height: 31px;
+  position: absolute;
+  border: 1px solid gray;
+  border-radius: 5px;
+  border-color: rgba(220, 222, 226, 1);
+  cursor: pointer;
 }
