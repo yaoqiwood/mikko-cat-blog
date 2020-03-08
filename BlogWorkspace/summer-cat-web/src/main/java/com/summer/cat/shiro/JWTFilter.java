@@ -17,8 +17,9 @@ import com.summer.cat.base.Constant;
 import com.summer.cat.base.PublicResultConstant;
 import com.summer.cat.config.ResponseHelper;
 import com.summer.cat.entity.User;
-import com.summer.cat.service.IUserService;
-import com.summer.cat.service.SpringContextBeanService;
+import com.summer.cat.service.service.IUserService;
+import com.summer.cat.service.service.SpringContextBeanService;
+import com.summer.cat.service.shiro.JWTToken;
 import com.summer.cat.util.ComUtil;
 import com.summer.cat.util.JWTUtil;
 

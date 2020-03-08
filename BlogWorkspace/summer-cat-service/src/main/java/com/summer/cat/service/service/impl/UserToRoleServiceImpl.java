@@ -1,4 +1,4 @@
-package com.summer.cat.service.impl;
+package com.summer.cat.service.service.impl;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.summer.cat.entity.UserToRole;
 import com.summer.cat.mapper.UserToRoleMapper;
-import com.summer.cat.service.IUserToRoleService;
+import com.summer.cat.service.service.IUserToRoleService;
 import com.summer.cat.util.ComUtil;
 
 /**

@@ -1,4 +1,4 @@
-package com.summer.cat.service;
+package com.summer.cat.service.service;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import com.summer.cat.entity.SmsVerify;
 
 /**
  * <p>
- * 验证码发送记录 服务类
+ * 发送记录 服务类
  * </p>
  *
  * @author liugh123

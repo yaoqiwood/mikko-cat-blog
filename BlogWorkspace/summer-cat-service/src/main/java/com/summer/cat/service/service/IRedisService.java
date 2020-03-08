@@ -1,4 +1,4 @@
-package com.summer.cat.service;
+package com.summer.cat.service.service;
 
 import java.util.List;
 
@@ -25,10 +25,9 @@ public interface IRedisService {
 
     <T> T hget(String key, Class<T> clz) throws Exception;
 
-
     void del(String key) throws Exception;
 
-    <T> List<T>  hmGetAll(String key, Class<T> clz) throws Exception;
+    <T> List<T> hmGetAll(String key, Class<T> clz) throws Exception;
 
     String lpop(String key) throws Exception;
 }

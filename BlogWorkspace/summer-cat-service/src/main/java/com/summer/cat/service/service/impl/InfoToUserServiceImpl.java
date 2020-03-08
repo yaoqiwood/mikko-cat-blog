@@ -1,11 +1,11 @@
-package com.summer.cat.service.impl;
+package com.summer.cat.service.service.impl;
 
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.summer.cat.entity.InfoToUser;
 import com.summer.cat.mapper.InfoToUserMapper;
-import com.summer.cat.service.IInfoToUserService;
+import com.summer.cat.service.service.IInfoToUserService;
 
 /**
  * <p>

@@ -14,7 +14,7 @@ import com.summer.cat.base.PublicResultConstant;
 import com.summer.cat.config.ResponseHelper;
 import com.summer.cat.config.ResponseModel;
 import com.summer.cat.entity.User;
-import com.summer.cat.service.IUserService;
+import com.summer.cat.service.service.IUserService;
 import com.summer.cat.util.ComUtil;
 
 import io.swagger.annotations.ApiImplicitParam;

@@ -1,12 +1,13 @@
 package com.summer.cat.service.processor;
 
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
+
 import com.summer.cat.base.BusinessException;
-import com.summer.cat.service.SpringContextBeanService;
 import com.summer.cat.entity.Order;
 import com.summer.cat.enums.OrderAction;
 import com.summer.cat.enums.OrderType;
 import com.summer.cat.model.OrderModel;
-import org.springframework.beans.factory.NoSuchBeanDefinitionException;
+import com.summer.cat.service.service.SpringContextBeanService;
 
 /**
  * @author summer
@@ -16,19 +17,20 @@ public abstract class ActionProcessor {
 
     private static final String BEAN_NAME_SUFIX = "Processor";
 
-    private static ActionProcessor getProcessor(OrderAction action, OrderType orderType) throws Exception{
+    private static ActionProcessor getProcessor(OrderAction action, OrderType orderType) throws Exception {
         String beanName = action.name() + orderType.name() + BEAN_NAME_SUFIX;
         ActionProcessor processor = null;
-        try{
+        try {
             processor = SpringContextBeanService.getBean(beanName);
-        }catch (NoSuchBeanDefinitionException e){
+        } catch (NoSuchBeanDefinitionException e) {
             throw new BusinessException("未找到对应的流程处理器:" + beanName);
         }
         return processor;
     }
 
-    public static Order process(OrderAction action, OrderType orderType, OrderModel orderDef, Order currentOrder) throws Exception{
-        return getProcessor(action,orderType).process(orderDef,currentOrder);
+    public static Order process(OrderAction action, OrderType orderType, OrderModel orderDef, Order currentOrder)
+            throws Exception {
+        return getProcessor(action, orderType).process(orderDef, currentOrder);
     }
 
     /**
@@ -36,7 +38,6 @@ public abstract class ActionProcessor {
      * @param orderDef
      * @throws Exception
      */
-    public  abstract Order process(OrderModel orderDef,Order currentOrder) throws Exception;
-
+    public abstract Order process(OrderModel orderDef, Order currentOrder) throws Exception;
 
 }

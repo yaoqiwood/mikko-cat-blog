@@ -1,4 +1,4 @@
-package com.summer.cat.service.impl;
+package com.summer.cat.service.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +18,7 @@ import com.summer.cat.base.Constant;
 import com.summer.cat.base.PublicResultConstant;
 import com.summer.cat.entity.*;
 import com.summer.cat.mapper.UserMapper;
-import com.summer.cat.service.*;
+import com.summer.cat.service.service.*;
 import com.summer.cat.util.*;
 
 /**
@@ -85,8 +85,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public Map<String, Object> getLoginUserAndMenuInfo(User user) {
         Map<String, Object> result = new HashMap<>();
+
+        // token生成
+        String stringToken = JWTUtil.sign(user.getUserNo(), user.getPassword());
+        // subject.login();
+        // JWTUtil.sign(user.getUserNo(), user.getPassword())
         UserToRole userToRole = userToRoleService.selectByUserNo(user.getUserNo());
-        user.setToken(JWTUtil.sign(user.getUserNo(), user.getPassword()));
+        user.setToken(stringToken);
+
         result.put("user", user);
         List<Menu> buttonList = new ArrayList<Menu>();
         // 根据角色主键查询启用的菜单权限
@@ -126,7 +132,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public Map<String, Object> checkMobileAndPasswd(JSONObject requestJson) throws Exception {
         // 由于 @ValidationParam注解已经验证过mobile和passWord参数，所以可以直接get使用没毛病。
-        String identity = requestJson.getString("identity");
+        String identity = requestJson.getString("account");
         InfoToUser infoToUser = infoToUserService.getOne(new QueryWrapper<InfoToUser>().eq("identity_info ", identity));
         if (ComUtil.isEmpty(infoToUser)) {
             throw new BusinessException(PublicResultConstant.INVALID_USER);

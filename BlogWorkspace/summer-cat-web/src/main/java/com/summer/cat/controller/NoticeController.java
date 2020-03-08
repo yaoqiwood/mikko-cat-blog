@@ -10,7 +10,7 @@ import com.summer.cat.base.PublicResultConstant;
 import com.summer.cat.config.ResponseHelper;
 import com.summer.cat.config.ResponseModel;
 import com.summer.cat.entity.User;
-import com.summer.cat.service.INoticeService;
+import com.summer.cat.service.service.INoticeService;
 
 import springfox.documentation.annotations.ApiIgnore;
 

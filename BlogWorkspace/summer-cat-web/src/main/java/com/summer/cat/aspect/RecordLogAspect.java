@@ -16,8 +16,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import com.alibaba.fastjson.JSONObject;
 import com.summer.cat.annotation.Log;
 import com.summer.cat.entity.OperationLog;
-import com.summer.cat.service.IOperationLogService;
-import com.summer.cat.service.SpringContextBeanService;
+import com.summer.cat.service.service.IOperationLogService;
+import com.summer.cat.service.service.SpringContextBeanService;
 import com.summer.cat.util.ComUtil;
 import com.summer.cat.util.JWTUtil;
 

@@ -1,4 +1,4 @@
-package com.summer.cat.service;
+package com.summer.cat.service.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.IService;

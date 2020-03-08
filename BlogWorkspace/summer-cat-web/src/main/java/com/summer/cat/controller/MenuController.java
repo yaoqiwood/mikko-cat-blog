@@ -3,6 +3,7 @@ package com.summer.cat.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.summer.cat.annotation.Pass;
 import com.summer.cat.base.Constant;
 import com.summer.cat.entity.Menu;
-import com.summer.cat.service.IMenuService;
+import com.summer.cat.service.service.IMenuService;
 import com.summer.cat.util.LogUtil;
 import com.summer.cat.util.Returns;
 
@@ -34,9 +35,8 @@ public class MenuController {
     @Autowired
     private IMenuService menuService;
 
-    // @RequiresAuthentication
+    @RequiresAuthentication
     @RequestMapping(value = "getMenu.action")
-    @Pass
     @ResponseBody
     public Map<String, ? extends Object> getMenu() {
         try {

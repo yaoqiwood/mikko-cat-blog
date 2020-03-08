@@ -1,4 +1,4 @@
-package com.summer.cat.service.impl;
+package com.summer.cat.service.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.summer.cat.base.Constant;
 import com.summer.cat.entity.Menu;
 import com.summer.cat.mapper.MenuMapper;
-import com.summer.cat.service.IMenuService;
+import com.summer.cat.service.service.IMenuService;
 
 /**
  * <p>

@@ -1,4 +1,4 @@
-package com.summer.cat.service.impl;
+package com.summer.cat.service.service.impl;
 
 import org.springframework.stereotype.Service;
 
@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.base.Strings;
 import com.summer.cat.entity.SysAnnexConfigInfo;
 import com.summer.cat.mapper.SysAnnexConfigInfoMapper;
-import com.summer.cat.service.ISysAnnexConfigInfoService;
+import com.summer.cat.service.service.ISysAnnexConfigInfoService;
 
 /**
  * <p>

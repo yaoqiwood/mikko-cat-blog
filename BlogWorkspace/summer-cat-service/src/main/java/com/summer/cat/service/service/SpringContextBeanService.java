@@ -1,4 +1,4 @@
-package com.summer.cat.service;
+package com.summer.cat.service.service;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -15,16 +15,15 @@ public class SpringContextBeanService implements ApplicationContextAware {
     private static ApplicationContext context = null;
 
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException{
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         context = applicationContext;
     }
 
-    public static <T> T getBean(String name)
-    {
-        return (T)context.getBean(name);
+    public static <T> T getBean(String name) {
+        return (T) context.getBean(name);
     }
 
-    public static <T> T getBean(Class<T> beanClass){
+    public static <T> T getBean(Class<T> beanClass) {
         return context.getBean(beanClass);
     }
 }

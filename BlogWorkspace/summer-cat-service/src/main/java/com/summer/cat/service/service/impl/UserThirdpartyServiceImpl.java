@@ -1,4 +1,4 @@
-package com.summer.cat.service.impl;
+package com.summer.cat.service.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,8 +9,8 @@ import com.summer.cat.entity.User;
 import com.summer.cat.entity.UserThirdparty;
 import com.summer.cat.mapper.UserThirdpartyMapper;
 import com.summer.cat.model.ThirdPartyUser;
-import com.summer.cat.service.IUserService;
-import com.summer.cat.service.IUserThirdpartyService;
+import com.summer.cat.service.service.IUserService;
+import com.summer.cat.service.service.IUserThirdpartyService;
 
 /**
  * <p>

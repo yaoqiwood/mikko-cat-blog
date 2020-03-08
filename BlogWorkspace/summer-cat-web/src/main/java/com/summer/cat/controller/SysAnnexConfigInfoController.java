@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,11 +26,8 @@ import com.summer.cat.annotation.Pass;
 import com.summer.cat.base.Constant;
 import com.summer.cat.base.SystemConfig;
 import com.summer.cat.entity.SysAnnexConfigInfo;
-import com.summer.cat.service.ISysAnnexConfigInfoService;
-import com.summer.cat.util.CatsException;
-import com.summer.cat.util.HttpUtil;
-import com.summer.cat.util.LogUtil;
-import com.summer.cat.util.Returns;
+import com.summer.cat.service.service.ISysAnnexConfigInfoService;
+import com.summer.cat.util.*;
 
 import cn.hutool.core.io.FileUtil;
 
@@ -70,13 +66,13 @@ public class SysAnnexConfigInfoController {
     }
 
     @GetMapping("downloadImgById.action")
-    @RequiresAuthentication
+    @Pass
     public void downloadImgById(@RequestParam Integer id, HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         BufferedInputStream bis = null;
         BufferedOutputStream bos = null;
         Subject subject = SecurityUtils.getSubject();
-        // LogUtil.info("信息：" + subject.isAuthenticated() + "");
+        LogUtil.info("信息：" + subject.isAuthenticated() + "");
         try {
             request.setCharacterEncoding(Charsets.UTF_8.name());
             SysAnnexConfigInfo annexConfigInfo = this.service.getById(id);
@@ -105,12 +101,8 @@ public class SysAnnexConfigInfoController {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            if (bis != null) {
-                bis.close();
-            }
-            if (bos != null) {
-                bos.close();
-            }
+            BufferCloseUtil.closeBufferInput(bis);
+            BufferCloseUtil.closeBufferOutput(bos);
         }
     }
 }

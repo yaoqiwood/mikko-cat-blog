@@ -11,7 +11,7 @@ import com.summer.cat.enums.OrderStatus;
 import com.summer.cat.enums.OrderType;
 import com.summer.cat.mapper.OrderMapper;
 import com.summer.cat.model.OrderModel;
-import com.summer.cat.service.SpringContextBeanService;
+import com.summer.cat.service.service.SpringContextBeanService;
 import com.summer.cat.util.ComUtil;
 
 /**

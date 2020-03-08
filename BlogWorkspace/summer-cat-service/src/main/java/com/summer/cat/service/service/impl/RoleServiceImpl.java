@@ -1,4 +1,4 @@
-package com.summer.cat.service.impl;
+package com.summer.cat.service.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,10 +20,10 @@ import com.summer.cat.entity.RoleToMenu;
 import com.summer.cat.entity.UserToRole;
 import com.summer.cat.mapper.RoleMapper;
 import com.summer.cat.model.RoleModel;
-import com.summer.cat.service.IMenuService;
-import com.summer.cat.service.IRoleService;
-import com.summer.cat.service.IRoleToMenuService;
-import com.summer.cat.service.IUserToRoleService;
+import com.summer.cat.service.service.IMenuService;
+import com.summer.cat.service.service.IRoleService;
+import com.summer.cat.service.service.IRoleToMenuService;
+import com.summer.cat.service.service.IUserToRoleService;
 import com.summer.cat.util.ComUtil;
 
 /**

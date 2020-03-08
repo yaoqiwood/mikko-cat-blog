@@ -12,7 +12,7 @@ import com.summer.cat.config.ResponseHelper;
 import com.summer.cat.config.ResponseModel;
 import com.summer.cat.entity.Role;
 import com.summer.cat.model.RoleModel;
-import com.summer.cat.service.IRoleService;
+import com.summer.cat.service.service.IRoleService;
 
 /**
  * <p>

@@ -1,17 +1,18 @@
-package com.summer.cat.service.impl;
+package com.summer.cat.service.service.impl;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
-
-import javax.websocket.*;
-import javax.websocket.server.PathParam;
-import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import javax.websocket.*;
+import javax.websocket.server.PathParam;
+import javax.websocket.server.ServerEndpoint;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 /**
  * @author summer
@@ -26,7 +27,7 @@ public class MyWebSocketService {
     /**
      *  用来记录当前在线连接数
      */
-    private static   AtomicInteger onlineCount = new AtomicInteger(0);
+    private static AtomicInteger onlineCount = new AtomicInteger(0);
 
     /**
      * concurrent包的线程安全Set，用来存放每个客户端对应的MyWebSocket对象。
@@ -49,15 +50,15 @@ public class MyWebSocketService {
     public void onOpen(@PathParam("mobile") String mobile, Session session) {
         this.session = session;
         this.mobile = mobile;
-        //在线数加1
+        // 在线数加1
         addOnlineCount();
-        clients.put(mobile,this);
+        clients.put(mobile, this);
         logger.info("有新连接加入！当前在线人数为" + getOnlineCount());
-//        try {
-//            sendMessage("当前人数为："+getOnlineCount());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        // try {
+        // sendMessage("当前人数为："+getOnlineCount());
+        // } catch (IOException e) {
+        // e.printStackTrace();
+        // }
     }
 
     /**
@@ -65,9 +66,9 @@ public class MyWebSocketService {
      */
     @OnClose
     public void onClose() {
-        //从set中删除
+        // 从set中删除
         clients.remove(mobile);
-        //在线数减1
+        // 在线数减1
         subOnlineCount();
         logger.info("有一连接关闭！当前在线人数为" + getOnlineCount());
     }
@@ -80,19 +81,19 @@ public class MyWebSocketService {
     public void onMessage(String message) throws IOException {
         logger.info(message);
         sendMessageAll(message);
-        //发送给指定用户,json格式
-//        JSONObject requestJson =JSONObject.parseObject(message);
-//        if (!requestJson.getString("to").equals("all")){
-//            sendMessageTo(requestJson.toJSONString(), requestJson.get("to").toString());
-//        }else{
-//            sendMessageAll(requestJson.toJSONString());
-//        }
+        // 发送给指定用户,json格式
+        // JSONObject requestJson =JSONObject.parseObject(message);
+        // if (!requestJson.getString("to").equals("all")){
+        // sendMessageTo(requestJson.toJSONString(), requestJson.get("to").toString());
+        // }else{
+        // sendMessageAll(requestJson.toJSONString());
+        // }
     }
 
     public static void sendMessageTo(String message, String To) throws IOException {
         Set<Map.Entry<String, MyWebSocketService>> entries = clients.entrySet();
         for (Map.Entry<String, MyWebSocketService> item : entries) {
-            if (item.getKey().equals(To) ) {
+            if (item.getKey().equals(To)) {
                 item.getValue().session.getAsyncRemote().sendText(message);
             }
         }
@@ -111,8 +112,8 @@ public class MyWebSocketService {
      * @param error
      */
     @OnError
-    public  void onError(Session session, Throwable error) {
-        logger.error(error.toString()+"发生错误");
+    public void onError(Session session, Throwable error) {
+        logger.error(error.toString() + "发生错误");
         error.printStackTrace();
     }
 
@@ -121,30 +122,29 @@ public class MyWebSocketService {
      * @param message 消息内容
      * @throws IOException
      */
-    public  void sendMessage(String message) throws IOException {
+    public void sendMessage(String message) throws IOException {
         this.session.getBasicRemote().sendText(message);
     }
-
 
     /**
      * 得到当前联接人数
      * @return
      */
-    public static   synchronized AtomicInteger getOnlineCount() {
+    public static synchronized AtomicInteger getOnlineCount() {
         return onlineCount;
     }
 
     /**
      * 增加联接人数
      */
-    public static   synchronized void addOnlineCount() {
+    public static synchronized void addOnlineCount() {
         onlineCount.incrementAndGet();
     }
 
     /**
      * 减少联接人数
      */
-    public  static  synchronized void subOnlineCount() {
+    public static synchronized void subOnlineCount() {
         onlineCount.decrementAndGet();
     }
 }

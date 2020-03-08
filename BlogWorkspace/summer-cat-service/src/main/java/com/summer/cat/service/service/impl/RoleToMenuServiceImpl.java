@@ -1,4 +1,4 @@
-package com.summer.cat.service.impl;
+package com.summer.cat.service.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.summer.cat.entity.RoleToMenu;
 import com.summer.cat.mapper.RoleToMenuMapper;
-import com.summer.cat.service.IRoleToMenuService;
+import com.summer.cat.service.service.IRoleToMenuService;
 import com.summer.cat.util.ComUtil;
 
 /**

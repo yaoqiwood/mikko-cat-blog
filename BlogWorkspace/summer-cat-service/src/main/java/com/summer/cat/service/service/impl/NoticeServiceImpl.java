@@ -1,4 +1,4 @@
-package com.summer.cat.service.impl;
+package com.summer.cat.service.service.impl;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import com.summer.cat.base.BusinessException;
 import com.summer.cat.entity.Notice;
 import com.summer.cat.entity.User;
 import com.summer.cat.mapper.NoticeMapper;
-import com.summer.cat.service.INoticeService;
+import com.summer.cat.service.service.INoticeService;
 import com.summer.cat.util.ComUtil;
 
 /**

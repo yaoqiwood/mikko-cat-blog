@@ -24,8 +24,8 @@ import com.summer.cat.config.ThirdPartyLoginHelper;
 import com.summer.cat.entity.User;
 import com.summer.cat.entity.UserThirdparty;
 import com.summer.cat.model.ThirdPartyUser;
-import com.summer.cat.service.IUserService;
-import com.summer.cat.service.IUserThirdpartyService;
+import com.summer.cat.service.service.IUserService;
+import com.summer.cat.service.service.IUserThirdpartyService;
 import com.summer.cat.util.ComUtil;
 
 import springfox.documentation.annotations.ApiIgnore;
