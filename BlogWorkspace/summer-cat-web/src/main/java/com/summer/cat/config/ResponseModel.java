@@ -5,18 +5,25 @@ package com.summer.cat.config;
  * @author summer
  */
 
+import java.io.Serializable;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.Serializable;
-
 public class ResponseModel<T> implements Serializable {
     private static final long serialVersionUID = -1241360949457314497L;
+
     private int status;
+
     private T result;
+
     private String message;
+
     private String code;
+
+    private boolean errorValidation;
 
     public ResponseModel() {
         HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
@@ -40,7 +47,6 @@ public class ResponseModel<T> implements Serializable {
         this.message = message;
     }
 
-
     public int getStatus() {
         return this.status;
     }
@@ -57,7 +63,16 @@ public class ResponseModel<T> implements Serializable {
         this.result = result;
     }
 
+    public boolean isErrorValidation() {
+        return errorValidation;
+    }
+
+    public void setErrorValidation(boolean errorValidation) {
+        this.errorValidation = errorValidation;
+    }
+
     public String toString() {
-        return "ResponseModel [status=" + this.status + ", result=" + this.result +  ", message=" + this.message + ", code=" + this.code + "]";
+        return "ResponseModel [status=" + this.status + ", result=" + this.result + ", message=" + this.message
+                + ", code=" + this.code + "]";
     }
 }

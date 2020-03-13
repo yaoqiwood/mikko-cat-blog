@@ -109,6 +109,8 @@ public class Constant {
 
         public static final String SUCCESS = "success";
 
+        public static final String ERROR_VALIDATION = "errorValidation";
+
         public static final String SUCCESS_MSG = "查询成功";
 
         public static final String ERROR_MSG = "失败：";

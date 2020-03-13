@@ -7,9 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,9 +18,9 @@ import com.summer.cat.config.ResponseHelper;
 import com.summer.cat.config.ResponseModel;
 import com.summer.cat.entity.User;
 import com.summer.cat.service.service.IUserService;
-import com.summer.cat.service.shiro.JWTToken;
 import com.summer.cat.util.BufferCloseUtil;
 import com.summer.cat.util.ComUtil;
+import com.summer.cat.util.Returns;
 
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.ShearCaptcha;
@@ -45,21 +43,22 @@ public class LoginController {
     @Autowired
     private IUserService userService;
 
-    @ApiOperation(value = "手机用户名邮箱密码登录", notes = "body体参数,不需要Authorization", produces = "application/json")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "requestJson", value = "{\"identity\":\"13888888888\",\"password\":\"123456\"}", required = true, dataType = "String", paramType = "body") })
     @PostMapping("/login.action")
-    @Log(action = "SignIn", modelName = "Login", description = "前台密码登录接口")
     @Pass
     // 5秒产生一个令牌,放入容量为0.3的令牌桶
     @AccessLimit(perSecond = 0.3, timeOut = 5000)
-    public ResponseModel<Map<String, Object>> login(
-            @ValidationParam("account,password") @RequestBody JSONObject requestJson) throws Exception {
-        Map<String, Object> userMap = userService.checkMobileAndPasswd(requestJson);
-        JWTToken jwtToken = new JWTToken(userMap.get("token") + "");
-        Subject subject = SecurityUtils.getSubject();
-        subject.login(jwtToken);
-        return ResponseHelper.buildResponseModel(userMap);
+    public Map<String, ? extends Object> login(
+            @ValidationParam("account,password,verificationCode") @RequestBody JSONObject requestJson,
+            HttpSession session) {
+        try {
+            String verificationCode = (String) session.getAttribute(Constant.VERIFICATION_CODE);
+            Map<String, Object> userMap = userService.checkMobileAndPasswd(requestJson, verificationCode);
+            return Returns.mapOk(userMap, "登录成功");
+        } catch (Exception e) {
+            log.error("登录失败", e);
+            return Returns.mapError("登录失败：" + e.getMessage());
+        }
+
     }
 
     @ApiIgnore
@@ -133,12 +132,12 @@ public class LoginController {
     @RequestMapping(value = { "/verificationCode.action" })
     @Pass
     public void verificationCode(HttpSession session, HttpServletResponse response) throws IOException {
-        ShearCaptcha captcha = CaptchaUtil.createShearCaptcha(200, 100, 4, 4);
+        ShearCaptcha captcha = CaptchaUtil.createShearCaptcha(220, 100, 4, 4);
         BufferedOutputStream bos = null;
         try {
             session.removeAttribute(Constant.VERIFICATION_CODE);
             bos = new BufferedOutputStream(response.getOutputStream());
-            session.setAttribute(Constant.VERIFICATION_CODE, captcha.getCode());
+            session.setAttribute(Constant.VERIFICATION_CODE, captcha.getCode().toLowerCase());
             log.info(session.getAttribute(Constant.VERIFICATION_CODE) + "");
             captcha.write(bos);
         } catch (IOException e) {

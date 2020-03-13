@@ -32,6 +32,7 @@ public class ResponseHelper {
         response.setStatus(HttpStatus.BAD_REQUEST.value());
         response.setCode(HttpStatus.BAD_REQUEST.getReasonPhrase());
         response.setMessage(message);
+        response.setErrorValidation(true);
         return response;
     }
 

@@ -34,8 +34,6 @@
                 AND r.role_code = #{roleCode}
             </if>
         </where>
-        -- WHERE
-        -- 1 = 1
     </select>
 
     <!--  递归查询  -->

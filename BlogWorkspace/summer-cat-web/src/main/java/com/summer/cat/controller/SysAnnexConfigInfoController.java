@@ -8,13 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -30,6 +28,7 @@ import com.summer.cat.service.service.ISysAnnexConfigInfoService;
 import com.summer.cat.util.*;
 
 import cn.hutool.core.io.FileUtil;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * <p>
@@ -41,6 +40,7 @@ import cn.hutool.core.io.FileUtil;
  */
 @Controller
 @RequestMapping("/sysAnnexConfigInfo")
+@Slf4j
 public class SysAnnexConfigInfoController {
     private Gson gson = (new GsonBuilder()).setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 
@@ -50,7 +50,7 @@ public class SysAnnexConfigInfoController {
     ISysAnnexConfigInfoService service;
 
     @RequestMapping("search.action")
-    @Pass
+    @RequiresAuthentication
     public @ResponseBody Map<String, ? extends Object> search(@RequestParam int page, @RequestParam int rows,
             @RequestParam(required = false) String exampleJson, HttpSession session) {
         SysAnnexConfigInfo item = new SysAnnexConfigInfo();
@@ -65,6 +65,7 @@ public class SysAnnexConfigInfoController {
         return Returns.mapOk(items.getRecords(), items.getTotal(), Constant.ReturnsMessage.SUCCESS_MSG);
     }
 
+    // @RequiresAuthentication
     @GetMapping("downloadImgById.action")
     @Pass
     public void downloadImgById(@RequestParam Integer id, HttpServletRequest request, HttpServletResponse response)
@@ -103,6 +104,17 @@ public class SysAnnexConfigInfoController {
         } finally {
             BufferCloseUtil.closeBufferInput(bis);
             BufferCloseUtil.closeBufferOutput(bos);
+        }
+    }
+
+    @PostMapping(value = { "getMenharaItems.action" })
+    @Pass
+    public @ResponseBody Map<String, ? extends Object> getMenharaItems() {
+        try {
+            return Returns.mapOk(service.getMenharaItems(), "查询成功");
+        } catch (Exception e) {
+            log.error("查询失败", e);
+            return Returns.mapError("查询失败：" + e.getMessage());
         }
     }
 }

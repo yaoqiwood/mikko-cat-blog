@@ -41,7 +41,7 @@ public interface IUserService extends IService<User> {
     Page<User> selectPageByConditionUser(Page<User> userPage, String info, Integer[] status, String startTime,
             String endTime);
 
-    Map<String, Object> checkMobileAndPasswd(JSONObject requestJson) throws Exception;
+    Map<String, Object> checkMobileAndPasswd(JSONObject requestJson, String verificationCode) throws Exception;
 
     Map<String, Object> checkMobileAndCatcha(JSONObject requestJson) throws Exception;
 

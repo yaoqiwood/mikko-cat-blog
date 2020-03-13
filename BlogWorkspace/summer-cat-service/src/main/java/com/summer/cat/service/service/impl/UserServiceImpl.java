@@ -1,6 +1,5 @@
 package com.summer.cat.service.service.impl;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,25 +87,24 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
         // token生成
         String stringToken = JWTUtil.sign(user.getUserNo(), user.getPassword());
-        // subject.login();
-        // JWTUtil.sign(user.getUserNo(), user.getPassword())
-        UserToRole userToRole = userToRoleService.selectByUserNo(user.getUserNo());
+        // UserToRole userToRole = userToRoleService.selectByUserNo(user.getUserNo());
         user.setToken(stringToken);
 
+        user.setPassword("");
         result.put("user", user);
-        List<Menu> buttonList = new ArrayList<Menu>();
+        // List<Menu> buttonList = new ArrayList<Menu>();
         // 根据角色主键查询启用的菜单权限
         // List<Menu> menuList =
         // menuService.findMenuByRoleCode(userToRole.getRoleCode());
         // List<Menu> retMenuList = menuService.treeMenuList(Constant.ROOT_MENU,
         // menuList);
         // for (Menu buttonMenu : menuList) {
-        // if(buttonMenu.getMenuType() == Constant.TYPE_BUTTON){
+        // if (buttonMenu.getMenuType() == Constant.TYPE_BUTTON) {
         // buttonList.add(buttonMenu);
         // }
         // }
-        // result.put("menuList",retMenuList);
-        // result.put("buttonList",buttonList);
+        // result.put("menuList", retMenuList);
+        // result.put("buttonList", buttonList);
         return result;
     }
 
@@ -130,9 +128,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public Map<String, Object> checkMobileAndPasswd(JSONObject requestJson) throws Exception {
+    public Map<String, Object> checkMobileAndPasswd(JSONObject requestJson, String verificationCode) throws Exception {
+
         // 由于 @ValidationParam注解已经验证过mobile和passWord参数，所以可以直接get使用没毛病。
         String identity = requestJson.getString("account");
+        String userVerificationCode = requestJson.getString("verificationCode");
+        if (!verificationCode.equals(userVerificationCode)) {
+            throw new CatsException("验证码错误");
+        }
         InfoToUser infoToUser = infoToUserService.getOne(new QueryWrapper<InfoToUser>().eq("identity_info ", identity));
         if (ComUtil.isEmpty(infoToUser)) {
             throw new BusinessException(PublicResultConstant.INVALID_USER);
@@ -140,15 +143,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         Map<String, String> userMapper = new HashMap<>();
         userMapper.put("user_no", infoToUser.getUserNo());
         userMapper.put("status", "1");
-        // User user = this.getOne(new QueryWrapper<User>().where("user_no = {0} and
-        // status = 1", infoToUser.getUserNo()));
         User user = this.getOne(new QueryWrapper<User>().allEq(userMapper));
         if (ComUtil.isEmpty(user) || !BCrypt.checkpw(requestJson.getString("password"), user.getPassword())) {
             throw new BusinessException(PublicResultConstant.INVALID_USERNAME_PASSWORD);
         }
         // 测试websocket用户登录给管理员发送消息的例子 前端代码参考父目录下WebSocketDemo.html
-        // noticeService.insertByThemeNo("themeNo-cwr3fsxf233edasdfcf2s3","13888888888");
-        // MyWebSocketService.sendMessageTo(JSONObject.toJSONString(user),"13888888888");
         return this.getLoginUserAndMenuInfo(user);
     }
 

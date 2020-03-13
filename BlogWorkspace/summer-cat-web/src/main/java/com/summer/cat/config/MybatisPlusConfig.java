@@ -14,7 +14,7 @@ import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
  */
 @EnableTransactionManagement
 @Configuration
-@MapperScan("com.summer.mapper.*.mapper*")
+@MapperScan("com.summer.cat.mapper.*.mapper*")
 public class MybatisPlusConfig {
     /**
      *   mybatis-plus分页插件

@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.alibaba.fastjson.JSONObject;
+import com.google.common.base.Strings;
 import com.summer.cat.base.Constant;
 import com.summer.cat.base.PublicResultConstant;
 import com.summer.cat.config.ResponseHelper;
@@ -20,6 +21,7 @@ import com.summer.cat.entity.User;
 import com.summer.cat.service.service.IUserService;
 import com.summer.cat.service.service.SpringContextBeanService;
 import com.summer.cat.service.shiro.JWTToken;
+import com.summer.cat.util.CatsException;
 import com.summer.cat.util.ComUtil;
 import com.summer.cat.util.JWTUtil;
 
@@ -54,7 +56,12 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
         // 提交给realm进行登入，如果错误他会抛出异常并被捕获
         getSubject(request, response).login(token);
         // 如果没有抛出异常则代表登入成功，返回true
-        setUserBean(request, response, token);
+        try {
+            setUserBean(request, response, token);
+        } catch (Exception e) {
+            // LogUtil.error("错误:", e);
+            throw new CatsException(e);
+        }
         return true;
     }
 
@@ -75,6 +82,7 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
             } catch (Exception e) {
                 e.printStackTrace();
                 responseError(request, response);
+                return false;
             }
         }
         return true;
@@ -85,6 +93,9 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
             this.userService = SpringContextBeanService.getBean(IUserService.class);
         }
         String userNo = JWTUtil.getUserNo(token.getPrincipal().toString());
+        if (Strings.isNullOrEmpty(userNo)) {
+            throw new CatsException("错误！无此用户");
+        }
         User userBean = userService.getById(userNo);
         request.setAttribute("currentUser", userBean);
     }
@@ -191,7 +202,9 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
             response.setCharacterEncoding("utf-8");
             out = response.getWriter();
             response.setContentType("application/json; charset=utf-8");
-            out.print(JSONObject.toJSONString(ResponseHelper.validationFailure(PublicResultConstant.UNAUTHORIZED)));
+            String jsonString = JSONObject
+                    .toJSONString(ResponseHelper.validationFailure(PublicResultConstant.UNAUTHORIZED));
+            out.print(jsonString);
             out.flush();
         } catch (Exception e) {
             e.printStackTrace();
