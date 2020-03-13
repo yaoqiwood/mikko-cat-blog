@@ -6,6 +6,6 @@ export default {
     return UrlConstants.LOGIN_URLS.VERIFICATION_CODE_URL + '?' + Math.random()
   },
   login (params) {
-    return Util.httPost(UrlConstants.LOGIN_URLS.POST_LOGIN_URL, params)
+    return Util.httpPostJSON(UrlConstants.LOGIN_URLS.POST_LOGIN_URL, params)
   }
 }

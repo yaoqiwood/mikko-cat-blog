@@ -1,5 +1,6 @@
 <template>
-  <div class="back">
+  <div v-on:keyup.enter="formKeyEnter()"
+       class="back">
     <vue-particles class="particle_point"
                    color="ffa500"
                    :particleOpacity="0.7"
@@ -36,6 +37,7 @@
     </div>
     <login-form @getVerificationCodeSrc="getVerificationCodeSrc"
                 @onSubmit="onSubmit"
+                ref="loginForm"
                 :verificationCodeSrc="verificationCodeSrc"></login-form>
   </div>
 </template>
@@ -43,9 +45,10 @@
 import Urls from '@/router/routersUrl'
 import LoginForm from './components/LoginForm'
 import LoginApi from '@/api/login/Login'
-// import BcryptUtil from '@/utils/BcryptUtil'
-import MD5Util from '@/utils/MD5Util'
-import Constants from '@/constants/SystemConstants'
+import SysAnnexApi from '@/api/sysAnnexConfigInfo/SysAnnexConfigInfo'
+import CookieService from '@/service/CookieService'
+import RouterUtil from '@/router/routersUtil'
+import UserService from '@/service/UserService'
 
 export default {
   name: 'Login',
@@ -53,22 +56,23 @@ export default {
   data () {
     return {
       bottomImgUrlRandomNum: 9,
-      // bottomImgUrl: 'http://127.0.0.1:8084/summerCat/blog/sysAnnexConfigInfo/downloadImgById.action?id=',
-      bottomImgUrl: Urls.RMenharaImg,
+      menharaIdItems: [],
       bottomImgStyle: '',
       verificationCodeSrc: ''
     }
   },
   mounted () {
-    // this.bottomImgUrl += this.bottomImgUrlRandomNum
-    this.tempUrl = this.bottomImgUrl
+    this.tempUrl = SysAnnexApi.downloadImgByIdUrl()
     this.tempUrl += this.bottomImgUrlRandomNum
     this.bottomImgStyle = { 'background-image': 'url(' + this.tempUrl + ')' }
+    this.getMenharaItems()
+    // 检查是否已经登录
+    this.isLoginCheck()
   },
   methods: {
     menheraClick () {
-      this.bottomImgUrlRandomNum = this.getRandomNum(9, 169)
-      this.tempUrl = this.bottomImgUrl
+      this.bottomImgUrlRandomNum = this.menharaIdItems[this.getRandomNum(0, this.menharaIdItems.length)].id
+      this.tempUrl = SysAnnexApi.downloadImgByIdUrl()
       this.tempUrl += this.bottomImgUrlRandomNum
       this.bottomImgStyle = { 'background-image': 'url(' + this.tempUrl + ')' }
     },
@@ -79,9 +83,40 @@ export default {
       this.verificationCodeSrc = LoginApi.getVerificationCodeImgSrc()
     },
     onSubmit (params) {
-      // BcryptUtil.hashWords(params.password)
-      let md5First = MD5Util.genMD5(params.password).toUpperCase() + Constants.SUFFIX
-      console.log(MD5Util.genMD5(md5First).toUpperCase())
+      this.$Spin.show()
+      UserService.login(params).then(resp => {
+        if (resp.success) {
+          CookieService.saveAndGetToken(resp.data.user.token)
+          RouterUtil.routerPush(Urls.NIndexMain, {})
+          this.$Spin.hide()
+        } else {
+          this.getVerificationCodeSrc()
+          this.$Message.error({
+            content: resp.message
+          })
+          this.$Spin.hide()
+        }
+      })
+    },
+    getMenharaItems () {
+      SysAnnexApi.getMenharaItems().then(resp => {
+        if (resp.success) {
+          this.menharaIdItems = resp.data
+        }
+      })
+    },
+    isLoginCheck () {
+      if (UserService.isLoginCheck()) {
+        // this.$Message.error('当前用户已登录，将强制跳转页面')
+        this.$Spin.show()
+        setTimeout(() => {
+          this.$Spin.hide()
+          RouterUtil.routerPush(Urls.NIndexMain, {})
+        }, 2000)
+      }
+    },
+    formKeyEnter () {
+      this.$refs['loginForm'].onSubmit()
     }
   }
 }

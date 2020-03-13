@@ -1,5 +1,11 @@
+/* jshint esversion: 6 */
 import Vue from 'vue'
 import NetConstants from '../constants/NetConstants'
+import CookieService from '@/service/CookieService'
+import RouterUtil from '@/router/routersUtil'
+import RouterUrl from '@/router/routersUrl'
+import { Message } from 'view-design'
+
 export default {
   httpGet (url) {
     return new Promise((resolve, reject) => {
@@ -19,10 +25,11 @@ export default {
       let promise = Vue.http.post(url, params, NetConstants.POST_OPTIONS)
       promise.then(
         resResp => {
+          this.checkRespError(resResp)
           resolve(resResp.data)
         },
         rejectResp => {
-          rejectResp(rejectResp.data)
+          reject(rejectResp.data)
         })
     })
   },
@@ -31,14 +38,23 @@ export default {
       let promise = Vue.http.post(url, params, NetConstants.POSTJSON_OPTIONS)
       promise.then(
         resResp => {
-          console.log(resResp)
-          resolve(resResp)
+          this.checkRespError(resResp)
+          resolve(resResp.data)
         },
         rejectResp => {
-          console.log(rejectResp)
-          reject(rejectResp)
+          reject(rejectResp.data)
         }
       )
     })
+  },
+  checkRespError (resp) {
+    if (resp.data.errorValidation) {
+      Message.error('当前用户登录信息失效，请重新登录')
+      setTimeout(() => {
+        // 清空cookie
+        CookieService.userLogout()
+        RouterUtil.routerReplace(RouterUrl.NLogin)
+      }, 2000)
+    }
   }
 }

@@ -16,11 +16,15 @@ import Locale from 'view-design/dist/locale/en-US'
 // vue-particles
 import VueParticles from 'vue-particles'
 
+// vue-cookies
+import VueCookies from 'vue-cookies'
+
 Vue.config.productionTip = false
 Vue.use(ViewUI)
 Vue.use(VueResource)
 Vue.use(Locale)
 Vue.use(VueParticles)
+Vue.use(VueCookies)
 
 // const RouterConfig = {
 //   routes: Routers

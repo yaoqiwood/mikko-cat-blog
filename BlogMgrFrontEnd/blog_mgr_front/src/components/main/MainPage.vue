@@ -58,13 +58,18 @@
 import MainApi from '@/api/main/MainApi'
 import MainPageSideSubMenuItem from './MainPageSideSubMenuItem'
 import IndexCollapse from '@/components/collapse/app/MainCollapse'
-
+import UserService from '@/service/UserService'
+import RouterUtil from '@/router/routersUtil'
+import RouterUrls from '@/router/routersUrl'
 export default {
   name: 'MainPage',
   beforeRouteEnter (to, from, next) {
     next(vm => {
       vm.getAllMenuItem()
     })
+  },
+  mounted () {
+    this.getLoginStatus()
   },
   data () {
     return {
@@ -74,11 +79,22 @@ export default {
   methods: {
     getAllMenuItem () {
       // TODO: 获取菜单 权限配置 Cookie
-      MainApi.getAllMenuItem().then(resp => {
-        if (resp.success) {
-          this.menuItemList = resp.data
-        }
-      })
+      try {
+        MainApi.getAllMenuItem().then(resp => {
+          if (resp.success) {
+            this.menuItemList = resp.data
+          }
+        })
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    getLoginStatus () {
+      try {
+        UserService.getLoginStatus()
+      } catch (e) {
+        RouterUtil.routerReplace(RouterUrls.NLogin, {}, this.$router)
+      }
     }
   },
   components: {

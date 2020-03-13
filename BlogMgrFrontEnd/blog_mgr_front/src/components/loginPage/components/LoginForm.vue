@@ -84,7 +84,9 @@ export default {
     },
     onSubmit () {
       this.$refs['dataForm'].validate(valid => {
-        this.$emit('onSubmit', this.dataModal)
+        if (valid) {
+          this.$emit('onSubmit', this.dataModal)
+        }
       })
     }
   }
