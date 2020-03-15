@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -18,12 +19,15 @@ import com.summer.cat.base.Constant;
 import com.summer.cat.base.PublicResultConstant;
 import com.summer.cat.config.ResponseHelper;
 import com.summer.cat.entity.User;
+import com.summer.cat.entity.UserToRole;
 import com.summer.cat.service.service.IUserService;
+import com.summer.cat.service.service.IUserToRoleService;
 import com.summer.cat.service.service.SpringContextBeanService;
 import com.summer.cat.service.shiro.JWTToken;
 import com.summer.cat.util.CatsException;
 import com.summer.cat.util.ComUtil;
 import com.summer.cat.util.JWTUtil;
+import com.summer.cat.vo.UserRoleVo;
 
 /**
  * @author grm
@@ -33,6 +37,8 @@ import com.summer.cat.util.JWTUtil;
 public class JWTFilter extends BasicHttpAuthenticationFilter {
 
     private IUserService userService;
+
+    private IUserToRoleService userToRoleService;
 
     /**
      * 判断用户是否想要登入。
@@ -92,12 +98,21 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
         if (this.userService == null) {
             this.userService = SpringContextBeanService.getBean(IUserService.class);
         }
+        if (this.userToRoleService == null) {
+            this.userToRoleService = SpringContextBeanService.getBean(IUserToRoleService.class);
+        }
         String userNo = JWTUtil.getUserNo(token.getPrincipal().toString());
         if (Strings.isNullOrEmpty(userNo)) {
             throw new CatsException("错误！无此用户");
         }
-        User userBean = userService.getById(userNo);
-        request.setAttribute("currentUser", userBean);
+        if (null == request.getAttribute(Constant.CURRENT_USER_REQUEST_NAME)) {
+            UserRoleVo userRoleVo = new UserRoleVo();
+            User userBean = userService.getById(userNo);
+            UserToRole userToRole = userToRoleService.selectByUserNo(userBean.getUserNo());
+            BeanUtils.copyProperties(userBean, userRoleVo);
+            userRoleVo.setUserToRole(userToRole);
+            request.setAttribute(Constant.CURRENT_USER_REQUEST_NAME, userRoleVo);
+        }
     }
 
     /**
@@ -145,7 +160,7 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
                 Constant.isPass = true;
                 if (ComUtil.isEmpty(authorization)) {
                     // 如果当前url不需要认证，则注入当前登录用户时，给一个空的
-                    httpServletRequest.setAttribute("currentUser", new User());
+                    httpServletRequest.setAttribute(Constant.CURRENT_USER_REQUEST_NAME, new User());
                     return true;
                 } else {
                     super.preHandle(request, response);
@@ -157,7 +172,7 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
                 if (isSameUrl(split[0], httpServletRequest.getRequestURI())) {
                     Constant.isPass = true;
                     if (ComUtil.isEmpty(authorization)) {
-                        httpServletRequest.setAttribute("currentUser", new User());
+                        httpServletRequest.setAttribute(Constant.CURRENT_USER_REQUEST_NAME, new User());
                         return true;
                     } else {
                         super.preHandle(request, response);

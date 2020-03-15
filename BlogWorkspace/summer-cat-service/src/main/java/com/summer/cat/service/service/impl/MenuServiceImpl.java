@@ -38,24 +38,24 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     }
 
     @Override
-    // @Cacheable(value = "UserToRole",keyGenerator="wiselyKeyGenerator")
     public List<Menu> findMenuByRoleCode(String roleId) {
-        return menuMapper.findMenuByRoleCode(roleId);
+        List<Menu> menuList = menuMapper.findMenuByRoleCode(roleId);
+        return this.treeMenuList(Constant.ROOT_MENU, menuList);
     }
 
     @Override
     public List<Menu> treeMenuList(String pId, List<Menu> list) {
-        List<Menu> IteratorMenuList = new ArrayList<>();
+        List<Menu> iteratorMenuList = new ArrayList<>();
         for (Menu m : list) {
             if (String.valueOf(m.getParentId()).equals(pId)) {
                 List<Menu> childMenuList = treeMenuList(String.valueOf(m.getMenuId()), list);
                 m.setChildMenu(childMenuList);
                 if (m.getMenuType() == Constant.TYPE_MENU) {
-                    IteratorMenuList.add(m);
+                    iteratorMenuList.add(m);
                 }
             }
         }
-        return IteratorMenuList;
+        return iteratorMenuList;
     }
 
     /**

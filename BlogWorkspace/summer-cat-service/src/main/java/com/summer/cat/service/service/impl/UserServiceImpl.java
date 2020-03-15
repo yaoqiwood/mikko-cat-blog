@@ -84,27 +84,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public Map<String, Object> getLoginUserAndMenuInfo(User user) {
         Map<String, Object> result = new HashMap<>();
-
         // token生成
         String stringToken = JWTUtil.sign(user.getUserNo(), user.getPassword());
-        // UserToRole userToRole = userToRoleService.selectByUserNo(user.getUserNo());
-        user.setToken(stringToken);
-
         user.setPassword("");
-        result.put("user", user);
-        // List<Menu> buttonList = new ArrayList<Menu>();
-        // 根据角色主键查询启用的菜单权限
-        // List<Menu> menuList =
-        // menuService.findMenuByRoleCode(userToRole.getRoleCode());
-        // List<Menu> retMenuList = menuService.treeMenuList(Constant.ROOT_MENU,
-        // menuList);
-        // for (Menu buttonMenu : menuList) {
-        // if (buttonMenu.getMenuType() == Constant.TYPE_BUTTON) {
-        // buttonList.add(buttonMenu);
-        // }
-        // }
-        // result.put("menuList", retMenuList);
-        // result.put("buttonList", buttonList);
+        result.put(Constant.RoleType.USER, user);
+        result.put(Constant.TOKEN, stringToken);
         return result;
     }
 

@@ -14,6 +14,13 @@ public class Constant {
     public static Set<String> METHOD_URL_SET = new HashSet<>();
 
     /**
+     * 用户登录时存放KeyName
+     */
+    public static final String CURRENT_USER_REQUEST_NAME = "currentUser";
+
+    public static final String TOKEN = "token";
+
+    /**
      * 用户注册默认角色
      */
     public static final int DEFAULT_REGISTER_ROLE = 5;

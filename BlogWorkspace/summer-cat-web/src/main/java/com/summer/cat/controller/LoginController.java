@@ -21,6 +21,7 @@ import com.summer.cat.service.service.IUserService;
 import com.summer.cat.util.BufferCloseUtil;
 import com.summer.cat.util.ComUtil;
 import com.summer.cat.util.Returns;
+import com.summer.cat.util.VerificationCodeUtil;
 
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.ShearCaptcha;
@@ -53,6 +54,7 @@ public class LoginController {
         try {
             String verificationCode = (String) session.getAttribute(Constant.VERIFICATION_CODE);
             Map<String, Object> userMap = userService.checkMobileAndPasswd(requestJson, verificationCode);
+            session.setAttribute(Constant.VERIFICATION_CODE, VerificationCodeUtil.createShearCaptchaStringCode());
             return Returns.mapOk(userMap, "登录成功");
         } catch (Exception e) {
             log.error("登录失败", e);

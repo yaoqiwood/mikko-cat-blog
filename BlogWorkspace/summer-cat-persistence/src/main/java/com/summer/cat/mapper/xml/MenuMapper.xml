@@ -34,6 +34,7 @@
                 AND r.role_code = #{roleCode}
             </if>
         </where>
+        ORDER BY sort_num
     </select>
 
     <!--  递归查询  -->

@@ -3,6 +3,8 @@ package com.summer.cat.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,7 @@ import com.summer.cat.entity.Menu;
 import com.summer.cat.service.service.IMenuService;
 import com.summer.cat.util.LogUtil;
 import com.summer.cat.util.Returns;
+import com.summer.cat.vo.UserRoleVo;
 
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -38,9 +41,10 @@ public class MenuController {
     @RequiresAuthentication
     @RequestMapping(value = "getMenu.action")
     @ResponseBody
-    public Map<String, ? extends Object> getMenu() {
+    public Map<String, ? extends Object> getMenu(HttpServletRequest request) {
         try {
-            List<Menu> menuList = menuService.getAllMenu(Constant.ROOT_MENU);
+            UserRoleVo userRoleBean = (UserRoleVo) request.getAttribute(Constant.CURRENT_USER_REQUEST_NAME);
+            List<Menu> menuList = menuService.findMenuByRoleCode(userRoleBean.getUserToRole().getRoleCode());
             return Returns.mapOk(menuList, Constant.ReturnsMessage.SUCCESS_MSG);
         } catch (Exception e) {
             LogUtil.error(Constant.ReturnsMessage.ERROR_MSG, e);
