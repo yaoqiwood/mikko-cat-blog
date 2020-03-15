@@ -7,9 +7,11 @@
         <Menu mode="horizontal"
               theme="dark"
               active-name="1">
-          <div class="layout-logo"></div>
+          <div class="layout-logo">
+            <div></div>
+          </div>
           <div class="layout-nav">
-            <MenuItem name="1">
+            <!-- <MenuItem name="1">
             <Icon type="ios-navigate"></Icon>
             Item 1
             </MenuItem>
@@ -20,10 +22,9 @@
             <MenuItem name="3">
             <Icon type="ios-analytics"></Icon>
             Item 3
-            </MenuItem>
-            <MenuItem name="4">
-            <Icon type="ios-paper"></Icon>
-            Item 4
+            </MenuItem> -->
+            <MenuItem name="1">
+            <span>{{userObj.username}}</span>
             </MenuItem>
           </div>
         </Menu>
@@ -31,9 +32,9 @@
       <Layout style="minHeight: 85vh">
         <Sider hide-trigger
                :style="{background: '#fff'}"
-               width="260px">
+               width="230px">
           <Menu theme="light"
-                width="260px"
+                width="230px"
                 mode="vertical"
                 style="text-align:left"
                 accordion>
@@ -70,15 +71,17 @@ export default {
   },
   mounted () {
     this.getLoginStatus()
+    // cookie获取用户对象
+    this.userObj = UserService.initUserInf()
   },
   data () {
     return {
-      menuItemList: []
+      menuItemList: [],
+      userObj: {}
     }
   },
   methods: {
     getAllMenuItem () {
-      // TODO: 获取菜单 权限配置 Cookie
       try {
         MainApi.getAllMenuItem().then(resp => {
           if (resp.success) {
@@ -93,7 +96,7 @@ export default {
       try {
         UserService.getLoginStatus()
       } catch (e) {
-        RouterUtil.routerReplace(RouterUrls.NLogin, {}, this.$router)
+        RouterUtil.routerReplace(RouterUrls.NLogin, {})
       }
     }
   },

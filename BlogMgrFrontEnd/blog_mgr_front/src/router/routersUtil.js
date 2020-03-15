@@ -8,9 +8,11 @@ export default {
     })
   },
   routerReplace (name, params) {
-    route.replace({
-      name,
-      params
-    })
+    if (route.currentRoute.name !== name) {
+      route.replace({
+        name,
+        params
+      })
+    }
   }
 }

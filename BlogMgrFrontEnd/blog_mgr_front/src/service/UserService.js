@@ -21,5 +21,8 @@ export default {
   },
   getLoginStatus () {
     CookieService.mountUserToken()
+  },
+  initUserInf () {
+    return CookieService.getCookie(TokenConstants.CURRENT_USER)
   }
 }

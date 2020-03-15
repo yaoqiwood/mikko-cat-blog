@@ -14,7 +14,9 @@
       </main-page-side-sub-menu-item>
     </Submenu>
     <MenuItem v-else
-              :name="item.menuId">{{item.name}}
+              :name="item.menuId">
+    <Icon :type="item.icon" />
+    {{item.name}}
     </MenuItem>
   </div>
 </template>

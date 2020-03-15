@@ -49,6 +49,7 @@ import SysAnnexApi from '@/api/sysAnnexConfigInfo/SysAnnexConfigInfo'
 import CookieService from '@/service/CookieService'
 import RouterUtil from '@/router/routersUtil'
 import UserService from '@/service/UserService'
+import Constants from '@/constants/Constants'
 
 export default {
   name: 'Login',
@@ -86,7 +87,9 @@ export default {
       this.$Spin.show()
       UserService.login(params).then(resp => {
         if (resp.success) {
-          CookieService.saveAndGetToken(resp.data.user.token)
+          CookieService.saveAndGetToken(resp.data.token)
+          // 存入用户信息至cookie
+          CookieService.saveCookie(Constants.CURRENT_USER, resp.data.user)
           RouterUtil.routerPush(Urls.NIndexMain, {})
           this.$Spin.hide()
         } else {
