@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -35,8 +34,12 @@ import springfox.documentation.annotations.ApiIgnore;
 // 不加入swagger ui里
 @ApiIgnore
 public class MenuController {
-    @Autowired
-    private IMenuService menuService;
+
+    private final IMenuService menuService;
+
+    public MenuController(IMenuService menuService) {
+        this.menuService = menuService;
+    }
 
     @RequiresAuthentication
     @RequestMapping(value = "getMenu.action")
