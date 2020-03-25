@@ -17,7 +17,8 @@
                 {{userObj.username}}
                 <Icon type="ios-arrow-down" />
               </div>
-              <DropdownMenu slot="list">
+              <DropdownMenu slot="list"
+                            style="text-align:center">
                 <DropdownItem name="3-1"><span class="menu-item-font">信息修改</span></DropdownItem>
                 <DropdownItem name="logout"><span class="menu-item-font">注銷賬戶</span></DropdownItem>
               </DropdownMenu>
@@ -59,7 +60,7 @@
             </div>
           </Menu>
         </Sider>
-        <Layout :style="{padding: '0 20px 22px'}">
+        <Layout :style="{padding: '0 15px 15px'}">
           <div>
             <Icon @click.native="collapsedSider"
                   :class="rotateIcon"
