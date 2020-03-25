@@ -7,5 +7,8 @@ export default {
   },
   login (params) {
     return Util.httpPostJSON(UrlConstants.LOGIN_URLS.POST_LOGIN_URL, params)
+  },
+  logout () {
+    return Util.httpPost(UrlConstants.LOGIN_URLS.POST_LOGOUT_URL)
   }
 }

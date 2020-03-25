@@ -3,6 +3,8 @@ import LoginApi from '@/api/login/Login'
 import MD5Util from '@/utils/MD5Util'
 import Constants from '@/constants/SystemConstants'
 import TokenConstants from '@/constants/Constants'
+import RouterUtil from '@/router/routersUtil'
+import RouterUrls from '@/router/routersUrl'
 
 export default {
   login (params) {
@@ -24,5 +26,11 @@ export default {
   },
   initUserInf () {
     return CookieService.getCookie(TokenConstants.CURRENT_USER)
+  },
+  userLogout () {
+    // 清除所有相关Cookies
+    CookieService.userLogout()
+    // 跳转登录页面
+    RouterUtil.routerReplace(RouterUrls.NLogin)
   }
 }

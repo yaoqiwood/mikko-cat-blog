@@ -13,6 +13,9 @@ export default {
   getCookie (key) {
     return Vue.$cookies.get(key)
   },
+  removeCookie (key) {
+    Vue.$cookies.remove(key)
+  },
   getUserToken (token) {
     NetConstants.POST_HEADERS.Authorization = token
     NetConstants.POSTJSON_HEADERS.Authorization = token
@@ -35,6 +38,7 @@ export default {
   },
   userLogout () {
     Vue.$cookies.remove(Constants.TOKEN_COOKIE)
+    Vue.$cookies.remove(Constants.CURRENT_USER)
     this.getUserToken('')
   }
 }

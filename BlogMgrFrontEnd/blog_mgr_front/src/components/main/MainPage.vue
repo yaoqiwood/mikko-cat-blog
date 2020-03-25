@@ -1,7 +1,7 @@
 <template>
   <div class="layout">
-    <index-collapse>
-    </index-collapse>
+    <!-- <index-collapse>
+    </index-collapse> -->
     <Layout>
       <Header>
         <Menu mode="horizontal"
@@ -11,42 +11,68 @@
             <div></div>
           </div>
           <div class="layout-nav">
-            <!-- <MenuItem name="1">
-            <Icon type="ios-navigate"></Icon>
-            Item 1
-            </MenuItem>
-            <MenuItem name="2">
-            <Icon type="ios-keypad"></Icon>
-            Item 2
-            </MenuItem>
-            <MenuItem name="3">
-            <Icon type="ios-analytics"></Icon>
-            Item 3
-            </MenuItem> -->
-            <MenuItem name="1">
-            <span>{{userObj.username}}</span>
-            </MenuItem>
+            <Dropdown @on-click="onSelect">
+              <div class="inner_drop_down">
+                <Icon type="ios-stats" />
+                {{userObj.username}}
+                <Icon type="ios-arrow-down" />
+              </div>
+              <DropdownMenu slot="list">
+                <DropdownItem name="3-1"><span class="menu-item-font">信息修改</span></DropdownItem>
+                <DropdownItem name="logout"><span class="menu-item-font">注銷賬戶</span></DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
           </div>
         </Menu>
       </Header>
-      <Layout style="minHeight: 85vh">
+      <Layout style="minHeight: 90.7vh">
         <Sider hide-trigger
                :style="{background: '#fff'}"
+               collapsible
+               :collapsed-width="78"
+               v-model="isCollapsed"
+               ref="sider"
                width="230px">
+          <!-- width="230px" -->
           <Menu theme="light"
-                width="230px"
+                width="auto"
                 mode="vertical"
                 style="text-align:left"
                 accordion>
-            <main-page-side-sub-menu-item :menuItemList=menuItemList></main-page-side-sub-menu-item>
+            <main-page-side-sub-menu-item v-show="!isCollapsed"
+                                          :menuItemList=menuItemList></main-page-side-sub-menu-item>
+            <div class="menu-collapsed"
+                 v-show="isCollapsed"
+                 :list="menuItemList">
+              <template v-for="item in menuItemList">
+                <collapsed-menu v-if="item.childMenu"
+                                @on-click="handleSelect"
+                                @menu-item-select-enter="handleMenuSelectEnter"
+                                @menu-item-select-out="handleMenuSelectOut"
+                                active-name="''"
+                                :hide-title="!isCollapsed"
+                                theme="dark"
+                                :parent-item="item"
+                                :key="item.menuId">
+                </collapsed-menu>
+              </template>
+            </div>
           </Menu>
         </Sider>
-        <Layout :style="{padding: '0 24px 24px'}">
-          <Breadcrumb :style="{margin: '24px 0'}">
-            <BreadcrumbItem>Home</BreadcrumbItem>
-            <BreadcrumbItem>Components</BreadcrumbItem>
-            <BreadcrumbItem>Layout</BreadcrumbItem>
-          </Breadcrumb>
+        <Layout :style="{padding: '0 20px 22px'}">
+          <div>
+            <Icon @click.native="collapsedSider"
+                  :class="rotateIcon"
+                  :style="{margin: '0 0',display:'block',width:'20px',float:'left', position: 'relative',top: '13.5px'}"
+                  type="md-menu"
+                  size="24" />
+            <Breadcrumb :style="{margin: '15px 0',display:'block',width:'300px',float:'left',position: 'relative',left: '20px'}">
+              <BreadcrumbItem>Home</BreadcrumbItem>
+              <BreadcrumbItem>Components</BreadcrumbItem>
+              <BreadcrumbItem>Layout</BreadcrumbItem>
+            </Breadcrumb>
+          </div>
+
           <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
             Content
           </Content>
@@ -58,10 +84,12 @@
 <script>
 import MainApi from '@/api/main/MainApi'
 import MainPageSideSubMenuItem from './MainPageSideSubMenuItem'
+import CollapsedMenu from './collapseMenu/collapsed-menu'
 import IndexCollapse from '@/components/collapse/app/MainCollapse'
 import UserService from '@/service/UserService'
 import RouterUtil from '@/router/routersUtil'
 import RouterUrls from '@/router/routersUrl'
+import Constants from '@/constants/Constants'
 export default {
   name: 'MainPage',
   beforeRouteEnter (to, from, next) {
@@ -77,7 +105,8 @@ export default {
   data () {
     return {
       menuItemList: [],
-      userObj: {}
+      userObj: {},
+      isCollapsed: false
     }
   },
   methods: {
@@ -89,7 +118,7 @@ export default {
           }
         })
       } catch (e) {
-        console.log(e)
+        this.$Message.error(e)
       }
     },
     getLoginStatus () {
@@ -98,10 +127,42 @@ export default {
       } catch (e) {
         RouterUtil.routerReplace(RouterUrls.NLogin, {})
       }
+    },
+    onSelect (name) {
+      if (name === Constants.MAIN_BUTTON_TYPE.LOGOUT) {
+        this.$Modal.confirm({
+          title: '提示',
+          content: '確定要注銷？',
+          onOk: () => {
+            UserService.userLogout()
+          }
+        })
+      }
+    },
+    collapsedSider () {
+      this.$refs['sider'].toggleCollapse()
+    },
+    handleMenuSelectEnter (menuName, activeName) {
+      // this.$emit('menu-item-select', menuName)
+    },
+    handleMenuSelectOut () {
+      // this.$emit('menu-item-select', this.defaultActiveName)
+    },
+    handleSelect (name, activeName) {
+      // this.defaultActiveName = activeName
+      // this.$emit('on-select', name, activeName)
+    }
+  },
+  computed: {
+    rotateIcon () {
+      return [
+        'menu-icon',
+        this.isCollapsed ? 'rotate-icon' : ''
+      ]
     }
   },
   components: {
-    MainPageSideSubMenuItem, IndexCollapse
+    MainPageSideSubMenuItem, IndexCollapse, CollapsedMenu
   }
 }
 </script>
