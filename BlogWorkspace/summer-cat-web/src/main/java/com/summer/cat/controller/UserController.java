@@ -1,7 +1,6 @@
 package com.summer.cat.controller;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.alibaba.fastjson.JSONObject;
@@ -33,8 +32,11 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/user")
 public class UserController {
 
-    @Autowired
-    IUserService userService;
+    private final IUserService userService;
+
+    public UserController(IUserService userService) {
+        this.userService = userService;
+    }
 
     /**
      * 获取当前登录用户信息

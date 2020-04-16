@@ -4,9 +4,11 @@ import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.util.Map;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,10 +20,7 @@ import com.summer.cat.config.ResponseHelper;
 import com.summer.cat.config.ResponseModel;
 import com.summer.cat.entity.User;
 import com.summer.cat.service.service.IUserService;
-import com.summer.cat.util.BufferCloseUtil;
-import com.summer.cat.util.ComUtil;
-import com.summer.cat.util.Returns;
-import com.summer.cat.util.VerificationCodeUtil;
+import com.summer.cat.util.*;
 
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.ShearCaptcha;
@@ -59,6 +58,20 @@ public class LoginController {
         } catch (Exception e) {
             log.error("登录失败", e);
             return Returns.mapError("登录失败：" + e.getMessage());
+        }
+    }
+
+    @PostMapping(value = { "logout.action" })
+    @RequiresAuthentication
+    public Map<String, ? extends Object> logout(ServletRequest request) {
+        try {
+            if (null != request.getAttribute(Constant.CURRENT_USER_REQUEST_NAME)) {
+                request.removeAttribute(Constant.CURRENT_USER_REQUEST_NAME);
+            }
+            return Returns.mapOk("登出成功");
+        } catch (Exception e) {
+            LogUtil.error("登出失败", e);
+            return Returns.mapError("登出失败，原因：" + e.getMessage());
         }
 
     }
@@ -100,9 +113,11 @@ public class LoginController {
     }
 
     @ApiOperation(value = "忘记密码", notes = "body体参数,不需要Authorization", produces = "application/json")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "requestJson", value = "{\"mobile\":\"17765071662\",\"captcha\":\"5780\",</br>"
-                    + "\"password\":\"123456\",\"rePassword\":\"123456\"}", required = true, dataType = "String", paramType = "body") })
+    // @ApiImplicitParams({
+    // @ApiImplicitParam(name = "requestJson", value =
+    // "{\"mobile\":\"17765071662\",\"captcha\":\"5780\",</br>"
+    // + "\"password\":\"123456\",\"rePassword\":\"123456\"}", required = true,
+    // dataType = "String", paramType = "body") })
     @PostMapping("/forget/password")
     @Pass
     public ResponseModel<User> resetPassWord(
