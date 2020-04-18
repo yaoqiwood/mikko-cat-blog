@@ -1,8 +1,6 @@
 package ${package.Controller};
 
-
 import org.springframework.web.bind.annotation.RequestMapping;
-
 <#if restControllerStyle>
 import org.springframework.web.bind.annotation.RestController;
 <#else>
@@ -12,14 +10,18 @@ import org.springframework.stereotype.Controller;
 import ${superControllerClassPackage};
 </#if>
 
+import ${package.Entity}.${entity};
+import ${package.Service}.${table.serviceName};
+
+
 /**
- * <p>
- * ${table.comment!} 前端控制器
- * </p>
- *
- * @author ${author}
- * @since ${date}
- */
+* <p>
+* ${table.comment!} 前端控制器
+* </p>
+*
+* @author ${author}
+* @since ${date}
+*/
 <#if restControllerStyle>
 @RestController
 <#else>
@@ -29,11 +31,14 @@ import ${superControllerClassPackage};
 <#if kotlin>
 class ${table.controllerName}<#if superControllerClass??> : ${superControllerClass}()</#if>
 <#else>
-<#if superControllerClass??>
-public class ${table.controllerName} extends ${superControllerClass} {
-<#else>
+    <#if superControllerClass??>
+    <#--public class ${table.controllerName} extends ${superControllerClass} {-->
+public class ${table.controllerName} extends ${superControllerClass}<${entity}, ${table.serviceName}> {
+    <#else>
 public class ${table.controllerName} {
-</#if>
-
+    </#if>
+	public ${table.controllerName}() {
+		super(${entity}.class);
+	}
 }
 </#if>
