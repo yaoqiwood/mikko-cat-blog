@@ -19,6 +19,14 @@ const SYS_ANNEX_CONFIG_INFO_URLS = {
   DOWNLOAD_IMG_BY_ID_GET: NET_CONSTANTS.PROJECT_NAME_PATH + 'sysAnnexConfigInfo/downloadImgById.action?id='
 }
 
+// 文章管理
+const PASSAGES_URLS = {
+  POST_SEARCH_ITEMS_URL: NET_CONSTANTS.PROJECT_NAME_PATH + 'blogManager/blog-article/searchItems'
+}
+
 export default {
-  MAIN_URLS, LOGIN_URLS, SYS_ANNEX_CONFIG_INFO_URLS
+  MAIN_URLS,
+  LOGIN_URLS,
+  SYS_ANNEX_CONFIG_INFO_URLS,
+  PASSAGES_URLS
 }

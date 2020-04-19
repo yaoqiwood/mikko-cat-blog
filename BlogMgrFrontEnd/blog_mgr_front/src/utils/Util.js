@@ -21,6 +21,7 @@ export default {
     })
   },
   httpPost (url, params) {
+    this.mountLoginToken()
     return new Promise((resolve, reject) => {
       let promise = Vue.http.post(url, params, NetConstants.POST_OPTIONS)
       promise.then(
@@ -55,6 +56,11 @@ export default {
         CookieService.userLogout()
         RouterUtil.routerReplace(RouterUrl.NLogin)
       }, 2000)
+    }
+  },
+  mountLoginToken () {
+    if (!NetConstants.POST_HEADERS.Authorization) {
+      CookieService.judgeMountUserToken()
     }
   }
 }
