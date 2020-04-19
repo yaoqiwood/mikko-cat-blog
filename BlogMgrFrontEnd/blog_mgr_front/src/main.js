@@ -8,6 +8,7 @@ import routes from './router'
 // import VueRouter from 'vue-router'
 import ViewUI from 'view-design'
 import 'view-design/dist/styles/iview.css'
+import '@/assets/icons/iconfont.css'
 
 // vue Resource
 import VueResource from 'vue-resource'
@@ -19,12 +20,17 @@ import VueParticles from 'vue-particles'
 // vue-cookies
 import VueCookies from 'vue-cookies'
 
+// mavonEditor
+import MavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+
 Vue.config.productionTip = false
 Vue.use(ViewUI)
 Vue.use(VueResource)
 Vue.use(Locale)
 Vue.use(VueParticles)
 Vue.use(VueCookies)
+Vue.use(MavonEditor)
 
 // const RouterConfig = {
 //   routes: Routers

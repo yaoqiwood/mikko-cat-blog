@@ -1,23 +1,32 @@
 // urls
 import Urls from './routersUrl'
-
-// components
-// main
-import MainIndex from '@/components/main/'
-// login
-import Login from '@/components/loginPage/Login'
+import RoutersComponents from './routersComponents'
 
 // index
 const MainComponent = {
   path: Urls.RIndexMainUrl,
   name: Urls.NIndexMain,
-  component: MainIndex
+  component: RoutersComponents.MainIndex,
+  meta: Urls.MLogin,
+  children: [
+    {
+      path: Urls.RChartsUrl,
+      name: Urls.NCharts,
+      component: RoutersComponents.ChartsIndexPage
+    },
+    {
+      path: Urls.RPassagesManagerUrl,
+      name: Urls.NPassagesManager,
+      component: RoutersComponents.PassagesManager,
+      meta: Urls.MPassagesManager
+    }
+  ]
 }
 // login
 const LoginComponent = {
   path: Urls.RLoginUrl,
   name: Urls.NLogin,
-  component: Login
+  component: RoutersComponents.Login
 }
 
 export default [MainComponent, LoginComponent]
