@@ -1,5 +1,7 @@
 package com.summer.cat.service.service.impl;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +36,7 @@ public class UserThirdpartyServiceImpl extends ServiceImpl<UserThirdpartyMapper,
         User register = userService.register(sysUser, Constant.RoleType.USER);
         // 初始化第三方信息
         UserThirdparty thirdparty = UserThirdparty.builder().providerType(param.getProvider()).openId(param.getOpenid())
-                .createTime(System.currentTimeMillis()).userNo(register.getUserNo()).status(Constant.ENABLE)
+                .createTime(new Date()).userNo(register.getUserNo()).status(Constant.ENABLE)
                 .accessToken(param.getToken()).build();
         this.save(thirdparty);
         return register;

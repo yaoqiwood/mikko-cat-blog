@@ -1,5 +1,6 @@
 package com.summer.cat.service.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,7 +73,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public User register(User user, String roleCode) {
         user.setUserNo(GenerationSequenceUtil.generateUUID("user"));
-        user.setCreateTime(System.currentTimeMillis());
+        user.setCreateTime(new Date());
         boolean result = this.save(user);
         if (result) {
             UserToRole userToRole = UserToRole.builder().userNo(user.getUserNo()).roleCode(roleCode).build();
@@ -274,7 +275,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         }
         user.setPassword(BCrypt.hashpw("123456", BCrypt.gensalt()));
         user.setUserNo(userNo);
-        user.setCreateTime(System.currentTimeMillis());
+        user.setCreateTime(new Date());
         user.setStatus(Constant.ENABLE);
         this.save(user);
         infoToUserService.save(InfoToUser.builder().userNo(userNo).identityInfo(user.getUsername())

@@ -157,7 +157,7 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
             String[] split = urlMethod.split(":--:");
             if (split[0].equals(httpServletRequest.getRequestURI())
                     && (split[1].equals(httpServletRequest.getMethod()) || split[1].equals("RequestMapping"))) {
-                Constant.isPass = true;
+                // Constant.isPass = true;
                 if (ComUtil.isEmpty(authorization)) {
                     // 如果当前url不需要认证，则注入当前登录用户时，给一个空的
                     httpServletRequest.setAttribute(Constant.CURRENT_USER_REQUEST_NAME, new User());
@@ -170,7 +170,7 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
                     && StringUtils.countMatches(urlMethod, "/") == StringUtils.countMatches(split[0], "/")
                     && (split[1].equals(httpServletRequest.getMethod()) || split[1].equals("RequestMapping"))) {
                 if (isSameUrl(split[0], httpServletRequest.getRequestURI())) {
-                    Constant.isPass = true;
+                    // Constant.isPass = true;
                     if (ComUtil.isEmpty(authorization)) {
                         httpServletRequest.setAttribute(Constant.CURRENT_USER_REQUEST_NAME, new User());
                         return true;
@@ -180,6 +180,7 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
                 }
             }
         }
+        // Constant.isPass = false;
         return false;
     }
 

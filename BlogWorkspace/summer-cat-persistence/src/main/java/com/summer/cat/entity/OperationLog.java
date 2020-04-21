@@ -1,6 +1,7 @@
 package com.summer.cat.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -71,7 +72,7 @@ public class OperationLog extends Model<OperationLog> {
      * 创建时间
      */
     @TableField("create_time")
-    private Long createTime;
+    private Date createTime;
 
     /**
      * 是否成功 1:成功 2异常

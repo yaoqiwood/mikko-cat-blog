@@ -13,7 +13,5 @@ public class MybatisPlusGenerator {
      */
     public static void main(String[] args) {
         MybatisPlusGeneratorUtil.executeGenerate();
-
     }
-
 }

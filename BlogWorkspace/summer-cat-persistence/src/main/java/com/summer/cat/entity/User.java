@@ -1,6 +1,7 @@
 package com.summer.cat.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -60,7 +61,7 @@ public class User extends Model<User> {
      * 创建时间
      */
     @TableField("create_time")
-    private Long createTime;
+    private Date createTime;
 
     /**
      * 头像

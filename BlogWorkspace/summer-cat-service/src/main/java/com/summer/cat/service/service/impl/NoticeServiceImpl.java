@@ -27,10 +27,10 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
 
     @Override
     public void insertByThemeNo(String themeNo, String mobile) {
-        Notice notice = Notice.builder().themeNo(themeNo).type(1).title("测试通知1111111111")
-                // 未读
-                .mobile(mobile).createTime(System.currentTimeMillis()).isRead(0).build();
-        this.save(notice);
+        // Notice notice =
+        // Notice.builder().themeNo(themeNo).type(1).title("测试通知1111111111").mobile(mobile)
+        // .createTime(System.currentTimeMillis()).isRead(0).build();
+        // this.save(notice);
     }
 
     @Override

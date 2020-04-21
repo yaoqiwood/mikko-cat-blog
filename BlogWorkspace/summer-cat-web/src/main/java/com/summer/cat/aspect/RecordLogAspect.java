@@ -80,7 +80,7 @@ public class RecordLogAspect extends AbstractAspectManager {
         }
         operationLog.setIp(getIpAddress(request));
         operationLog.setClassName(joinPoint.getTarget().getClass().getName());
-        operationLog.setCreateTime(startTime);
+        // operationLog.setCreateTime(startTime);
         operationLog.setLogDescription(log.description());
         operationLog.setModelName(log.modelName());
         operationLog.setAction(log.action());
