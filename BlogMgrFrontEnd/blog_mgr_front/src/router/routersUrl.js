@@ -6,7 +6,7 @@ const RLoginUrl = '/login'
 const NLogin = 'login'
 const MLogin = {
   bread: [
-    { name: '首頁', icons: 'md-home' }
+    {name: '首頁', icons: 'ios-home'}
   ]
 }
 // NIndex
@@ -17,8 +17,8 @@ const RPassagesManagerUrl = RIndexMainUrl + 'passagesManager'
 const NPassagesManager = 'passages:manager'
 const MPassagesManager = {
   bread: [
-    { name: '首頁', url: RIndexMainUrl, icons: 'md-home' },
-    { name: '文章管理' }
+    {name: '首頁', url: RIndexMainUrl, icons: 'md-home'},
+    {name: '文章管理'}
   ]
 }
 export default {

@@ -9,6 +9,7 @@ import routes from './router'
 import ViewUI from 'view-design'
 import 'view-design/dist/styles/iview.css'
 import '@/assets/icons/iconfont.css'
+import './assets/my-theme/my-theme-custom.less'
 
 // vue Resource
 import VueResource from 'vue-resource'

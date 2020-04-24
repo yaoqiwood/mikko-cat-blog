@@ -1,0 +1,186 @@
+// common
+// .ivu-form-item { // 普通表达间距
+//   margin: 0 auto 10px auto !important;
+// }
+// .ivu-form-item-required { // 必填项目标的间距
+//   margin: 0 auto 25px auto !important;
+// }
+label {
+  font-size: 13px;
+}
+
+.ivu-form .ivu-form-item-label {
+  font-size: 13px !important;
+  // width: 83px !important;
+}
+
+.ivu-form .ivu-btn {
+  font-size: 12px
+}
+
+.ivu-form-item-content {
+  font-size: 13px !important;
+  line-height: 31px !important; // margin-left: 83px !important;
+}
+
+.ivu-table td {
+  font-size: 13px !important;
+}
+
+.ivu-table th {
+  font-size: 13px !important;
+}
+
+.ivu-table .ivu-btn {
+  font-size: 12px
+}
+
+.ivu-page, .ivu-select {
+  font-size: 12px !important;
+}
+
+
+//数据列表
+/*按钮样式*/
+.table_action_btn {
+  margin-left: 10px;
+  color: #3e9fec;
+  cursor: pointer;
+}
+
+.ivu-input[disabled],
+.ivu-input-number-input[disabled],
+.ivu-select-disabled .ivu-select-selection,
+fieldset[disabled] .ivu-input {
+  color: #888 !important;
+  // #88B !important
+  opacity: 1 !important;
+  cursor: text !important;
+  user-select: inherit;
+}
+
+//搜索按钮去边框
+.ivu-btn-primary {
+  background-clip: padding-box;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+
+//统一Card中的head样式
+.card-head {
+  &-title {
+    display: flex;
+    align-items: center;
+  }
+
+  &-name {
+    font-size: 20px !important;
+    font-weight: bold !important;
+    height: 20px !important;
+    vertical-align: middle;
+    display: table-cell !important;
+  }
+
+  &-tag {
+    margin-left: 5px !important;
+  }
+}
+
+.view-form {
+  margin: auto;
+  margin-top: 30px;
+  width: 900px;
+}
+
+.main {
+  .logo-con {
+    height: 64px;
+    padding: 10px;
+
+    img {
+      height: 44px;
+      width: auto;
+      display: block;
+      margin: 0 auto;
+    }
+  }
+
+  .header-con {
+    background: #fff;
+    padding: 0 20px;
+    width: 100%;
+  }
+
+  .main-layout-con {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .main-content-con {
+    height: ~"calc(100% - 60px)";
+    /*滚动条设置*/
+    overflow: auto;
+    overflow-x: hidden;
+    border-top: 1px solid #17233d;
+  }
+
+  .tag-nav-wrapper {
+    padding: 0;
+    height: 40px;
+    background: #F0F0F0;
+  }
+
+  .content-wrapper {
+    padding: 10px 15px 10px;
+    height: ~"calc(100% - 80px)";
+    overflow: auto;
+  }
+
+  .left-sider {
+    .ivu-layout-sider-children {
+      overflow-y: scroll;
+      margin-right: -18px;
+    }
+  }
+}
+
+.ivu-menu-item > i {
+  margin-right: 12px !important;
+}
+
+.ivu-menu-submenu > .ivu-menu > .ivu-menu-item > i {
+  margin-right: 8px !important;
+}
+
+.collased-menu-dropdown {
+  width: 100%;
+  margin: 0;
+  line-height: normal;
+  padding: 7px 0 6px 16px;
+  clear: both;
+  font-size: 12px !important;
+  white-space: nowrap;
+  list-style: none;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+
+  &:hover {
+    background: rgba(100, 100, 100, 0.1);
+  }
+
+  & * {
+    color: #515a6e;
+  }
+
+  .ivu-menu-item > i {
+    margin-right: 12px !important;
+  }
+
+  .ivu-menu-submenu > .ivu-menu > .ivu-menu-item > i {
+    margin-right: 8px !important;
+  }
+}
+
+.ivu-select-dropdown.ivu-dropdown-transfer {
+  max-height: 400px;
+}
