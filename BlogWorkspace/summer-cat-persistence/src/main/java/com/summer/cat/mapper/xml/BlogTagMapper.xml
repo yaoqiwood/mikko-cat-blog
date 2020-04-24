@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.summer.cat.mapper.BlogTagMapper">
-
+    <insert id="insertTagByIgnoreIfExistTagName" useGeneratedKeys="true" keyProperty="id" parameterType="BlogTag">
+        INSERT IGNORE INTO `blog_tag`
+        VALUES (NULL, #{btTagName}, #{btTagColor}, NOW(), NULL, #{btCreator}, NULL, NULL)
+        ON DUPLICATE KEY UPDATE `bt_tag_color`= #{btTagColor}
+    </insert>
 </mapper>

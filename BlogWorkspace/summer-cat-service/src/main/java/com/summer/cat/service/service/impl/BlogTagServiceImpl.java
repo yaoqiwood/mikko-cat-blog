@@ -21,4 +21,10 @@ public class BlogTagServiceImpl extends ServiceImpl<BlogTagMapper, BlogTag> impl
     public QueryWrapper<BlogTag> buildWrapper(BlogTag var) {
         return null;
     }
+
+    @Override
+    public int insertTagByIgnoreIfExistTagName(BlogTag blogTag) {
+        return baseMapper.insertTagByIgnoreIfExistTagName(blogTag);
+    }
+
 }

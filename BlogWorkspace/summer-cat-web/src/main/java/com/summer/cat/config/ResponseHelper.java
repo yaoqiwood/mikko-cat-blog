@@ -19,6 +19,22 @@ public class ResponseHelper {
         return response;
     }
 
+    public static <T> ResponseModel<T> paramsError(String message) {
+        ResponseModel response = new ResponseModel();
+        response.setStatus(HttpStatus.BAD_REQUEST.value());
+        response.setCode(HttpStatus.BAD_REQUEST.getReasonPhrase());
+        response.setMessage(message);
+        return response;
+    }
+
+    public static <T> ResponseModel<T> badRequest(String message) {
+        ResponseModel response = new ResponseModel();
+        response.setStatus(HttpStatus.BAD_REQUEST.value());
+        response.setCode(HttpStatus.BAD_REQUEST.getReasonPhrase());
+        response.setMessage(message);
+        return response;
+    }
+
     public static <T> ResponseModel<T> internalServerError(String message) {
         ResponseModel response = new ResponseModel();
         response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
@@ -49,6 +65,7 @@ public class ResponseHelper {
         ResponseModel response = new ResponseModel();
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.setCode(HttpStatus.UNAUTHORIZED.getReasonPhrase());
+        response.setErrorValidation(true);
         response.setMessage(message);
         return response;
     }

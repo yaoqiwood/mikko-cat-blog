@@ -93,6 +93,10 @@ public class Constant {
         public static final String FIVE_OFFICE_DIR = "/office/";
     }
 
+    public class ErrorMessage {
+        public static final String PARAMS_ERROR = "paramsError";
+    }
+
     public class RoleType {
         // 超级管理员
         public static final String SYS_ASMIN_ROLE = "sysadmin";

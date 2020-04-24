@@ -15,4 +15,11 @@ import meme.cat.basic.service.BaseService;
 */
 public interface IBlogTagService extends BaseService<BlogTag> {
     QueryWrapper<BlogTag> buildWrapper(BlogTag var);
+
+    /**
+     * 插入tag （如有重复名称则丢弃
+     * @param blogTag
+     * @return
+     */
+    public int insertTagByIgnoreIfExistTagName(BlogTag blogTag);
 }

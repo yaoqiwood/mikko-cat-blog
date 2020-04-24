@@ -12,5 +12,5 @@ import com.summer.cat.entity.BlogTag;
  * @since 2020-04-23
  */
 public interface BlogTagMapper extends BaseMapper<BlogTag> {
-
+    int insertTagByIgnoreIfExistTagName(BlogTag blogTag);
 }

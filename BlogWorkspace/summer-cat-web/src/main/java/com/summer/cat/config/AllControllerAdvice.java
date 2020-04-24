@@ -14,12 +14,15 @@ import com.summer.cat.base.PublicResultConstant;
 import com.summer.cat.exception.ParamJsonException;
 import com.summer.cat.exception.UnauthorizedException;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Controller统一异常处理
  * @author : summer
  * @date : 2018/05/08
  */
 @ControllerAdvice
+@Slf4j
 public class AllControllerAdvice {
     private static Logger logger = LoggerFactory.getLogger(AllControllerAdvice.class);
 
@@ -45,7 +48,7 @@ public class AllControllerAdvice {
     public ResponseModel<String> errorHandler(Exception ex) {
         ex.printStackTrace();
         logger.error("接口出现严重异常：{}", ex.getMessage());
-        return ResponseHelper.validationFailure(PublicResultConstant.FAILED);
+        return ResponseHelper.badRequest(PublicResultConstant.FAILED);
     }
 
     /**
@@ -64,10 +67,11 @@ public class AllControllerAdvice {
      * @param e
      * @return
      */
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(ShiroException.class)
     @ResponseBody
     public ResponseModel<String> handleShiroException(ShiroException e) {
+        log.error("无权访问==========message:{}", e.getMessage());
         return ResponseHelper.accessFailure(PublicResultConstant.USER_NO_PERMITION);
     }
 
@@ -99,9 +103,9 @@ public class AllControllerAdvice {
     public ResponseModel<String> handleParamJsonException(Exception e) {
         if (e instanceof ParamJsonException) {
             logger.info("参数错误：" + e.getMessage());
-            return ResponseHelper.validationFailure("参数错误：" + e.getMessage());
+            return ResponseHelper.paramsError("参数错误：" + e.getMessage());
         }
-        return ResponseHelper.validationFailure(PublicResultConstant.ERROR);
+        return ResponseHelper.paramsError(PublicResultConstant.ERROR);
     }
 
 }

@@ -69,18 +69,14 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
         }
         this.save(blogArticle);
         for (BlogTag blogTag : blogTagList) {
-            try {
-                // tag 关联
-                BlogArticleTag articleTag = new BlogArticleTag();
-                articleTag.setBatBlogTagId(blogTag.getId());
-                articleTag.setBatBlogArticleId(blogArticle.getId());
-                articleTag.setBatBlogTagName(blogTag.getBtTagName());
-                articleTag.setBatCreateTime(new Date());
-                tagService.save(blogTag);
-                articleTagService.save(articleTag);
-            } catch (Exception e) {
-                log.warn("tag重名");
-            }
+            tagService.insertTagByIgnoreIfExistTagName(blogTag);
+            // tag 关联
+            BlogArticleTag articleTag = new BlogArticleTag();
+            articleTag.setBatBlogTagId(blogTag.getId());
+            articleTag.setBatBlogArticleId(blogArticle.getId());
+            articleTag.setBatBlogTagName(blogTag.getBtTagName());
+            articleTag.setBatCreateTime(new Date());
+            articleTagService.save(articleTag);
         }
         hisTagService.addTagHisList(blogTagList, userRoleVo);
     }
