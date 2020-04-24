@@ -19,8 +19,8 @@ import com.summer.cat.entity.User;
 import com.summer.cat.entity.UserToRole;
 import com.summer.cat.exception.UnauthorizedException;
 import com.summer.cat.service.service.*;
-import com.summer.cat.service.shiro.JWTToken;
 import com.summer.cat.util.ComUtil;
+import com.summer.cat.util.GsonUtil;
 import com.summer.cat.util.JWTUtil;
 
 /**
@@ -98,10 +98,12 @@ public class MyRealm extends AuthorizingRealm {
         }
         // 解密获得username，用于和数据库进行对比
         String userNo = JWTUtil.getUserNo(token);
+        String userStr = JWTUtil.getUserStr(token);
+        User userBean = GsonUtil.gson2Bean(userStr, User.class);
         if (userNo == null) {
             throw new UnauthorizedException("token invalid");
         }
-        User userBean = userService.getById(userNo);
+        // User userBean = userService.getById(userNo);
         if (userBean == null) {
             throw new UnauthorizedException("User didn't existed!");
         }

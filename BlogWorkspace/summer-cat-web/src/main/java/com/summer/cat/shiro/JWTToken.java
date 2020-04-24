@@ -1,4 +1,4 @@
-package com.summer.cat.service.shiro;
+package com.summer.cat.shiro;
 
 import org.apache.shiro.authc.AuthenticationToken;
 

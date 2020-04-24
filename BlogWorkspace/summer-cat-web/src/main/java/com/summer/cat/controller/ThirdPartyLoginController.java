@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -27,6 +28,7 @@ import com.summer.cat.model.ThirdPartyUser;
 import com.summer.cat.service.service.IUserService;
 import com.summer.cat.service.service.IUserThirdpartyService;
 import com.summer.cat.util.ComUtil;
+import com.summer.cat.vo.UserRoleVo;
 
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -196,6 +198,8 @@ public class ThirdPartyLoginController {
         } else {
             sysUser = userService.getById(userThirdparty.getUserNo());
         }
-        return userService.getLoginUserAndMenuInfo(sysUser);
+        UserRoleVo userRoleVo = new UserRoleVo();
+        BeanUtils.copyProperties(sysUser, userRoleVo);
+        return userService.getLoginUserAndMenuInfo(userRoleVo);
     }
 }

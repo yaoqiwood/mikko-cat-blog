@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.summer.cat.entity.User;
+import com.summer.cat.vo.UserRoleVo;
 
 /**
  * <p>
@@ -34,7 +35,7 @@ public interface IUserService extends IService<User> {
      */
     User register(User user, String roleCode);
 
-    Map<String, Object> getLoginUserAndMenuInfo(User user);
+    Map<String, Object> getLoginUserAndMenuInfo(UserRoleVo user);
 
     void deleteByUserNo(String userNo) throws Exception;
 

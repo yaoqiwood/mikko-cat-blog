@@ -46,6 +46,7 @@ public class MenuController {
     @ResponseBody
     public Map<String, ? extends Object> getMenu(HttpServletRequest request) {
         try {
+            // TODO 后续使用redis替换
             UserRoleVo userRoleBean = (UserRoleVo) request.getAttribute(Constant.CURRENT_USER_REQUEST_NAME);
             List<Menu> menuList = menuService.findMenuByRoleCode(userRoleBean.getUserToRole().getRoleCode());
             return Returns.mapOk(menuList, Constant.ReturnsMessage.SUCCESS_MSG);

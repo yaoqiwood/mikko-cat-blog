@@ -2,6 +2,7 @@ package com.summer.cat.service.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.summer.cat.entity.BlogArticle;
+import com.summer.cat.vo.UserRoleVo;
 
 import meme.cat.basic.service.BaseService;
 
@@ -15,4 +16,11 @@ import meme.cat.basic.service.BaseService;
 */
 public interface IBlogArticleService extends BaseService<BlogArticle> {
     QueryWrapper<BlogArticle> buildWrapper(BlogArticle var);
+
+    /**
+     * 创建博文
+     * @param passageJSON
+     * @param tagsJSON
+     */
+    public void createPassage(String passageJSON, String tagsJSON, UserRoleVo userRoleVo);
 }

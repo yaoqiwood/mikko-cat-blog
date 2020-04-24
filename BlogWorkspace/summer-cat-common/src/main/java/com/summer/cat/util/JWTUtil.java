@@ -49,18 +49,29 @@ public class JWTUtil {
         }
     }
 
+    public static String getUserStr(String token) {
+        try {
+            DecodedJWT jwt = JWT.decode(token);
+            return jwt.getClaim("userStr").asString();
+        } catch (JWTDecodeException e) {
+            return null;
+        }
+    }
+
     /**
      * 生成签名,指定时间后过期,一经生成不可修改，令牌在指定时间内一直有效
      * @param userNo 用户编号
      * @param secret 用户的密码
      * @return 加密的token
      */
-    public static String sign(String userNo, String secret) {
+    public static String sign(String userNo, String secret, Object user) {
         try {
             Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);
             Algorithm algorithm = Algorithm.HMAC256(secret);
             // 附带username信息
-            return JWT.create().withClaim("userNo", userNo).withExpiresAt(date).sign(algorithm);
+            String userStr = GsonUtil.gson2String(user);
+            return JWT.create().withClaim("userNo", userNo).withClaim("userStr", userStr).withExpiresAt(date)
+                    .sign(algorithm);
         } catch (UnsupportedEncodingException e) {
             return null;
         }

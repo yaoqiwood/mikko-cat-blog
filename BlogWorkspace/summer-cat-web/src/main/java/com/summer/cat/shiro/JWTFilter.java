@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
-import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -19,13 +18,12 @@ import com.summer.cat.base.Constant;
 import com.summer.cat.base.PublicResultConstant;
 import com.summer.cat.config.ResponseHelper;
 import com.summer.cat.entity.User;
-import com.summer.cat.entity.UserToRole;
 import com.summer.cat.service.service.IUserService;
 import com.summer.cat.service.service.IUserToRoleService;
 import com.summer.cat.service.service.SpringContextBeanService;
-import com.summer.cat.service.shiro.JWTToken;
 import com.summer.cat.util.CatsException;
 import com.summer.cat.util.ComUtil;
+import com.summer.cat.util.GsonUtil;
 import com.summer.cat.util.JWTUtil;
 import com.summer.cat.vo.UserRoleVo;
 
@@ -106,12 +104,9 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
             throw new CatsException("错误！无此用户");
         }
         if (null == request.getAttribute(Constant.CURRENT_USER_REQUEST_NAME)) {
-            UserRoleVo userRoleVo = new UserRoleVo();
-            User userBean = userService.getById(userNo);
-            UserToRole userToRole = userToRoleService.selectByUserNo(userBean.getUserNo());
-            BeanUtils.copyProperties(userBean, userRoleVo);
-            userRoleVo.setUserToRole(userToRole);
-            request.setAttribute(Constant.CURRENT_USER_REQUEST_NAME, userRoleVo);
+            UserRoleVo userBean = GsonUtil.gson2Bean(JWTUtil.getUserStr(token.getPrincipal().toString()),
+                    UserRoleVo.class);
+            request.setAttribute(Constant.CURRENT_USER_REQUEST_NAME, userBean);
         }
     }
 

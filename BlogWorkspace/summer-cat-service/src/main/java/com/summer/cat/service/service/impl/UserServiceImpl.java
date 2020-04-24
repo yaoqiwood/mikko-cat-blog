@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +18,11 @@ import com.summer.cat.base.BusinessException;
 import com.summer.cat.base.Constant;
 import com.summer.cat.base.PublicResultConstant;
 import com.summer.cat.entity.*;
+import com.summer.cat.enums.EnumLoginStatus;
 import com.summer.cat.mapper.UserMapper;
 import com.summer.cat.service.service.*;
 import com.summer.cat.util.*;
+import com.summer.cat.vo.UserRoleVo;
 
 /**
  * <p>
@@ -83,10 +86,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public Map<String, Object> getLoginUserAndMenuInfo(User user) {
+    public Map<String, Object> getLoginUserAndMenuInfo(UserRoleVo user) {
         Map<String, Object> result = new HashMap<>();
         // token生成
-        String stringToken = JWTUtil.sign(user.getUserNo(), user.getPassword());
+        String stringToken = JWTUtil.sign(user.getUserNo(), user.getPassword(), user);
         user.setPassword("");
         result.put(Constant.RoleType.USER, user);
         result.put(Constant.TOKEN, stringToken);
@@ -127,13 +130,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         }
         Map<String, String> userMapper = new HashMap<>();
         userMapper.put("user_no", infoToUser.getUserNo());
-        userMapper.put("status", "1");
+        userMapper.put("status", EnumLoginStatus.ENABLE.getCode());
         User user = this.getOne(new QueryWrapper<User>().allEq(userMapper));
         if (ComUtil.isEmpty(user) || !BCrypt.checkpw(requestJson.getString("password"), user.getPassword())) {
             throw new BusinessException(PublicResultConstant.INVALID_USERNAME_PASSWORD);
         }
+
+        // 获取角色
+        UserRoleVo userRoleBean = new UserRoleVo();
+        UserToRole userToRole = userToRoleService.selectByUserNo(user.getUserNo());
+        BeanUtils.copyProperties(user, userRoleBean);
+        userRoleBean.setUserToRole(userToRole);
         // 测试websocket用户登录给管理员发送消息的例子 前端代码参考父目录下WebSocketDemo.html
-        return this.getLoginUserAndMenuInfo(user);
+        return this.getLoginUserAndMenuInfo(userRoleBean);
     }
 
     @Override
@@ -161,7 +170,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
                     .username(mobile).build();
             user = this.register(userRegister, Constant.RoleType.USER);
         }
-        return this.getLoginUserAndMenuInfo(user);
+        UserRoleVo userRoleVo = new UserRoleVo();
+        BeanUtils.copyProperties(user, userRoleVo);
+        return this.getLoginUserAndMenuInfo(userRoleVo);
     }
 
     @Override

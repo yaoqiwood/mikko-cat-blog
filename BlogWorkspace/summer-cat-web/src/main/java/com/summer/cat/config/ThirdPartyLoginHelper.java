@@ -1,17 +1,18 @@
 package com.summer.cat.config;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.summer.cat.model.ThirdPartyUser;
-import com.summer.cat.util.HttpUtil;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.summer.cat.model.ThirdPartyUser;
+import com.summer.cat.util.HttpUtil;
 
 /**
  * 第三方登录辅助类
@@ -99,7 +100,7 @@ public final class ThirdPartyLoginHelper {
         JSONObject json = JSON.parseObject(res);
         String name = json.getString("name");
         String nickName = StringUtils.isBlank(json.getString("screen_name")) ? name : json.getString("screen_name");
-        ThirdPartyUser user =ThirdPartyUser.builder().avatarUrl(json.getString("avatar_large")).username(nickName)
+        ThirdPartyUser user = ThirdPartyUser.builder().avatarUrl(json.getString("avatar_large")).username(nickName)
                 .token(token).openid(uid).provider("sina").build();
         if ("f".equals(json.getString("gender"))) {
             user.setGender("0");
@@ -120,9 +121,10 @@ public final class ThirdPartyLoginHelper {
         Map<String, String> map = new HashMap<String, String>();
         // 获取令牌
         String tokenUrl = ResourcesConfig.THIRDPARTY.getString("accessTokenURL_qq");
-        tokenUrl = tokenUrl + "?grant_type=authorization_code&client_id=" + ResourcesConfig.THIRDPARTY.getString("app_id_qq")
-        + "&client_secret=" + ResourcesConfig.THIRDPARTY.getString("app_key_qq") + "&code=" + code
-        + "&redirect_uri=http://" + host + ResourcesConfig.THIRDPARTY.getString("redirect_url_qq");
+        tokenUrl = tokenUrl + "?grant_type=authorization_code&client_id="
+                + ResourcesConfig.THIRDPARTY.getString("app_id_qq") + "&client_secret="
+                + ResourcesConfig.THIRDPARTY.getString("app_key_qq") + "&code=" + code + "&redirect_uri=http://" + host
+                + ResourcesConfig.THIRDPARTY.getString("redirect_url_qq");
         String tokenRes = HttpUtil.get(tokenUrl);
         if (tokenRes != null && tokenRes.indexOf("access_token") > -1) {
             Map<String, String> tokenMap = toMap(tokenRes);
@@ -154,7 +156,8 @@ public final class ThirdPartyLoginHelper {
         // 获取令牌
         String tokenUrl = ResourcesConfig.THIRDPARTY.getString("accessTokenURL_wx");
         tokenUrl = tokenUrl + "?appid=" + ResourcesConfig.THIRDPARTY.getString("app_id_wx") + "&secret="
-                + ResourcesConfig.THIRDPARTY.getString("app_key_wx") + "&code=" + code + "&grant_type=authorization_code";
+                + ResourcesConfig.THIRDPARTY.getString("app_key_wx") + "&code=" + code
+                + "&grant_type=authorization_code";
         String tokenRes = HttpUtil.get(tokenUrl);
         if (tokenRes != null && tokenRes.indexOf("access_token") > -1) {
             Map<String, String> tokenMap = toMap(tokenRes);
@@ -230,17 +233,17 @@ public final class ThirdPartyLoginHelper {
         return map;
     }
 
-    public static String getRedirectUrl(String host , String type) {
+    public static String getRedirectUrl(String host, String type) {
         String url = "";
         url = ResourcesConfig.THIRDPARTY.getString("authorizeURL_" + type);
         if ("wx".equals(type)) {
-            url = url + "?appid=" + ResourcesConfig.THIRDPARTY.getString("app_id_" + type) + "&redirect_uri=http://" + host
-                    + ResourcesConfig.THIRDPARTY.getString("redirect_url_" + type) + "&response_type=code&scope="
+            url = url + "?appid=" + ResourcesConfig.THIRDPARTY.getString("app_id_" + type) + "&redirect_uri=http://"
+                    + host + ResourcesConfig.THIRDPARTY.getString("redirect_url_" + type) + "&response_type=code&scope="
                     + ResourcesConfig.THIRDPARTY.getString("scope_" + type) + "&state=fhmj";
         } else {
-            url = url + "?client_id=" + ResourcesConfig.THIRDPARTY.getString("app_id_" + type) + "&response_type=code&scope="
-                    + ResourcesConfig.THIRDPARTY.getString("scope_" + type) + "&redirect_uri=http://" + host
-                    + ResourcesConfig.THIRDPARTY.getString("redirect_url_" + type);
+            url = url + "?client_id=" + ResourcesConfig.THIRDPARTY.getString("app_id_" + type)
+                    + "&response_type=code&scope=" + ResourcesConfig.THIRDPARTY.getString("scope_" + type)
+                    + "&redirect_uri=http://" + host + ResourcesConfig.THIRDPARTY.getString("redirect_url_" + type);
         }
         return url;
     }
