@@ -4,7 +4,8 @@ import NetConstants from '../constants/NetConstants'
 import CookieService from '@/service/CookieService'
 import RouterUtil from '@/router/routersUtil'
 import RouterUrl from '@/router/routersUrl'
-import { Message } from 'view-design'
+import ColorConstant from '@/constants/ColorConstant'
+import {Message} from 'view-design'
 
 export default {
   httpGet (url) {
@@ -62,5 +63,8 @@ export default {
     if (!NetConstants.POST_HEADERS.Authorization) {
       CookieService.judgeMountUserToken()
     }
+  },
+  colorRandom () {
+    return ColorConstant.TAG_COLOR[Math.floor(Math.random() * Math.floor(ColorConstant.TAG_COLOR.length))]
   }
 }

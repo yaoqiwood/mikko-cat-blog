@@ -21,7 +21,8 @@ const SYS_ANNEX_CONFIG_INFO_URLS = {
 
 // 文章管理
 const PASSAGES_URLS = {
-  POST_SEARCH_ITEMS_URL: NET_CONSTANTS.PROJECT_NAME_PATH + 'blogManager/blog-article/searchItems'
+  POST_SEARCH_ITEMS_URL: NET_CONSTANTS.PROJECT_NAME_PATH + 'blog/blog-article/searchItems',
+  POST_CREATE_TIEMS_URL: NET_CONSTANTS.PROJECT_NAME_PATH + 'blog/blog-article/createPassage'
 }
 
 export default {
