@@ -47,7 +47,11 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
 
     @Override
     public QueryWrapper<BlogArticle> buildWrapper(BlogArticle var) {
-        return null;
+        QueryWrapper<BlogArticle> queryWrapper = new QueryWrapper<>();
+        if (!Strings.isNullOrEmpty(var.getBaTitle())) {
+            queryWrapper.like("ba_title", var.getBaTitle());
+        }
+        return queryWrapper;
     }
 
     /**
@@ -67,6 +71,9 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
         if (!Strings.isNullOrEmpty(tagsJSON)) {
             blogTagList = GsonUtil.gson2List(tagsJSON, BlogTag.class);
         }
+        blogArticle.setBaSummary(
+                blogArticle.getBaContent().substring(0, Math.min(blogArticle.getBaContent().length(), 100)));
+        blogArticle.setBaCreateTime(new Date());
         this.save(blogArticle);
         for (BlogTag blogTag : blogTagList) {
             tagService.insertTagByIgnoreIfExistTagName(blogTag);
