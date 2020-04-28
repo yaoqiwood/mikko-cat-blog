@@ -6,4 +6,14 @@
         VALUES (NULL, #{btTagName}, #{btTagColor}, NOW(), NULL, #{btCreator}, NULL, NULL)
         ON DUPLICATE KEY UPDATE `bt_tag_color`= #{btTagColor}
     </insert>
+
+    <select id="selectTagsByArticleId" resultType="BlogTag">
+        SELECT
+            *
+        FROM
+            blog_tag A
+            LEFT JOIN blog_article_tag B ON A.id = B.bat_blog_tag_id
+        WHERE
+            B.bat_blog_article_id = #{blogArticleId}
+    </select>
 </mapper>

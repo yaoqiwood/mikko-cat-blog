@@ -1,5 +1,7 @@
 package com.summer.cat.service.service.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -18,6 +20,8 @@ import com.summer.cat.service.service.IBlogTagService;
 */
 @Service
 public class BlogTagServiceImpl extends ServiceImpl<BlogTagMapper, BlogTag> implements IBlogTagService {
+
+    @Override
     public QueryWrapper<BlogTag> buildWrapper(BlogTag var) {
         return null;
     }
@@ -25,6 +29,16 @@ public class BlogTagServiceImpl extends ServiceImpl<BlogTagMapper, BlogTag> impl
     @Override
     public int insertTagByIgnoreIfExistTagName(BlogTag blogTag) {
         return baseMapper.insertTagByIgnoreIfExistTagName(blogTag);
+    }
+
+    /**
+     * 根据文章id获取相关文章tag
+     * @param id
+     * @return
+     */
+    @Override
+    public List<BlogTag> selectTagsByArticleId(String id) {
+        return baseMapper.selectTagsByArticleId(id);
     }
 
 }

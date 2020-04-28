@@ -1,6 +1,9 @@
 package com.summer.cat.enums;
 
 public enum EnumLoginStatus {
+    /**
+     * enable forbidden delete
+     */
     ENABLE("enable", "1"), FORBIDDEN("forbidden", "2"), DELETE("delete", "3");
 
     EnumLoginStatus(String name, String code) {

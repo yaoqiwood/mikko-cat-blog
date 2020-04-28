@@ -1,8 +1,6 @@
 package com.summer.cat.service.service.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,9 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.base.Strings;
+import com.summer.cat.dto.BlogArticle4Search;
 import com.summer.cat.entity.BlogArticle;
 import com.summer.cat.entity.BlogArticleTag;
 import com.summer.cat.entity.BlogTag;
+import com.summer.cat.enums.EnumArticleStatus;
 import com.summer.cat.mapper.BlogArticleMapper;
 import com.summer.cat.service.service.IBlogArticleService;
 import com.summer.cat.service.service.IBlogArticleTagService;
@@ -49,7 +49,21 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
     public QueryWrapper<BlogArticle> buildWrapper(BlogArticle var) {
         QueryWrapper<BlogArticle> queryWrapper = new QueryWrapper<>();
         if (!Strings.isNullOrEmpty(var.getBaTitle())) {
-            queryWrapper.like("ba_title", var.getBaTitle());
+            queryWrapper.lambda().like(BlogArticle::getBaTitle, var.getBaTitle());
+        }
+        // 筛选非删除状态
+        queryWrapper.lambda().ne(BlogArticle::getBaStatus, EnumArticleStatus.DELETED.getCode());
+        return queryWrapper;
+    }
+
+    @Override
+    public QueryWrapper<BlogArticle> buildWrapper4Search(BlogArticle4Search var) {
+        QueryWrapper<BlogArticle> queryWrapper = this.buildWrapper(var);
+        if (null != var.getBaCreateTimeBegin()) {
+            queryWrapper.lambda().gt(BlogArticle::getBaCreateTime, var.getBaCreateTimeBegin());
+        }
+        if (null != var.getBaCreateTimeEnd()) {
+            queryWrapper.lambda().le(BlogArticle::getBaCreateTime, var.getBaCreateTimeEnd());
         }
         return queryWrapper;
     }
@@ -86,5 +100,20 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
             articleTagService.save(articleTag);
         }
         hisTagService.addTagHisList(blogTagList, userRoleVo);
+    }
+
+    /**
+     * 查找文章以及tags
+     * @param id
+     * @return
+     */
+    @Override
+    public Map<String, Object> findPassageAndTagsById(String id) {
+        Map<String, Object> blogArticleAndTagListMap = new HashMap<>(16);
+        BlogArticle blogArticle = this.getById(id);
+        List<BlogTag> tagList = tagService.selectTagsByArticleId(id);
+        blogArticleAndTagListMap.put("blogArticle", blogArticle);
+        blogArticleAndTagListMap.put("tagList", tagList);
+        return blogArticleAndTagListMap;
     }
 }
