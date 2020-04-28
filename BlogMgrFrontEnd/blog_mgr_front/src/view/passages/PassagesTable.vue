@@ -9,7 +9,12 @@
                :data="data">
           <template slot-scope="{ row }"
                     slot="action">
-            <Button size="small">查看</Button>
+            <Button size="small"
+                    @click="deletePassage(row)">删除
+            </Button>
+            <Button size="small"
+                    @click="openViewModal(row)">查看
+            </Button>
           </template>
         </Table>
       </Col>
@@ -106,6 +111,20 @@ export default {
           slot: 'action'
         }
       ]
+    }
+  },
+  methods: {
+    openViewModal (row) {
+      this.$emit('openViewModal', row.id)
+    },
+    deletePassage (row) {
+      this.$Modal.confirm({
+        title: '提示',
+        content: '确认是否要删除',
+        onOk: () => {
+          this.$emit('deletePassage', row.id)
+        }
+      })
     }
   }
 }

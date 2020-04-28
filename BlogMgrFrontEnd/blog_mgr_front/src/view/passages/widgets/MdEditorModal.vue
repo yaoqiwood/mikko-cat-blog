@@ -4,7 +4,7 @@
            title="写博客"
            draggable
            :closable="false"
-           :styles="{top: '20px'}"
+           :styles="{top: '35px'}"
            :z-index="999"
            :width="1300">
       <div style="height:500px;overflow-y:auto">
@@ -18,9 +18,6 @@
         <mavon-editor v-model="dataModel.baContent"
                       style="min-height:440px"/>
       </div>
-      <!-- :toolbarsFlag="false"
-                      :subfield="false"
-                      defaultOpen="preview" -->
       <div slot="footer">
         <Button @click="onCancel">取消</Button>
         <Button @click="onOk"

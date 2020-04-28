@@ -14,9 +14,9 @@
           <div class="layout-nav">
             <Dropdown @on-click="onSelect">
               <div class="inner_drop_down">
-                <Icon type="ios-stats" />
+                <Icon type="ios-stats"/>
                 {{userObj.username}}
-                <Icon type="ios-arrow-down" />
+                <Icon type="ios-arrow-down"/>
               </div>
               <DropdownMenu slot="list"
                             style="text-align:center">
@@ -68,9 +68,9 @@
           <div>
             <Icon @click.native="collapsedSider"
                   :class="rotateIcon"
-                  :style="{margin: '0 0',display:'block',width:'20px',float:'left', position: 'relative',top: '13.5px'}"
+                  :style="{margin: '0 0',display:'block',width:'20px',float:'left', position: 'relative',top: '13.5px',cursor:'pointer'}"
                   type="md-menu"
-                  size="24" />
+                  size="24"/>
             <custom-bread-crumb show-icon
                                 :style="{margin: '15px 0',display:'block',width:'300px',float:'left',position: 'relative',left: '20px'}"
                                 :list="breadCrumbList"></custom-bread-crumb>
@@ -83,7 +83,7 @@
 
           <Content :style="{padding: '0px', minHeight: '280px', background: '#fff'}">
             <!-- Content -->
-            <router-view style="padding:10px 20px 0 20px" />
+            <router-view style="padding:10px 20px 0 20px"/>
           </Content>
         </Layout>
       </Layout>
@@ -100,6 +100,7 @@ import RouterUtil from '@/router/routersUtil'
 import RouterUrls from '@/router/routersUrl'
 import Constants from '@/constants/Constants'
 import CustomBreadCrumb from './customBreadCrumb'
+
 export default {
   name: 'MainPage',
   beforeRouteEnter (to, from, next) {
@@ -198,5 +199,5 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@import "./less/MainPage.less";
+  @import "./less/MainPage.less";
 </style>

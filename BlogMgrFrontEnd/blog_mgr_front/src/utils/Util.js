@@ -66,5 +66,8 @@ export default {
   },
   colorRandom () {
     return ColorConstant.TAG_COLOR[Math.floor(Math.random() * Math.floor(ColorConstant.TAG_COLOR.length))]
+  },
+  jsonDeepCopy (params) {
+    return JSON.parse(JSON.stringify(params))
   }
 }

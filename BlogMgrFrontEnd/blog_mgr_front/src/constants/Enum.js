@@ -8,4 +8,27 @@ const ENUM_BLOCK_COMMENT = {
     code: '1'
   }
 }
-export default {ENUM_BLOCK_COMMENT}
+
+const ENUM_BA_STATUS = {
+  FORBIDDEN_VIEW: {
+    name: '不可查看',
+    code: '0'
+  },
+  ABLE_VIEW: {
+    name: '可查看',
+    code: '1'
+  },
+  DRAFT: {
+    name: '草稿',
+    code: '2'
+  },
+  DELETED: {
+    name: '已删除',
+    code: '9'
+  }
+}
+
+export default {
+  ENUM_BLOCK_COMMENT,
+  ENUM_BA_STATUS
+}

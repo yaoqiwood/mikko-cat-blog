@@ -22,7 +22,11 @@ const SYS_ANNEX_CONFIG_INFO_URLS = {
 // 文章管理
 const PASSAGES_URLS = {
   POST_SEARCH_ITEMS_URL: NET_CONSTANTS.PROJECT_NAME_PATH + 'blog/blog-article/searchItems',
-  POST_CREATE_TIEMS_URL: NET_CONSTANTS.PROJECT_NAME_PATH + 'blog/blog-article/createPassage'
+  POST_ADVANCED_SEARCH_ITEMS_URL: NET_CONSTANTS.PROJECT_NAME_PATH + 'blog/blog-article/searchPassages',
+  POST_CREATE_ITEMS_URL: NET_CONSTANTS.PROJECT_NAME_PATH + 'blog/blog-article/createPassage',
+  POST_FIND_BY_ID_URL: NET_CONSTANTS.PROJECT_NAME_PATH + 'blog/blog-article/findItemById',
+  POST_FIND_ITEMS_TAGS_URL: NET_CONSTANTS.PROJECT_NAME_PATH + 'blog/blog-article/findPassageAndTagsById',
+  POST_UPDATE_ITEM_BY_ID: NET_CONSTANTS.PROJECT_NAME_PATH + 'blog/blog-article/updateItem'
 }
 
 export default {
