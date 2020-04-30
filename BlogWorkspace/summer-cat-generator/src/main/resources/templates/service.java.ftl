@@ -17,6 +17,5 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 interface ${table.serviceName} : BaseService<${entity}>
 <#else>
 public interface ${table.serviceName} extends BaseService<${entity}> {
-	QueryWrapper<${entity}> buildWrapper(${entity} var);
 }
 </#if>

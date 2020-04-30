@@ -1,12 +1,19 @@
 package com.summer.cat.service.service.impl;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.google.common.base.Strings;
 import com.summer.cat.entity.BlogArticleDraft;
+import com.summer.cat.enums.EnumDraftStatus;
 import com.summer.cat.mapper.BlogArticleDraftMapper;
 import com.summer.cat.service.service.IBlogArticleDraftService;
+import com.summer.cat.vo.UserRoleVo;
 
 /**
 * <p>
@@ -19,7 +26,57 @@ import com.summer.cat.service.service.IBlogArticleDraftService;
 @Service
 public class BlogArticleDraftServiceImpl extends ServiceImpl<BlogArticleDraftMapper, BlogArticleDraft>
         implements IBlogArticleDraftService {
+
+    @Override
     public QueryWrapper<BlogArticleDraft> buildWrapper(BlogArticleDraft var) {
-        return null;
+        QueryWrapper<BlogArticleDraft> wrapper = new QueryWrapper<>();
+        if (!Strings.isNullOrEmpty(var.getBadCreator())) {
+            wrapper.lambda().eq(BlogArticleDraft::getBadCreator, var.getBadBlogArticleId());
+        }
+        return wrapper;
+    }
+
+    /**
+     * 查找新增文章时当前用户下是否存在已有保存的草稿
+     * @param userRoleVo
+     * @return
+     */
+    @Override
+    public Map<String, Object> findDraftAddPassage(UserRoleVo userRoleVo) {
+        BlogArticleDraft draft4Search = new BlogArticleDraft();
+        draft4Search.setBadCreator(userRoleVo.getUserNo());
+        QueryWrapper<BlogArticleDraft> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(BlogArticleDraft::getBadCreator, userRoleVo.getUserNo());
+        queryWrapper.lambda().eq(BlogArticleDraft::getBadStatus, EnumDraftStatus.DRAFT.getCode());
+        queryWrapper.lambda().isNull(BlogArticleDraft::getBadBlogArticleId);
+        BlogArticleDraft articleDraft4Ret = this.getOne(queryWrapper);
+        Map<String, Object> returnMap = new HashMap<>(16);
+        if (null != articleDraft4Ret) {
+            returnMap.put("hasDraft", true);
+            returnMap.put("draft", articleDraft4Ret);
+        } else {
+            returnMap.put("hasDraft", false);
+        }
+        return returnMap;
+    }
+
+    /**
+     * 新增文章时保存草稿信息
+     * 是否有id 有则更新 无则设定草稿状态未发布 set User信息
+     * @param draft
+     * @param userRoleVo
+     * @return
+     */
+    @Override
+    public void saveAddDraft(BlogArticleDraft draft, UserRoleVo userRoleVo) {
+        if (null == draft.getId()) {
+            draft.setBadCreator(userRoleVo.getUserNo());
+            draft.setBadStatus(EnumDraftStatus.DRAFT.getCode());
+            draft.setBadCreateTime(new Date());
+        } else {
+            draft.setBadUpdater(userRoleVo.getUserNo());
+            draft.setBadUpdateTime(new Date());
+        }
+        this.saveOrUpdate(draft);
     }
 }

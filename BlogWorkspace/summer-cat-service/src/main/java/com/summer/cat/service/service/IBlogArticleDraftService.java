@@ -1,7 +1,9 @@
 package com.summer.cat.service.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import java.util.Map;
+
 import com.summer.cat.entity.BlogArticleDraft;
+import com.summer.cat.vo.UserRoleVo;
 
 import meme.cat.basic.service.BaseService;
 
@@ -14,5 +16,18 @@ import meme.cat.basic.service.BaseService;
 * @since 2020-04-21
 */
 public interface IBlogArticleDraftService extends BaseService<BlogArticleDraft> {
-    QueryWrapper<BlogArticleDraft> buildWrapper(BlogArticleDraft var);
+    /**
+     * 查找新增文章时当前用户下是否存在已有保存的草稿
+     * @param userRoleVo
+     * @return
+     */
+    Map<String, Object> findDraftAddPassage(UserRoleVo userRoleVo);
+
+    /**
+     * 新增文章时保存草稿信息
+     * @param draft
+     * @param userRoleVo
+     * @return
+     */
+    void saveAddDraft(BlogArticleDraft draft, UserRoleVo userRoleVo);
 }

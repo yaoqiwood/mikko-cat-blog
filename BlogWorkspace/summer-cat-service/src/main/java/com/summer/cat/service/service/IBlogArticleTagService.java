@@ -1,6 +1,5 @@
 package com.summer.cat.service.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.summer.cat.entity.BlogArticleTag;
 
 import meme.cat.basic.service.BaseService;
@@ -14,6 +13,5 @@ import meme.cat.basic.service.BaseService;
 * @since 2020-04-23
 */
 public interface IBlogArticleTagService extends BaseService<BlogArticleTag> {
-    QueryWrapper<BlogArticleTag> buildWrapper(BlogArticleTag var);
 
 }

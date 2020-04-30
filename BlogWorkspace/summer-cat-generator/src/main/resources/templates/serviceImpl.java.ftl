@@ -22,6 +22,13 @@ open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperNam
 }
 <#else>
 public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}> implements ${table.serviceName} {
+
+	/**
+	* 用于构造搜索接口的条件
+	* @param var
+	* @return
+	*/
+	@Override
 	public QueryWrapper<${entity}> buildWrapper(${entity} var) {
 		return null;
 	}

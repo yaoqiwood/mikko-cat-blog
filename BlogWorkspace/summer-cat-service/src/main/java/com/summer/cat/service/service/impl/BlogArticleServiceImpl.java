@@ -14,10 +14,7 @@ import com.summer.cat.entity.BlogArticleTag;
 import com.summer.cat.entity.BlogTag;
 import com.summer.cat.enums.EnumArticleStatus;
 import com.summer.cat.mapper.BlogArticleMapper;
-import com.summer.cat.service.service.IBlogArticleService;
-import com.summer.cat.service.service.IBlogArticleTagService;
-import com.summer.cat.service.service.IBlogHisTagService;
-import com.summer.cat.service.service.IBlogTagService;
+import com.summer.cat.service.service.*;
 import com.summer.cat.util.CatsException;
 import com.summer.cat.util.GsonUtil;
 import com.summer.cat.vo.UserRoleVo;
@@ -38,11 +35,14 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
 
     final IBlogHisTagService hisTagService;
 
+    final IBlogArticleDraftService articleDraftService;
+
     public BlogArticleServiceImpl(IBlogArticleTagService articleTagService, IBlogTagService tagService,
-            IBlogHisTagService hisTagService) {
+            IBlogHisTagService hisTagService, IBlogArticleDraftService articleDraftService) {
         this.articleTagService = articleTagService;
         this.tagService = tagService;
         this.hisTagService = hisTagService;
+        this.articleDraftService = articleDraftService;
     }
 
     @Override
@@ -116,4 +116,5 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
         blogArticleAndTagListMap.put("tagList", tagList);
         return blogArticleAndTagListMap;
     }
+
 }

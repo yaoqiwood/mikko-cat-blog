@@ -19,8 +19,6 @@ import meme.cat.basic.service.BaseService;
 */
 public interface IBlogArticleService extends BaseService<BlogArticle> {
 
-    QueryWrapper<BlogArticle> buildWrapper(BlogArticle var);
-
     QueryWrapper<BlogArticle> buildWrapper4Search(BlogArticle4Search var);
 
     /**
@@ -36,4 +34,5 @@ public interface IBlogArticleService extends BaseService<BlogArticle> {
      * @return
      */
     Map<String, Object> findPassageAndTagsById(String id);
+
 }
