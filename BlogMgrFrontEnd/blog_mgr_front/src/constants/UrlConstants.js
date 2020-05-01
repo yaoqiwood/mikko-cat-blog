@@ -29,9 +29,19 @@ const PASSAGES_URLS = {
   POST_UPDATE_ITEM_BY_ID: NET_CONSTANTS.PROJECT_NAME_PATH + 'blog/blog-article/updateItem'
 }
 
+/**
+ * 文章草稿url
+ * @type {{POST_SAVE_ADD_PASSAGE_DRAFT_URL: string, POST_FIND_ADD_PASSAGE_DRAFT_URL: string}}
+ */
+const PASSAGES_DRAFT_URLS = {
+  POST_FIND_ADD_PASSAGE_DRAFT_URL: NET_CONSTANTS.PROJECT_NAME_PATH + 'blog/blog-article-draft/findDraftAddPassage',
+  POST_SAVE_ADD_PASSAGE_DRAFT_URL: NET_CONSTANTS.PROJECT_NAME_PATH + 'blog/blog-article-draft/saveAddDraft'
+}
+
 export default {
   MAIN_URLS,
   LOGIN_URLS,
   SYS_ANNEX_CONFIG_INFO_URLS,
-  PASSAGES_URLS
+  PASSAGES_URLS,
+  PASSAGES_DRAFT_URLS
 }

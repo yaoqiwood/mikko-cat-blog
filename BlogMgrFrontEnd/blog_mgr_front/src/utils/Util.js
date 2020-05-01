@@ -56,6 +56,7 @@ export default {
         // 清空cookie
         CookieService.userLogout()
         RouterUtil.routerReplace(RouterUrl.NLogin)
+        this.$Spin.hide()
       }, 2000)
     }
   },

@@ -5,14 +5,17 @@
                           @onReset="resetTable"/>
     <passages-table :data=tableData
                     :total="total"
+                    @openUpdateModal="openUpdateModal"
                     @openViewModal="openViewModal"
                     @deletePassage="deletePassage"/>
     <md-editor-modal ref="mdEditorModal"
-                     @onPassagesConfirm="onPassagesConfirm"/>
+                     @onPassagesConfirm="onPassagesConfirm"
+                     @onDraftManualSave="onDraftManualSave"/>
     <passages-modal ref="passagesModal"
                     :dataModel="viewDataModel"
-                    @cleanViewDataModel="cleanViewDataModel">
-    </passages-modal>
+                    @cleanViewDataModel="cleanViewDataModel"/>
+    <md-article-edit-modal ref="mdArticleEditorModal"
+                           @onPassagesConfirm="onPassagesEditConfirm"/>
   </div>
 </template>
 
@@ -20,8 +23,10 @@
 import PassagesSearchForm from './PassagesSearchForm'
 import PassagesTable from './PassagesTable'
 import PassagesApi from '@/api/passages/Passages'
+import DraftApi from '@/api/passages/draft/Draft'
 import MdEditorModal from './widgets/MdEditorModal'
 import PassagesModal from './PassagesModal'
+import MdArticleEditModal from './widgets/MdArticleEditModal'
 import ENUM from '@/constants/Enum'
 
 export default {
@@ -64,6 +69,32 @@ export default {
     },
     writeBlog () {
       this.$refs['mdEditorModal'].openModal(true)
+      this.findDraftAddPassage()
+    },
+    findDraftAddPassage () {
+      this.$Spin.show()
+      DraftApi.findDraftAddPassage().then(resp => {
+        if (!resp.success) {
+          this.$Modal.error({
+            title: '提示',
+            content: '加载草稿信息失败'
+          })
+          return
+        }
+        if (resp.data.hasDraft) {
+          let that = this
+          this.$Modal.confirm({
+            title: '确认？',
+            content: '检测到先前已有保存过的草稿，是否加载？',
+            onOk: () => {
+              that.$refs['mdEditorModal'].dataModel.baTitle = resp.data.draft.badTitle
+              that.$refs['mdEditorModal'].dataModel.baContent = resp.data.draft.badContent
+              that.$refs['mdEditorModal'].dataModel.id = resp.data.draft.id
+            }
+          })
+        }
+        this.$Spin.hide()
+      })
     },
     onPassagesConfirm (jsonItem) {
       this.$Spin.show()
@@ -129,6 +160,27 @@ export default {
         }
         this.$Spin.hide()
       })
+    },
+    onDraftManualSave (params) {
+      DraftApi.saveAddDraft(params).then(resp => {
+        if (resp.success) {
+          this.$Modal.success({
+            title: '提示',
+            content: '保存草稿成功'
+          })
+        } else {
+          this.$Modal.error({
+            title: '提示',
+            content: '保存草稿失败' + resp.message
+          })
+        }
+      })
+    },
+    openUpdateModal (id) {
+      // this.$refs['mdArticleEditorModal']
+    },
+    onPassagesEditConfirm () {
+      return '1'
     }
   },
   mounted () {
@@ -138,7 +190,8 @@ export default {
     PassagesSearchForm,
     PassagesTable,
     MdEditorModal,
-    PassagesModal
+    PassagesModal,
+    MdArticleEditModal
   }
 }
 </script>

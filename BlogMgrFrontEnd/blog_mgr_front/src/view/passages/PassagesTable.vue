@@ -10,6 +10,9 @@
           <template slot-scope="{ row }"
                     slot="action">
             <Button size="small"
+                    @click="updatePassage(row)">修改
+            </Button>
+            <Button size="small"
                     @click="deletePassage(row)">删除
             </Button>
             <Button size="small"
@@ -51,7 +54,7 @@ export default {
         {
           title: '序号',
           type: 'index',
-          width: 70,
+          width: 65,
           align: 'center',
           disabled: true,
           key: 'index'
@@ -106,8 +109,8 @@ export default {
           align: 'center',
           key: 'action',
           fixed: 'right',
-          minWidth: 120,
-          maxWidth: 150,
+          minWidth: 140,
+          maxWidth: 165,
           slot: 'action'
         }
       ]
@@ -125,6 +128,9 @@ export default {
           this.$emit('deletePassage', row.id)
         }
       })
+    },
+    updatePassage (row) {
+      this.$emit('openUpdateModal', row.id)
     }
   }
 }

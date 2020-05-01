@@ -1,7 +1,7 @@
 <template>
   <div>
     <Modal v-model="isOpen"
-           title="写博客"
+           title="编辑博文"
            draggable
            :closable="false"
            :styles="{top: '35px'}"
@@ -16,7 +16,6 @@
           </FormItem>
         </Form>
         <mavon-editor v-model="dataModel.baContent"
-                      @save="onDraftManualSave"
                       style="min-height:440px"/>
       </div>
       <div slot="footer">
@@ -36,6 +35,7 @@ import PassagesConfirmModal from './PassagesConfirmModal'
 import ENUM from '@/constants/Enum'
 
 export default {
+  name: 'MdArticleEditModal',
   data: () => {
     return {
       isOpen: false,
@@ -61,7 +61,6 @@ export default {
     },
     onCancel () {
       this.openModal(false)
-      this.clearEditorForm()
       this.clearTagList()
     },
     clearTagList () {
@@ -88,17 +87,6 @@ export default {
       this.dataModel.baTitle = ''
       this.dataModel.baContent = ''
       this.onCancel()
-    },
-    onDraftManualSave () {
-      let json = {
-        id: this.dataModel.id,
-        badTitle: this.dataModel.baTitle,
-        badContent: this.dataModel.baContent
-      }
-      this.$emit('onDraftManualSave', json)
-    },
-    clearEditorForm () {
-      this.dataModel = {}
     }
   },
   components: {
@@ -116,5 +104,6 @@ export default {
     .ivu-modal {
       top: 0;
     }
+
   }
 </style>

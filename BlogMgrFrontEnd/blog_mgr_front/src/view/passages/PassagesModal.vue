@@ -69,6 +69,7 @@ export default {
       if (!val) {
         this.$emit('cleanViewDataModel')
         this.tabName = 'passagesContent'
+        this.onTabClick(this.tabName)
       }
     },
     onTabClick (val) {
