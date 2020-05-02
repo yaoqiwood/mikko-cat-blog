@@ -29,6 +29,14 @@ public interface IBlogArticleService extends BaseService<BlogArticle> {
     void createPassage(String passageJSON, String tagsJSON, UserRoleVo userRoleVo);
 
     /**
+     * 更新博文
+     * @param passageJSON
+     * @param tagsJSON
+     * @param userRoleVo
+     */
+    void updatePassage(String passageJSON, String tagsJSON, UserRoleVo userRoleVo);
+
+    /**
      * 查找文章以及tags
      * @param id
      * @return

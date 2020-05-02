@@ -24,10 +24,24 @@ public interface IBlogArticleDraftService extends BaseService<BlogArticleDraft> 
     Map<String, Object> findDraftAddPassage(UserRoleVo userRoleVo);
 
     /**
+     * 查找编辑模式下是否存在已有的草稿
+     * @param id
+     * @return
+     */
+    Map<String, Object> findDraftOnEdit(String id);
+
+    /**
      * 新增文章时保存草稿信息
      * @param draft
      * @param userRoleVo
      * @return
      */
     void saveAddDraft(BlogArticleDraft draft, UserRoleVo userRoleVo);
+
+    /**
+     * 编辑文章时保存草稿信息
+     * @param draft
+     * @param userRoleVo
+     */
+    void saveEditDraft(BlogArticleDraft draft, UserRoleVo userRoleVo);
 }

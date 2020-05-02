@@ -26,6 +26,11 @@ public class BlogTagServiceImpl extends ServiceImpl<BlogTagMapper, BlogTag> impl
         return null;
     }
 
+    /**
+     * 插入tag（如果存在相同名称则忽略，并且更新tag的颜色）
+     * @param blogTag
+     * @return
+     */
     @Override
     public int insertTagByIgnoreIfExistTagName(BlogTag blogTag) {
         return baseMapper.insertTagByIgnoreIfExistTagName(blogTag);

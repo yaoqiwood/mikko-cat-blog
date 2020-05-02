@@ -103,4 +103,26 @@ public class BlogArticleController extends BaseController<BlogArticle, IBlogArti
         }
     }
 
+    /**
+     * 更新文章及下属tags
+     * @param passageJSON
+     * @param tagsJSON
+     * @param request
+     * @return
+     */
+    @PostMapping(value = { "updatePassage" })
+    @ResponseBody
+    public Map<String, ?> updatePassage(@RequestParam String passageJSON, @RequestParam String tagsJSON,
+            HttpServletRequest request) {
+        try {
+            // TODO 后续使用redis替换
+            UserRoleVo userRoleVo = (UserRoleVo) request.getAttribute(Constant.CURRENT_USER_REQUEST_NAME);
+            service.updatePassage(passageJSON, tagsJSON, userRoleVo);
+            return Returns.mapOk(Constant.ReturnsMessage.SUCCESS);
+        } catch (Exception e) {
+            log.error(Constant.ReturnsMessage.ERROR_MSG, e);
+            return Returns.mapError(Constant.ReturnsMessage.ERROR_MSG + e.getMessage());
+        }
+    }
+
 }

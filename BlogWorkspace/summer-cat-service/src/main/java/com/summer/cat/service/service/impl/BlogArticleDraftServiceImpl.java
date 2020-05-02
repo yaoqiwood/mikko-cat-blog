@@ -45,11 +45,7 @@ public class BlogArticleDraftServiceImpl extends ServiceImpl<BlogArticleDraftMap
     public Map<String, Object> findDraftAddPassage(UserRoleVo userRoleVo) {
         BlogArticleDraft draft4Search = new BlogArticleDraft();
         draft4Search.setBadCreator(userRoleVo.getUserNo());
-        QueryWrapper<BlogArticleDraft> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().eq(BlogArticleDraft::getBadCreator, userRoleVo.getUserNo());
-        queryWrapper.lambda().eq(BlogArticleDraft::getBadStatus, EnumDraftStatus.DRAFT.getCode());
-        queryWrapper.lambda().isNull(BlogArticleDraft::getBadBlogArticleId);
-        BlogArticleDraft articleDraft4Ret = this.getOne(queryWrapper);
+        BlogArticleDraft articleDraft4Ret = this.getAddDraft(userRoleVo);
         Map<String, Object> returnMap = new HashMap<>(16);
         if (null != articleDraft4Ret) {
             returnMap.put("hasDraft", true);
@@ -61,6 +57,27 @@ public class BlogArticleDraftServiceImpl extends ServiceImpl<BlogArticleDraftMap
     }
 
     /**
+     * 查找编辑模式下是否存在已有的草稿
+     * @param articleId
+     * @return
+     */
+    @Override
+    public Map<String, Object> findDraftOnEdit(String articleId) {
+        QueryWrapper<BlogArticleDraft> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(BlogArticleDraft::getBadBlogArticleId, articleId);
+        queryWrapper.lambda().eq(BlogArticleDraft::getBadStatus, EnumDraftStatus.DRAFT.getCode());
+        BlogArticleDraft articleDraft = this.getOne(queryWrapper);
+        Map<String, Object> map = new HashMap<>(16);
+        if (null != articleDraft) {
+            map.put("hasDraft", true);
+            map.put("draft", articleDraft);
+        } else {
+            map.put("hasDraft", false);
+        }
+        return map;
+    }
+
+    /**
      * 新增文章时保存草稿信息
      * 是否有id 有则更新 无则设定草稿状态未发布 set User信息
      * @param draft
@@ -69,14 +86,43 @@ public class BlogArticleDraftServiceImpl extends ServiceImpl<BlogArticleDraftMap
      */
     @Override
     public void saveAddDraft(BlogArticleDraft draft, UserRoleVo userRoleVo) {
-        if (null == draft.getId()) {
+        BlogArticleDraft draft4Check = this.getAddDraft(userRoleVo);
+        if (null == draft4Check) {
+            draft.setId(null);
             draft.setBadCreator(userRoleVo.getUserNo());
             draft.setBadStatus(EnumDraftStatus.DRAFT.getCode());
+            draft.setBadCreateTime(new Date());
+        } else {
+            draft.setId(draft4Check.getId());
+            draft.setBadUpdater(userRoleVo.getUserNo());
+            draft.setBadUpdateTime(new Date());
+        }
+        this.saveOrUpdate(draft);
+    }
+
+    /**
+     * 编辑文章时保存草稿信息
+     * @param draft
+     * @param userRoleVo
+     */
+    @Override
+    public void saveEditDraft(BlogArticleDraft draft, UserRoleVo userRoleVo) {
+        if (null == draft.getId()) {
+            draft.setBadStatus(EnumDraftStatus.DRAFT.getCode());
+            draft.setBadCreator(userRoleVo.getUserNo());
             draft.setBadCreateTime(new Date());
         } else {
             draft.setBadUpdater(userRoleVo.getUserNo());
             draft.setBadUpdateTime(new Date());
         }
         this.saveOrUpdate(draft);
+    }
+
+    private BlogArticleDraft getAddDraft(UserRoleVo userRoleVo) {
+        QueryWrapper<BlogArticleDraft> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(BlogArticleDraft::getBadCreator, userRoleVo.getUserNo());
+        queryWrapper.lambda().eq(BlogArticleDraft::getBadStatus, EnumDraftStatus.DRAFT.getCode());
+        queryWrapper.lambda().isNull(BlogArticleDraft::getBadBlogArticleId);
+        return this.getOne(queryWrapper);
     }
 }

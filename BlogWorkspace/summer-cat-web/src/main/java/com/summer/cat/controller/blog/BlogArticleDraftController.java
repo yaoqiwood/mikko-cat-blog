@@ -51,6 +51,22 @@ public class BlogArticleDraftController extends BaseController<BlogArticleDraft,
     }
 
     /**
+     * 查找编辑模式下是否存在已有的草稿
+     * @param articleId
+     * @return
+     */
+    @PostMapping(value = { "findDraftOnEdit" })
+    @ResponseBody
+    public Map<String, ?> findDraftOnEdit(@RequestParam String articleId) {
+        try {
+            return Returns.mapOk(this.service.findDraftOnEdit(articleId), Constant.ReturnsMessage.SUCCESS_MSG);
+        } catch (Exception e) {
+            log.error(Constant.ReturnsMessage.ERROR_MSG, e);
+            return Returns.mapError(Constant.ReturnsMessage.ERROR_MSG + e.getMessage());
+        }
+    }
+
+    /**
      * 新增文章时保存草稿信息
      * @param draft
      * @param request
@@ -63,6 +79,26 @@ public class BlogArticleDraftController extends BaseController<BlogArticleDraft,
             // TODO 后续修改Redis
             UserRoleVo userRoleVo = (UserRoleVo) request.getAttribute(Constant.CURRENT_USER_REQUEST_NAME);
             service.saveAddDraft(draft, userRoleVo);
+            return Returns.mapOk(Constant.ReturnsMessage.SUCCESS);
+        } catch (Exception e) {
+            log.error(Constant.ReturnsMessage.ERROR_MSG, e);
+            return Returns.mapError(Constant.ReturnsMessage.ERROR_MSG + e.getMessage());
+        }
+    }
+
+    /**
+     * 编辑文章时保存草稿信息
+     * @param draft
+     * @param request
+     * @return
+     */
+    @PostMapping(value = { "saveEditDraft" })
+    @ResponseBody
+    public Map<String, ?> saveEditDraft(@RequestBody BlogArticleDraft draft, HttpServletRequest request) {
+        try {
+            // TODO 后续修改Redis
+            UserRoleVo userRoleVo = (UserRoleVo) request.getAttribute(Constant.CURRENT_USER_REQUEST_NAME);
+            service.saveEditDraft(draft, userRoleVo);
             return Returns.mapOk(Constant.ReturnsMessage.SUCCESS);
         } catch (Exception e) {
             log.error(Constant.ReturnsMessage.ERROR_MSG, e);
