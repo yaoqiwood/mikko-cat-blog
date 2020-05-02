@@ -24,5 +24,8 @@ export default {
   },
   updateItemById (params) {
     return Util.httpPostJSON(UrlConstants.PASSAGES_URLS.POST_UPDATE_ITEM_BY_ID, params)
+  },
+  updatePassage (params) {
+    return Util.httpPost(UrlConstants.PASSAGES_URLS.POST_UPDATE_PASSAGE, params)
   }
 }

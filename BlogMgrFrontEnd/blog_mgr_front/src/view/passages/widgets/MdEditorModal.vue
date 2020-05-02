@@ -90,12 +90,17 @@ export default {
       this.onCancel()
     },
     onDraftManualSave () {
-      let json = {
-        id: this.dataModel.id,
-        badTitle: this.dataModel.baTitle,
-        badContent: this.dataModel.baContent
-      }
-      this.$emit('onDraftManualSave', json)
+      this.$Modal.confirm({
+        title: '提示',
+        content: '确认保存？',
+        onOk: () => {
+          let json = {
+            badTitle: this.dataModel.baTitle,
+            badContent: this.dataModel.baContent
+          }
+          this.$emit('onDraftManualSave', json)
+        }
+      })
     },
     clearEditorForm () {
       this.dataModel = {}

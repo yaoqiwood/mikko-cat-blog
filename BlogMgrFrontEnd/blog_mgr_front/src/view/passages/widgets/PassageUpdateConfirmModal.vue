@@ -125,7 +125,7 @@ export default {
       return ret
     },
     onOk () {
-      this.$emit('onPassagesConfirm', this.formItem)
+      this.$emit('onPassageUpdateConfirm', this.formItem)
     }
   }
 }

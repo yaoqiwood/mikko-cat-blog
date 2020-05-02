@@ -15,7 +15,8 @@
                     :dataModel="viewDataModel"
                     @cleanViewDataModel="cleanViewDataModel"/>
     <md-article-edit-modal ref="mdArticleEditorModal"
-                           @onPassagesConfirm="onPassagesEditConfirm"/>
+                           @onPassageUpdateConfirm="onPassageUpdateConfirm"
+                           @saveEditDraft="saveEditDraft"/>
   </div>
 </template>
 
@@ -137,6 +138,54 @@ export default {
         this.$Spin.hide()
       })
     },
+    findUpdateInfById (id) {
+      this.$Spin.show()
+      PassagesApi.findItemTagsById({id}).then(resp => {
+        if (resp.success) {
+          this.$refs['mdArticleEditorModal'].dataModel = resp.data.blogArticle
+          this.$refs['mdArticleEditorModal'].dataModel.articleId = id
+          this.$set(this.$refs['mdArticleEditorModal'].dataModel, 'tagList', resp.data.tagList)
+          this.$refs['mdArticleEditorModal'].loadEditTags()
+        } else {
+          this.$Modal.warning({
+            title: '加载失败',
+            content: resp.message
+          })
+        }
+        this.$Spin.hide()
+      })
+    },
+    findDraftOnEdit (id) {
+      this.$Spin.show()
+      let that = this
+      DraftApi.findDraftOnEdit({articleId: id}).then(resp => {
+        try {
+          if (resp.success) {
+            this.$Spin.hide()
+            that.findUpdateInfById(id)
+            if (resp.data.hasDraft) {
+              this.$Modal.confirm({
+                title: '确认？',
+                content: '检测到有已经保存的草稿，是否加载？',
+                onOk: () => {
+                  that.$refs['mdArticleEditorModal'].dataModel.draftId = resp.data.draft.id
+                  that.$refs['mdArticleEditorModal'].dataModel.articleId = id
+                  that.$refs['mdArticleEditorModal'].dataModel.baTitle = resp.data.draft.badTitle
+                  that.$refs['mdArticleEditorModal'].dataModel.baContent = resp.data.draft.badContent
+                }
+              })
+            }
+          } else {
+            throw new Error(resp.message)
+          }
+        } catch (e) {
+          this.$Modal.error({
+            title: '提示',
+            content: '失败：' + e
+          })
+        }
+      })
+    },
     cleanViewDataModel () {
       this.viewDataModel = {
         tagList: []
@@ -162,25 +211,58 @@ export default {
       })
     },
     onDraftManualSave (params) {
+      this.$Spin.show()
       DraftApi.saveAddDraft(params).then(resp => {
         if (resp.success) {
-          this.$Modal.success({
+          this.$Notice.success({
             title: '提示',
-            content: '保存草稿成功'
+            desc: '保存草稿成功'
           })
         } else {
-          this.$Modal.error({
+          this.$Notice.error({
             title: '提示',
             content: '保存草稿失败' + resp.message
           })
         }
+        this.$Spin.hide()
+      })
+    },
+    saveEditDraft (params) {
+      this.$Spin.show()
+      DraftApi.saveEditDraft(params).then(resp => {
+        if (resp.success) {
+          this.$Notice.success({
+            title: '提示',
+            desc: '保存草稿成功'
+          })
+        } else {
+          this.$Notice.error({
+            title: '提示',
+            content: '保存草稿失败' + resp.message
+          })
+        }
+        this.$Spin.hide()
       })
     },
     openUpdateModal (id) {
-      // this.$refs['mdArticleEditorModal']
+      this.$refs['mdArticleEditorModal'].openModal(true)
+      this.findDraftOnEdit(id)
     },
-    onPassagesEditConfirm () {
-      return '1'
+    onPassageUpdateConfirm (jsonItem) {
+      this.$Spin.show()
+      PassagesApi.updatePassage(jsonItem).then(resp => {
+        if (resp.success) {
+          this.$Modal.success({title: '提示', content: '修改成功'})
+          this.$refs['mdEditorModal'].onConfirmSucThenClose()
+          this.resetTable()
+        } else {
+          this.$Modal.error({title: '失败', content: '修改失败:' + resp.message})
+        }
+        this.$Spin.hide()
+      })
+    },
+    cleanDataModel () {
+      this.viewDataModel = {}
     }
   },
   mounted () {
