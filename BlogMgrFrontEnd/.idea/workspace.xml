@@ -1,8 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:blog" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:master" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="a76bb112-3574-4089-8c46-823d4fb70383" name="Default Changelist" comment="" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <list default="true" id="a76bb112-3574-4089-8c46-823d4fb70383" name="Default Changelist" comment="*前端添加文章修改模块 草稿修改bug修复 标签功能等修改">
+      <change afterPath="$PROJECT_DIR$/.idea/CamelCaseConfigNew.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/saveactions_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/blog_mgr_front/src/assets/front-img/BackgroundFrontImg.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/blog_mgr_front/src/assets/front-img/TopBarImg.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/blog_mgr_front/src/components/front/FrontPage.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/blog_mgr_front/src/components/front/css/FrontPage.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/blog_mgr_front/src/components/front/items/ItemsConstants.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/blog_mgr_front/src/components/front/widgets/ContainerFrame.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BlogWorkspace/summer-cat-generator/src/main/java/com/summer/cat/output/temp/controller/BlogTagController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BlogWorkspace/summer-cat-generator/src/main/java/com/summer/cat/output/temp/dao/BlogTagMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BlogWorkspace/summer-cat-generator/src/main/java/com/summer/cat/output/temp/entity/BlogTag.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BlogWorkspace/summer-cat-generator/src/main/java/com/summer/cat/output/temp/mapper/BlogTagMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BlogWorkspace/summer-cat-generator/src/main/java/com/summer/cat/output/temp/service/IBlogTagService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BlogWorkspace/summer-cat-generator/src/main/java/com/summer/cat/output/temp/service/impl/BlogTagServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog_mgr_front/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/blog_mgr_front/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog_mgr_front/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/blog_mgr_front/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog_mgr_front/src/components/main/MainPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/blog_mgr_front/src/components/main/MainPage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog_mgr_front/src/router/routers.js" beforeDir="false" afterPath="$PROJECT_DIR$/blog_mgr_front/src/router/routers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog_mgr_front/src/router/routersComponents.js" beforeDir="false" afterPath="$PROJECT_DIR$/blog_mgr_front/src/router/routersComponents.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog_mgr_front/src/router/routersUrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/blog_mgr_front/src/router/routersUrl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog_mgr_front/src/view/passages/PassagesManager.vue" beforeDir="false" afterPath="$PROJECT_DIR$/blog_mgr_front/src/view/passages/PassagesManager.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog_mgr_front/src/view/passages/widgets/PassageUpdateConfirmModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/blog_mgr_front/src/view/passages/widgets/PassageUpdateConfirmModal.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog_mgr_front/src/view/passages/widgets/PassagesConfirmModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/blog_mgr_front/src/view/passages/widgets/PassagesConfirmModal.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BlogWorkspace/summer-cat-service/src/main/java/com/summer/cat/service/service/impl/BlogArticleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BlogWorkspace/summer-cat-service/src/main/java/com/summer/cat/service/service/impl/BlogArticleServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BlogWorkspace/summer-cat-web/src/main/java/com/summer/cat/controller/blog/BlogTagController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BlogWorkspace/summer-cat-web/src/main/java/com/summer/cat/controller/blog/BlogTagController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Databases/summer_cat_blog.PDM" beforeDir="false" afterPath="$PROJECT_DIR$/../Databases/summer_cat_blog.PDM" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -12,11 +68,23 @@
     <option name="testRunner" value="GRADLE" />
     <option name="delegatedBuild" value="true" />
   </component>
-  <component name="FileEditorManager">
-    <leaf />
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+        <option value="JavaScript File" />
+        <option value="Vue Single File Component" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
   </component>
   <component name="ProjectConfigurationFiles">
     <option name="files">
@@ -28,52 +96,76 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="547" />
-    <option name="y" value="168" />
-    <option name="width" value="960" />
-    <option name="height" value="1030" />
+  <component name="ProjectId" id="1av83bXSBidTe6ndJbCZZbbWtta" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="BlogMgrFrontEnd" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BlogMgrFrontEnd" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="PackagesPane" />
-    </panes>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/blog_mgr_front/src/assets/front-img" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.standard" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.standard" value="" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="H:\BlogWorkspaces\BlogMgrFrontEnd\blog_mgr_front\src\view\passages\widgets" />
+      <recent name="H:\BlogWorkspaces\BlogMgrFrontEnd\blog_mgr_front\src\components\table" />
+      <recent name="H:\BlogWorkspaces\BlogMgrFrontEnd\blog_mgr_front\src\assets" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="H:\BlogWorkspaces\BlogMgrFrontEnd\blog_mgr_front\src\assets\front-img" />
+      <recent name="H:\BlogWorkspaces\BlogMgrFrontEnd\blog_mgr_front\src\assets\my-theme" />
+      <recent name="H:\BlogWorkspaces\BlogMgrFrontEnd\blog_mgr_front\src\assets\my-theme\color" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Blog_Dev" type="NodeJSConfigurationType" path-to-node="node" working-dir="$PROJECT_DIR$">
+      <method v="2">
+        <option name="NpmBeforeRunTask" enabled="true">
+          <package-json value="$PROJECT_DIR$/blog_mgr_front/package.json" />
+          <command value="run" />
+          <scripts>
+            <script value="dev" />
+          </scripts>
+          <node-interpreter value="project" />
+          <envs />
+        </option>
+      </method>
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" path-to-node="node">
+      <method v="2">
+        <option name="NpmBeforeRunTask" enabled="true">
+          <package-json value="$PROJECT_DIR$/blog_mgr_front/package.json" />
+          <command value="run" />
+          <scripts>
+            <script value="dev" />
+          </scripts>
+          <node-interpreter value="project" />
+          <envs />
+        </option>
+      </method>
+    </configuration>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -86,69 +178,189 @@
       <option name="presentableId" value="Default" />
       <updated>1578455333137</updated>
       <workItem from="1578455334430" duration="2597000" />
+      <workItem from="1587604511177" duration="595000" />
+      <workItem from="1587605120625" duration="2606000" />
+      <workItem from="1587608006508" duration="432000" />
+      <workItem from="1587608447664" duration="13943000" />
+      <workItem from="1587689200090" duration="3828000" />
+      <workItem from="1587699641166" duration="1085000" />
+      <workItem from="1587700737237" duration="16506000" />
+      <workItem from="1587728555844" duration="10623000" />
+      <workItem from="1587764109318" duration="9397000" />
+      <workItem from="1587852636162" duration="18153000" />
+      <workItem from="1587938670642" duration="34910000" />
+      <workItem from="1588050415407" duration="11559000" />
+      <workItem from="1588110933464" duration="18909000" />
+      <workItem from="1588307630123" duration="8923000" />
+      <workItem from="1588376653579" duration="19242000" />
+      <workItem from="1588460968696" duration="20572000" />
     </task>
+    <task id="LOCAL-00001" summary="*前端提交增加 文章模块修改">
+      <created>1587723365767</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1587723365767</updated>
+    </task>
+    <task id="LOCAL-00002" summary="*前端修改样式 更新前端iview版本 增加主题修改基本配置 TODO 后续再增加主题选择">
+      <created>1587772337217</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1587772337217</updated>
+    </task>
+    <task id="LOCAL-00003" summary="*前端修改样式 增加文章管理模块修改等">
+      <created>1588083675318</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1588083675318</updated>
+    </task>
+    <task id="LOCAL-00004" summary="*前端修改样式 增加文章管理模块修改等 草稿功能修改">
+      <created>1588308037967</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1588308037967</updated>
+    </task>
+    <task id="LOCAL-00005" summary="*前端添加文章修改模块 草稿修改bug修复 标签功能等修改">
+      <created>1588433268027</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1588433268027</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
-  <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2597000" />
-  </component>
-  <component name="ToolWindowManager">
-    <frame x="438" y="135" width="768" height="824" extended-state="0" />
-    <layout>
-      <window_info id="JRebel" side_tool="true" />
-      <window_info id="Image Layers" />
-      <window_info id="Capture Tool" />
-      <window_info id="UI Designer" />
-      <window_info id="Favorites" side_tool="true" />
-      <window_info id="Designer" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.4081921" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Terminal" visible="true" weight="0.41763005" />
-      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Database Changes" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="JRebel Console" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="Maven" />
-      <window_info anchor="right" id="Palette" />
-      <window_info anchor="right" id="Capture Analysis" />
-      <window_info anchor="right" id="Database" />
-      <window_info anchor="right" id="Palette&#9;" />
-      <window_info anchor="right" id="Theme Preview" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-    </layout>
-  </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="2" />
   </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ProjectJDKs.UI">
-        <settings>
-          <last-edited>1.8</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="*前端提交增加 文章模块修改" />
+    <MESSAGE value="*前端修改样式 更新前端iview版本 增加主题修改基本配置 TODO 后续再增加主题选择" />
+    <MESSAGE value="*前端修改样式 增加文章管理模块修改等" />
+    <MESSAGE value="*前端修改样式 增加文章管理模块修改等 草稿功能修改" />
+    <MESSAGE value="*前端添加文章修改模块 草稿修改bug修复 标签功能等修改" />
+    <option name="LAST_COMMIT_MESSAGE" value="*前端添加文章修改模块 草稿修改bug修复 标签功能等修改" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="561" y="253" key="#Configure_Path_Variables" timestamp="1588111145200">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="561" y="253" key="#Configure_Path_Variables/0.30.1536.834/1920.33.1536.834@0.30.1536.834" timestamp="1588111145200" />
+    <state x="654" y="309" width="474" height="275" key="#Notifications" timestamp="1588308086151">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="654" y="309" width="474" height="275" key="#Notifications/0.30.1536.834@0.30.1536.834" timestamp="1588308086151" />
+    <state x="223" y="102" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1588111882840">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="223" y="102" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.30.1536.834/1920.33.1536.834@0.30.1536.834" timestamp="1588111882840" />
+    <state x="223" y="102" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.30.1536.834@0.30.1536.834" timestamp="1587623323355" />
+    <state x="537" y="244" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1587765854915">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="537" y="244" key="#com.intellij.fileTypes.FileTypeChooser/0.30.1536.834@0.30.1536.834" timestamp="1587765854915" />
+    <state x="555" y="310" key="#com.intellij.ide.actionMacro.EditMacrosDialog" timestamp="1587611291787">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="555" y="310" key="#com.intellij.ide.actionMacro.EditMacrosDialog/0.30.1536.834@0.30.1536.834" timestamp="1587611291787" />
+    <state x="548" y="152" key="#com.intellij.ide.macro.MacrosDialog" timestamp="1587605837428">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="548" y="152" key="#com.intellij.ide.macro.MacrosDialog/0.30.1536.834@0.30.1536.834" timestamp="1587605837428" />
+    <state x="499" y="194" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1587767312449">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="499" y="194" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.30.1536.834@0.30.1536.834" timestamp="1587767312449" />
+    <state x="93" y="123" width="1350" height="648" key="DiffContextDialog" timestamp="1587772512486">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="93" y="123" width="1350" height="648" key="DiffContextDialog/0.30.1536.834@0.30.1536.834" timestamp="1587772512486" />
+    <state x="307" y="305" key="EditFileWatcherDialog" timestamp="1587765352071">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="307" y="305" key="EditFileWatcherDialog/0.30.1536.834@0.30.1536.834" timestamp="1587765352071" />
+    <state x="755" y="181" key="FileChooserDialogImpl" timestamp="1587723775527">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="755" y="181" key="FileChooserDialogImpl/0.30.1536.834@0.30.1536.834" timestamp="1587723775527" />
+    <state width="1515" height="185" key="GridCell.Tab.0.bottom" timestamp="1588476730414">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state width="1515" height="185" key="GridCell.Tab.0.bottom/0.30.1536.834/1920.33.1536.834@0.30.1536.834" timestamp="1588236558325" />
+    <state width="1515" height="185" key="GridCell.Tab.0.bottom/0.30.1536.834@0.30.1536.834" timestamp="1588476730414" />
+    <state width="1515" height="185" key="GridCell.Tab.0.center" timestamp="1588476730414">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state width="1515" height="185" key="GridCell.Tab.0.center/0.30.1536.834/1920.33.1536.834@0.30.1536.834" timestamp="1588236558325" />
+    <state width="1515" height="185" key="GridCell.Tab.0.center/0.30.1536.834@0.30.1536.834" timestamp="1588476730414" />
+    <state width="1515" height="185" key="GridCell.Tab.0.left" timestamp="1588476730414">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state width="1515" height="185" key="GridCell.Tab.0.left/0.30.1536.834/1920.33.1536.834@0.30.1536.834" timestamp="1588236558325" />
+    <state width="1515" height="185" key="GridCell.Tab.0.left/0.30.1536.834@0.30.1536.834" timestamp="1588476730414" />
+    <state width="1515" height="185" key="GridCell.Tab.0.right" timestamp="1588476730414">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state width="1515" height="185" key="GridCell.Tab.0.right/0.30.1536.834/1920.33.1536.834@0.30.1536.834" timestamp="1588236558325" />
+    <state width="1515" height="185" key="GridCell.Tab.0.right/0.30.1536.834@0.30.1536.834" timestamp="1588476730414" />
+    <state x="414" y="56" width="1014" height="707" key="SettingsEditor" timestamp="1588129486614">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="414" y="56" key="SettingsEditor/0.30.1536.834/1920.33.1536.834@0.30.1536.834" timestamp="1588129486614" />
+    <state x="414" y="56" width="1014" height="707" key="SettingsEditor/0.30.1536.834@0.30.1536.834" timestamp="1587732756913" />
+    <state x="454" y="318" width="814" height="498" key="Vcs.Push.Dialog.v2" timestamp="1588433436395">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="454" y="318" width="814" height="498" key="Vcs.Push.Dialog.v2/0.30.1536.834@0.30.1536.834" timestamp="1588433436395" />
+    <state x="93" y="123" width="1350" height="648" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1587770573418">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="93" y="123" width="1350" height="648" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.30.1536.834@0.30.1536.834" timestamp="1587770573418" />
+    <state x="356" y="30" width="597" height="834" key="find.popup" timestamp="1588467839891">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="356" y="30" width="597" height="834" key="find.popup/0.30.1536.834/1920.33.1536.834@0.30.1536.834" timestamp="1587980733567" />
+    <state x="356" y="30" width="597" height="834" key="find.popup/0.30.1536.834@0.30.1536.834" timestamp="1588467839891" />
+    <state x="545" y="347" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1587604735887">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="545" y="347" key="git4idea.remote.GitConfigureRemotesDialog/0.30.1536.834@0.30.1536.834" timestamp="1587604735887" />
+    <state x="425" y="204" key="run.anything.popup" timestamp="1588083851160">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="425" y="204" key="run.anything.popup/0.30.1536.834@0.30.1536.834" timestamp="1588083851160" />
+    <state x="824" y="146" width="672" height="678" key="search.everywhere.popup" timestamp="1588547580693">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="583" y="142" width="672" height="678" key="search.everywhere.popup/0.30.1536.834/1920.33.1536.834@0.30.1536.834" timestamp="1587980748126" />
+    <state x="824" y="146" width="672" height="678" key="search.everywhere.popup/0.30.1536.834@0.30.1536.834" timestamp="1588547580693" />
   </component>
 </project>

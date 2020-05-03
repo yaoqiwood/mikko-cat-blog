@@ -21,6 +21,11 @@ const MPassagesManager = {
     {name: '文章管理'}
   ]
 }
+
+// NFrontPage
+const RFrontPageUrl = '/'
+const NFrontPage = 'frontPage'
+
 export default {
   RIndexMainUrl,
   NIndexMain,
@@ -31,5 +36,7 @@ export default {
   RPassagesManagerUrl,
   NPassagesManager,
   MPassagesManager,
-  MLogin
+  MLogin,
+  RFrontPageUrl,
+  NFrontPage
 }

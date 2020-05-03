@@ -26,8 +26,12 @@
           </FormItem>
           <FormItem label="标签：">
             <span v-if="!formItem.tagList.length">暂无标签</span>
-            <Tag v-for="(item,index) in formItem.tagList"
-                 :key="index"
+            <Tag v-for="(item) in formItem.tagList"
+                 :key="item.id"
+                 closable
+                 type="border"
+                 :name="item.id"
+                 @on-close="handleCloseTag"
                  :color="item.btTagColor">
               {{item.btTagName}}
             </Tag>
@@ -126,6 +130,10 @@ export default {
     },
     onOk () {
       this.$emit('onPassageUpdateConfirm', this.formItem)
+    },
+    handleCloseTag (event, name) {
+      let index = this.formItem.tagList.findIndex(item => item.id === name)
+      this.formItem.tagList.splice(index, 1)
     }
   }
 }

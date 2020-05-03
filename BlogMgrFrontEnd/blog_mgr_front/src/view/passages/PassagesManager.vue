@@ -253,7 +253,7 @@ export default {
       PassagesApi.updatePassage(jsonItem).then(resp => {
         if (resp.success) {
           this.$Modal.success({title: '提示', content: '修改成功'})
-          this.$refs['mdEditorModal'].onConfirmSucThenClose()
+          this.$refs['mdArticleEditorModal'].onConfirmSucThenClose()
           this.resetTable()
         } else {
           this.$Modal.error({title: '失败', content: '修改失败:' + resp.message})

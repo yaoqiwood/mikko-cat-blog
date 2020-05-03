@@ -29,4 +29,10 @@ const LoginComponent = {
   component: RoutersComponents.Login
 }
 
-export default [MainComponent, LoginComponent]
+const FrontPageComponent = {
+  path: Urls.RFrontPageUrl,
+  name: Urls.NFrontPage,
+  component: RoutersComponents.FrontPage
+}
+
+export default [MainComponent, LoginComponent, FrontPageComponent]
