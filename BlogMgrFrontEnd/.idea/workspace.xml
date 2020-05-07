@@ -25,20 +25,11 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a76bb112-3574-4089-8c46-823d4fb70383" name="Default Changelist" comment="*前端添加文章修改模块 草稿修改bug修复 标签功能等修改">
-      <change afterPath="$PROJECT_DIR$/.idea/CamelCaseConfigNew.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/saveactions_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog_mgr_front/src/assets/front-img/BackgroundFrontImg.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog_mgr_front/src/assets/front-img/TopBarImg.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog_mgr_front/src/components/front/FrontPage.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog_mgr_front/src/components/front/css/FrontPage.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog_mgr_front/src/components/front/items/ItemsConstants.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog_mgr_front/src/components/front/widgets/ContainerFrame.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
+    <list default="true" id="a76bb112-3574-4089-8c46-823d4fb70383" name="Default Changelist" comment="*前端增加博客主页以及修改样式 增加readme.md">
+      <change afterPath="$PROJECT_DIR$/blog_mgr_front/src/assets/front-img/HeadImg.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/blog_mgr_front/src/assets/front-img/MyInfFrameImg.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/blog_mgr_front/src/components/front/widgets/PassagesBox.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/blog_mgr_front/src/components/widgets/live2d/Live2dComponents.vue" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../BlogWorkspace/summer-cat-generator/src/main/java/com/summer/cat/output/temp/controller/BlogTagController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../BlogWorkspace/summer-cat-generator/src/main/java/com/summer/cat/output/temp/dao/BlogTagMapper.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../BlogWorkspace/summer-cat-generator/src/main/java/com/summer/cat/output/temp/entity/BlogTag.java" afterDir="false" />
@@ -46,17 +37,12 @@
       <change afterPath="$PROJECT_DIR$/../BlogWorkspace/summer-cat-generator/src/main/java/com/summer/cat/output/temp/service/IBlogTagService.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../BlogWorkspace/summer-cat-generator/src/main/java/com/summer/cat/output/temp/service/impl/BlogTagServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog_mgr_front/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/blog_mgr_front/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog_mgr_front/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/blog_mgr_front/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog_mgr_front/src/components/main/MainPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/blog_mgr_front/src/components/main/MainPage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog_mgr_front/src/router/routers.js" beforeDir="false" afterPath="$PROJECT_DIR$/blog_mgr_front/src/router/routers.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog_mgr_front/src/router/routersComponents.js" beforeDir="false" afterPath="$PROJECT_DIR$/blog_mgr_front/src/router/routersComponents.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog_mgr_front/src/router/routersUrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/blog_mgr_front/src/router/routersUrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog_mgr_front/src/view/passages/PassagesManager.vue" beforeDir="false" afterPath="$PROJECT_DIR$/blog_mgr_front/src/view/passages/PassagesManager.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog_mgr_front/src/view/passages/widgets/PassageUpdateConfirmModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/blog_mgr_front/src/view/passages/widgets/PassageUpdateConfirmModal.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog_mgr_front/src/view/passages/widgets/PassagesConfirmModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/blog_mgr_front/src/view/passages/widgets/PassagesConfirmModal.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog_mgr_front/src/components/front/FrontPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/blog_mgr_front/src/components/front/FrontPage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog_mgr_front/src/components/front/css/FrontPage.less" beforeDir="false" afterPath="$PROJECT_DIR$/blog_mgr_front/src/components/front/css/FrontPage.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog_mgr_front/src/components/front/widgets/ContainerFrame.vue" beforeDir="false" afterPath="$PROJECT_DIR$/blog_mgr_front/src/components/front/widgets/ContainerFrame.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../BlogWorkspace/summer-cat-service/src/main/java/com/summer/cat/service/service/impl/BlogArticleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BlogWorkspace/summer-cat-service/src/main/java/com/summer/cat/service/service/impl/BlogArticleServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../BlogWorkspace/summer-cat-web/src/main/java/com/summer/cat/controller/blog/BlogTagController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BlogWorkspace/summer-cat-web/src/main/java/com/summer/cat/controller/blog/BlogTagController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BlogWorkspace/summer-cat-web/src/test/TestMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BlogWorkspace/summer-cat-web/src/test/TestMain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Databases/summer_cat_blog.PDM" beforeDir="false" afterPath="$PROJECT_DIR$/../Databases/summer_cat_blog.PDM" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -128,15 +114,15 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="H:\BlogWorkspaces\BlogMgrFrontEnd\blog_mgr_front\src\view\passages\widgets" />
-      <recent name="H:\BlogWorkspaces\BlogMgrFrontEnd\blog_mgr_front\src\components\table" />
-      <recent name="H:\BlogWorkspaces\BlogMgrFrontEnd\blog_mgr_front\src\assets" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="H:\BlogWorkspaces\BlogMgrFrontEnd\blog_mgr_front\src\assets\front-img" />
       <recent name="H:\BlogWorkspaces\BlogMgrFrontEnd\blog_mgr_front\src\assets\my-theme" />
       <recent name="H:\BlogWorkspaces\BlogMgrFrontEnd\blog_mgr_front\src\assets\my-theme\color" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="H:\BlogWorkspaces\BlogMgrFrontEnd\blog_mgr_front\src\view\passages\widgets" />
+      <recent name="H:\BlogWorkspaces\BlogMgrFrontEnd\blog_mgr_front\src\components\table" />
+      <recent name="H:\BlogWorkspaces\BlogMgrFrontEnd\blog_mgr_front\src\assets" />
     </key>
   </component>
   <component name="RunManager">
@@ -193,7 +179,9 @@
       <workItem from="1588110933464" duration="18909000" />
       <workItem from="1588307630123" duration="8923000" />
       <workItem from="1588376653579" duration="19242000" />
-      <workItem from="1588460968696" duration="20572000" />
+      <workItem from="1588460968696" duration="21301000" />
+      <workItem from="1588582548079" duration="6156000" />
+      <workItem from="1588816539895" duration="12043000" />
     </task>
     <task id="LOCAL-00001" summary="*前端提交增加 文章模块修改">
       <created>1587723365767</created>
@@ -230,7 +218,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588433268027</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="*前端增加博客主页以及修改样式 增加readme.md">
+      <created>1588548872259</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1588548872259</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -267,7 +262,8 @@
     <MESSAGE value="*前端修改样式 增加文章管理模块修改等" />
     <MESSAGE value="*前端修改样式 增加文章管理模块修改等 草稿功能修改" />
     <MESSAGE value="*前端添加文章修改模块 草稿修改bug修复 标签功能等修改" />
-    <option name="LAST_COMMIT_MESSAGE" value="*前端添加文章修改模块 草稿修改bug修复 标签功能等修改" />
+    <MESSAGE value="*前端增加博客主页以及修改样式 增加readme.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="*前端增加博客主页以及修改样式 增加readme.md" />
   </component>
   <component name="WindowStateProjectService">
     <state x="561" y="253" key="#Configure_Path_Variables" timestamp="1588111145200">
@@ -311,35 +307,35 @@
       <screen x="0" y="30" width="1536" height="834" />
     </state>
     <state x="755" y="181" key="FileChooserDialogImpl/0.30.1536.834@0.30.1536.834" timestamp="1587723775527" />
-    <state width="1515" height="185" key="GridCell.Tab.0.bottom" timestamp="1588476730414">
+    <state width="1515" height="185" key="GridCell.Tab.0.bottom" timestamp="1588553300879">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
     <state width="1515" height="185" key="GridCell.Tab.0.bottom/0.30.1536.834/1920.33.1536.834@0.30.1536.834" timestamp="1588236558325" />
-    <state width="1515" height="185" key="GridCell.Tab.0.bottom/0.30.1536.834@0.30.1536.834" timestamp="1588476730414" />
-    <state width="1515" height="185" key="GridCell.Tab.0.center" timestamp="1588476730414">
+    <state width="1515" height="185" key="GridCell.Tab.0.bottom/0.30.1536.834@0.30.1536.834" timestamp="1588553300879" />
+    <state width="1515" height="185" key="GridCell.Tab.0.center" timestamp="1588553300879">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
     <state width="1515" height="185" key="GridCell.Tab.0.center/0.30.1536.834/1920.33.1536.834@0.30.1536.834" timestamp="1588236558325" />
-    <state width="1515" height="185" key="GridCell.Tab.0.center/0.30.1536.834@0.30.1536.834" timestamp="1588476730414" />
-    <state width="1515" height="185" key="GridCell.Tab.0.left" timestamp="1588476730414">
+    <state width="1515" height="185" key="GridCell.Tab.0.center/0.30.1536.834@0.30.1536.834" timestamp="1588553300879" />
+    <state width="1515" height="185" key="GridCell.Tab.0.left" timestamp="1588553300878">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
     <state width="1515" height="185" key="GridCell.Tab.0.left/0.30.1536.834/1920.33.1536.834@0.30.1536.834" timestamp="1588236558325" />
-    <state width="1515" height="185" key="GridCell.Tab.0.left/0.30.1536.834@0.30.1536.834" timestamp="1588476730414" />
-    <state width="1515" height="185" key="GridCell.Tab.0.right" timestamp="1588476730414">
+    <state width="1515" height="185" key="GridCell.Tab.0.left/0.30.1536.834@0.30.1536.834" timestamp="1588553300878" />
+    <state width="1515" height="185" key="GridCell.Tab.0.right" timestamp="1588553300879">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
     <state width="1515" height="185" key="GridCell.Tab.0.right/0.30.1536.834/1920.33.1536.834@0.30.1536.834" timestamp="1588236558325" />
-    <state width="1515" height="185" key="GridCell.Tab.0.right/0.30.1536.834@0.30.1536.834" timestamp="1588476730414" />
+    <state width="1515" height="185" key="GridCell.Tab.0.right/0.30.1536.834@0.30.1536.834" timestamp="1588553300879" />
     <state x="414" y="56" width="1014" height="707" key="SettingsEditor" timestamp="1588129486614">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
     <state x="414" y="56" key="SettingsEditor/0.30.1536.834/1920.33.1536.834@0.30.1536.834" timestamp="1588129486614" />
     <state x="414" y="56" width="1014" height="707" key="SettingsEditor/0.30.1536.834@0.30.1536.834" timestamp="1587732756913" />
-    <state x="454" y="318" width="814" height="498" key="Vcs.Push.Dialog.v2" timestamp="1588433436395">
+    <state x="454" y="318" width="814" height="498" key="Vcs.Push.Dialog.v2" timestamp="1588548874535">
       <screen x="0" y="30" width="1536" height="834" />
     </state>
-    <state x="454" y="318" width="814" height="498" key="Vcs.Push.Dialog.v2/0.30.1536.834@0.30.1536.834" timestamp="1588433436395" />
+    <state x="454" y="318" width="814" height="498" key="Vcs.Push.Dialog.v2/0.30.1536.834@0.30.1536.834" timestamp="1588548874535" />
     <state x="93" y="123" width="1350" height="648" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1587770573418">
       <screen x="0" y="30" width="1536" height="834" />
     </state>

@@ -13,12 +13,16 @@
       </div>
     </div>
     <div class="content-frame">
+      <container-frame/>
     </div>
+    <live2dComponents/>
   </div>
 </template>
 
 <script>
 import ItemsConstants from './items/ItemsConstants'
+import Live2dComponents from '../widgets/live2d/Live2dComponents'
+import ContainerFrame from './widgets/ContainerFrame'
 
 export default {
   name: 'frontPage',
@@ -26,6 +30,10 @@ export default {
     return {
       menuItems: ItemsConstants.TOP_BAR_ITEMS
     }
+  },
+  components: {
+    Live2dComponents,
+    ContainerFrame
   }
 }
 </script>

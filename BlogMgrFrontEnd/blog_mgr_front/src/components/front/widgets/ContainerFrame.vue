@@ -1,12 +1,19 @@
 <template>
   <div class="container-frame">
-    <div class=""></div>
+    <div class="container-frame-inner-box">
+      <passages-box/>
+    </div>
   </div>
 </template>
 
 <script>
+import PassagesBox from './PassagesBox'
+
 export default {
-  name: 'ContainerFrame'
+  name: 'ContainerFrame',
+  components: {
+    PassagesBox
+  }
 }
 </script>
 
