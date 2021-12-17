@@ -109,7 +109,7 @@ public class SysAnnexConfigInfoController {
 
     @PostMapping(value = { "getMenharaItems.action" })
     @Pass
-    public @ResponseBody Map<String, ? extends Object> getMenharaItems() {
+    public @ResponseBody Map<String, ?> getMenharaItems() {
         try {
             return Returns.mapOk(service.getMenharaItems(), "查询成功");
         } catch (Exception e) {

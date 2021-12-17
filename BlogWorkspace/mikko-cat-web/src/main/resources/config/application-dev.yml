@@ -6,7 +6,7 @@ mybatis-plus:
 server:
   port: 8084
   servlet:
-    context-path: /summerCat/blog
+    context-path: /mikko/blog
   tomcat:
     uri-encoding: UTF-8
 spring:
