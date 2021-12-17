@@ -4,23 +4,23 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>summer.cat</groupId>
-    <artifactId>summer-cat.parent</artifactId>
+    <groupId>mikko.cat</groupId>
+    <artifactId>mikko-cat.parent</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
     <modules>
-        <module>summer-cat-common</module>
-        <module>summer-cat-persistence</module>
-        <module>summer-cat-service</module>
-        <module>summer-cat-web</module>
-        <module>summer-cat-generator</module>
+        <module>mikko-cat-common</module>
+        <module>mikko-cat-persistence</module>
+        <module>mikko-cat-service</module>
+        <module>mikko-cat-web</module>
+        <module>mikko-cat-generator</module>
     </modules>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.6.RELEASE</version>
+        <version>2.4.1</version>
     </parent>
 
     <properties>
@@ -35,10 +35,10 @@
         <druid-version>1.1.5</druid-version>
         <slf4j-api.version>1.7.25</slf4j-api.version>
         <reflections.version>0.9.10</reflections.version>
-        <spring-boot-autoconfigure.version>2.0.6.RELEASE</spring-boot-autoconfigure.version>
+        <spring-boot-autoconfigure.version>2.4.0</spring-boot-autoconfigure.version>
         <guava.version>17.0</guava.version>
         <commons-lang3.version>3.4</commons-lang3.version>
-        <spring-boot-starter-aop.version>2.0.6.RELEASE</spring-boot-starter-aop.version>
+        <spring-boot-starter-aop.version>2.4.0</spring-boot-starter-aop.version>
         <jsoup.version>1.8.1</jsoup.version>
         <velocity.version>1.7</velocity.version>
         <shiro-spring.version>1.4.0</shiro-spring.version>
@@ -52,7 +52,7 @@
         <rest-assured.version>2.9.0</rest-assured.version>
         <ant.version>1.9.7</ant.version>
         <velocity.version>1.7</velocity.version>
-        <springfox-swagger2.version>2.2.2</springfox-swagger2.version>
+        <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
         <guava.version>18.0</guava.version>
         <hutool.version>5.1.0</hutool.version>
         <mybatis-generator.version>1.4.0</mybatis-generator.version>

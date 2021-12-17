@@ -1,0 +1,49 @@
+controller:
+  scanPackage: com.summer.controller
+logging:
+  config: classpath:config/logback-spring.xml
+  level:
+    file: liugh.log
+    path: logs/
+    root: info
+mybatis-plus:
+  mapper-locations: classpath:/com/liugh/mapper/xml/*Mapper.xml
+  typeAliasesPackage: com.summer.entity
+server:
+  port: 9527
+  servlet:
+    context-path: /api/v1
+spring:
+  banner:
+    location: config/my.txt
+  datasource:
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    driver-class-name: com.mysql.jdbc.Driver
+    filters: stat,wall,logback
+    initialSize: 5
+    maxActive: 20
+    maxPoolPreparedStatementPerConnectionSize: 20
+    maxWait: 60000
+    minEvictableIdleTimeMillis: 300000
+    minIdle: 5
+    password: root
+    poolPreparedStatements: true
+    testOnBorrow: false
+    testOnReturn: false
+    testWhileIdle: true
+    timeBetweenEvictionRunsMillis: 60000
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/liugh?useUnicode=true&characterEncoding=utf8&useSSL=false
+    useGlobalDataSourceStat: true
+    username: root
+    validationQuery: SELECT 1 FROM DUAL
+  redis:
+    database: 0
+    host: 127.0.0.1
+    pool:
+      max-active: 8
+      max-idle: 8
+      max-wait: -1
+      min-idle: 0
+    port: 6379
+token-random-salt: liugh@123

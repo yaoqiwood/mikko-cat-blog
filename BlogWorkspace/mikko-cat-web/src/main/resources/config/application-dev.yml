@@ -1,0 +1,47 @@
+controller:
+  scanPackage: com.summer.cat.controller
+mybatis-plus:
+  mapper-locations: classpath:/com/summer/cat/mapper/xml/*Mapper.xml
+  typeAliasesPackage: com.summer.cat.entity
+server:
+  port: 8084
+  servlet:
+    context-path: /summerCat/blog
+  tomcat:
+    uri-encoding: UTF-8
+spring:
+  datasource:
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    driver-class-name: com.mysql.jdbc.Driver
+    filters: stat,wall,log4j
+    initialSize: 5
+    maxActive: 20
+    maxPoolPreparedStatementPerConnectionSize: 20
+    maxWait: 60000
+    minEvictableIdleTimeMillis: 300000
+    minIdle: 5
+    password: root
+    poolPreparedStatements: true
+    testOnBorrow: false
+    testOnReturn: false
+    testWhileIdle: true
+    timeBetweenEvictionRunsMillis: 60000
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/blog_mgr?useUnicode=true&characterEncoding=utf8&useSSL=false
+    useGlobalDataSourceStat: true
+    username: root
+    validationQuery: SELECT 1 FROM DUAL
+  redis:
+    database: 0
+    host: 127.0.0.1
+    jedis:
+      pool:
+        max-idle: 8
+        max-wait: -1ms
+        min-idle: 0
+    jedix:
+      pool:
+        max-active: 8
+    password: ''
+    port: 6379
+token-random-salt: summerCat@1234
