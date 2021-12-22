@@ -4,43 +4,44 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.summer.cat.entity.User">
-        <id column="user_no" property="userNo" />
-        <result column="mobile" property="mobile" />
-        <result column="user_name" property="username" />
-        <result column="pass_word" property="password" />
-        <result column="email" property="email" />
-        <result column="create_time" property="createTime" />
-        <result column="avatar" property="avatar" />
-        <result column="status" property="status" />
-        <result column="job" property="job" />
+        <id column="user_no" property="userNo"/>
+        <result column="mobile" property="mobile"/>
+        <result column="user_name" property="username"/>
+        <result column="pass_word" property="password"/>
+        <result column="email" property="email"/>
+        <result column="create_time" property="createTime"/>
+        <result column="avatar" property="avatar"/>
+        <result column="status" property="status"/>
+        <result column="job" property="job"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        user_no AS userNo, mobile, user_name AS username, pass_word AS password, email, create_time AS createTime, avatar, status, job
+        user_no
+        AS userNo, mobile, user_name AS username, pass_word AS password, email, create_time AS createTime, avatar, status, job
     </sql>
 
 
     <resultMap id="UserModel" type="com.summer.cat.entity.User">
-        <id column="user_no" property="userNo" />
-        <result column="mobile" property="mobile" />
-        <result column="user_name" property="username" />
-        <result column="pass_word" property="password" />
-        <result column="email" property="email" />
-        <result column="create_time" property="createTime" />
-        <result column="avatar" property="avatar" />
-        <result column="status" property="status" />
-        <result column="job" property="job" />
-        <result column="role_name" property="roleName" />
+        <id column="user_no" property="userNo"/>
+        <result column="mobile" property="mobile"/>
+        <result column="user_name" property="username"/>
+        <result column="pass_word" property="password"/>
+        <result column="email" property="email"/>
+        <result column="create_time" property="createTime"/>
+        <result column="avatar" property="avatar"/>
+        <result column="status" property="status"/>
+        <result column="job" property="job"/>
+        <result column="role_name" property="roleName"/>
     </resultMap>
 
 
     <!-- 等同于编写一个普通 list 查询，mybatis-plus 自动替你分页 -->
-    <select id="selectPageByConditionUser"  resultMap="UserModel">
+    <select id="selectPageByConditionUser" resultMap="UserModel">
         select u.*,r.role_name from user u,user_to_role t ,role r
-        where u.user_no =t.user_no AND  t.role_code =r.role_code and r.role_name = 'user'
+        where u.user_no =t.user_no AND t.role_code =r.role_code and r.role_name = 'user'
         <if test="info != null and info != '' ">
-            and (u.mobile like concat('%',#{info},'%')  or u.user_name like concat('%',#{info},'%'))
+            and (u.mobile like concat('%',#{info},'%') or u.user_name like concat('%',#{info},'%'))
         </if>
         <if test="startTime != null and startTime != '' and endTime != null and endTime != '' ">
             and u.create_time between #{startTime,jdbcType=BIGINT} and #{endTime,jdbcType=BIGINT}
@@ -51,6 +52,14 @@
             #{item}
         </foreach>
         ORDER BY u.create_time DESC
+    </select>
+
+    <select id="selectUserNoByUserRole" resultType="java.lang.String">
+        SELECT A.user_no
+        FROM USER A
+                 LEFT JOIN user_to_role B ON A.user_no = B.user_no
+                 LEFT JOIN role C ON B.role_code = C.role_code
+        WHERE C.role_name = #{userRole}
     </select>
 
 </mapper>

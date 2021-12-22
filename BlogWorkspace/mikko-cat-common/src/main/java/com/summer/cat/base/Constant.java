@@ -136,4 +136,9 @@ public class Constant {
     // 验证码session
     public static final String VERIFICATION_CODE = "verificationCode";
 
+    // 验证值
+    public static final String AUTHORIZATION = "Authorization";
+
+    public static final String ADMIN_NAME = "sysadmin";
+
 }

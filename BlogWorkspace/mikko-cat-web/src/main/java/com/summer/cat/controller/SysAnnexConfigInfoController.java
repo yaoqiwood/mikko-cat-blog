@@ -1,19 +1,6 @@
 package com.summer.cat.controller;
 
-import java.io.*;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
-import org.apache.shiro.subject.Subject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
+import cn.hutool.core.io.FileUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.base.Charsets;
@@ -22,13 +9,23 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.summer.cat.annotation.Pass;
 import com.summer.cat.base.Constant;
-import com.summer.cat.base.SystemConfig;
+import com.summer.cat.config.SystemConfig;
 import com.summer.cat.entity.SysAnnexConfigInfo;
 import com.summer.cat.service.service.ISysAnnexConfigInfoService;
 import com.summer.cat.util.*;
-
-import cn.hutool.core.io.FileUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.*;
+import java.util.Map;
 
 /**
  * <p>
@@ -51,8 +48,9 @@ public class SysAnnexConfigInfoController {
 
     @RequestMapping("search.action")
     @RequiresAuthentication
-    public @ResponseBody Map<String, ? extends Object> search(@RequestParam int page, @RequestParam int rows,
-            @RequestParam(required = false) String exampleJson, HttpSession session) {
+    public @ResponseBody
+    Map<String, ? extends Object> search(@RequestParam int page, @RequestParam int rows,
+                                         @RequestParam(required = false) String exampleJson, HttpSession session) {
         SysAnnexConfigInfo item = new SysAnnexConfigInfo();
         if (!Strings.isNullOrEmpty(exampleJson)) {
             item = gson.fromJson(exampleJson, SysAnnexConfigInfo.class);
@@ -107,9 +105,10 @@ public class SysAnnexConfigInfoController {
         }
     }
 
-    @PostMapping(value = { "getMenharaItems.action" })
+    @PostMapping(value = {"getMenharaItems.action"})
     @Pass
-    public @ResponseBody Map<String, ?> getMenharaItems() {
+    public @ResponseBody
+    Map<String, ?> getMenharaItems() {
         try {
             return Returns.mapOk(service.getMenharaItems(), "查询成功");
         } catch (Exception e) {

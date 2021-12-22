@@ -45,3 +45,12 @@ spring:
     password: ''
     port: 6379
 token-random-salt: summerCat@1234
+mikko:
+  global:
+    author: mikko_cat
+  system:
+    upload:
+      dir: D:/upload/
+    user:
+      dir: user
+      profile: profile

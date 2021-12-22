@@ -1,28 +1,44 @@
 package com.summer.cat.controller;
 
+import java.io.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.google.common.base.Charsets;
+import com.google.common.base.Strings;
 import com.summer.cat.annotation.AccessLimit;
 import com.summer.cat.annotation.CurrentUser;
+import com.summer.cat.annotation.Pass;
 import com.summer.cat.annotation.ValidationParam;
+import com.summer.cat.base.Constant;
 import com.summer.cat.base.PublicResultConstant;
 import com.summer.cat.config.ResponseHelper;
 import com.summer.cat.config.ResponseModel;
+import com.summer.cat.config.SystemConfig;
+import com.summer.cat.dto.UserInfoProfileDto;
 import com.summer.cat.entity.User;
+import com.summer.cat.service.service.IUserInfService;
 import com.summer.cat.service.service.IUserService;
-import com.summer.cat.util.ComUtil;
+import com.summer.cat.shiro.JWTToken;
+import com.summer.cat.util.*;
 
+import cn.hutool.core.io.FileUtil;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author summer
@@ -30,16 +46,26 @@ import io.swagger.annotations.ApiOperation;
  */
 @RestController
 @RequestMapping("/user")
+@Slf4j
 public class UserController {
 
-    private final IUserService userService;
+    private IUserService userService;
 
-    public UserController(IUserService userService) {
+    private IUserInfService userInfService;
+
+    @Autowired
+    public void setUserService(IUserService userService) {
         this.userService = userService;
+    }
+
+    @Autowired
+    public void setUserInfService(IUserInfService userInfService) {
+        this.userInfService = userInfService;
     }
 
     /**
      * 获取当前登录用户信息
+     *
      * @param user
      * @return
      * @throws Exception
@@ -65,6 +91,7 @@ public class UserController {
 
     /**
      * 管理端修改密码
+     *
      * @return
      * @throws Exception
      */
@@ -153,8 +180,98 @@ public class UserController {
     @DeleteMapping(value = "/{userNo}")
     @RequiresPermissions(value = { "user:delete" })
     public ResponseModel deleteUser(@PathVariable("userNo") String userNo) throws Exception {
-
         userService.deleteByUserNo(userNo);
         return ResponseHelper.buildResponseModel(PublicResultConstant.SUCCEED);
+    }
+
+    /**
+     * 读取当前用户头像
+     * @param request
+     * @param response
+     * @throws IOException
+     */
+    @RequestMapping("reviewUserProfile")
+    void reviewUserProfile(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        BufferedInputStream bis = null;
+        BufferedOutputStream bos = null;
+        String authorization = request.getHeader(Constant.AUTHORIZATION);
+        JWTToken token = new JWTToken(authorization);
+        String userNo = JWTUtil.getUserNo(token.getPrincipal().toString());
+        // 查找用户头像信息
+        UserInfoProfileDto userInfoProfileDto = this.userInfService.findProfileByUserNo(userNo);
+        if (null == userInfoProfileDto || Strings.isNullOrEmpty(userInfoProfileDto.getSaciStoragePath())) {
+            throw new CatsException("获取头像失败");
+        }
+        // 拼接图片路径
+        String profilePath = SystemConfig.systemUploadDir + userInfoProfileDto.getSaciStoragePath()
+                + userInfoProfileDto.getSaciNewAnnexName();
+        if (!FileUtil.exist(profilePath)) {
+            String errorInf = "文件不存在，获取头像失败";
+            log.error(errorInf);
+            throw new CatsException(errorInf);
+        }
+        File file = new File(profilePath);
+        long fileLong = file.length();
+        response.setHeader(HttpUtil.HEADER_CONTENT_DISPOSITION, HttpUtil.ATTACHMENT_FILENAME + new String(
+                userInfoProfileDto.getSaciNewAnnexName().getBytes(Charsets.UTF_8.name()), Charsets.ISO_8859_1.name()));
+        response.setHeader(HttpUtil.HEADER_CONTENT_LENGTH, String.valueOf(fileLong));
+        try {
+            bis = new BufferedInputStream(new FileInputStream(profilePath));
+            bos = new BufferedOutputStream(response.getOutputStream());
+            byte[] buff = new byte[2048];
+            int byteRead;
+            while (-1 != (byteRead = bis.read(buff, 0, buff.length))) {
+                bos.write(buff, 0, byteRead);
+            }
+        } finally {
+            BufferCloseUtil.closeBufferInput(bis);
+            BufferCloseUtil.closeBufferOutput(bos);
+        }
+
+    }
+
+    /**
+     * 读取用户头像
+     * @param request
+     * @param response
+     * @throws IOException
+     */
+    @Pass
+    @GetMapping("reviewProfile")
+    public void reviewProfile(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        BufferedInputStream bis = null;
+        BufferedOutputStream bos = null;
+        String userNo = this.userInfService.selectAdminNoByUserRole();
+        // 查找用户头像信息
+        UserInfoProfileDto userInfoProfileDto = this.userInfService.findProfileByUserNo(userNo);
+        if (null == userInfoProfileDto || Strings.isNullOrEmpty(userInfoProfileDto.getSaciStoragePath())) {
+            throw new CatsException("获取头像失败");
+        }
+        // 拼接图片路径
+        String profilePath = SystemConfig.systemUploadDir + userInfoProfileDto.getSaciStoragePath()
+                + userInfoProfileDto.getSaciNewAnnexName();
+        if (!FileUtil.exist(profilePath)) {
+            String errorInf = "文件不存在，获取头像失败";
+            log.error(errorInf);
+            throw new CatsException(errorInf);
+        }
+        File file = new File(profilePath);
+        long fileLong = file.length();
+        response.setHeader(HttpUtil.HEADER_CONTENT_DISPOSITION, HttpUtil.ATTACHMENT_FILENAME + new String(
+                userInfoProfileDto.getSaciNewAnnexName().getBytes(Charsets.UTF_8.name()), Charsets.ISO_8859_1.name()));
+        response.setHeader(HttpUtil.HEADER_CONTENT_LENGTH, String.valueOf(fileLong));
+        try {
+            bis = new BufferedInputStream(new FileInputStream(profilePath));
+            bos = new BufferedOutputStream(response.getOutputStream());
+            byte[] buff = new byte[2048];
+            int byteRead;
+            while (-1 != (byteRead = bis.read(buff, 0, buff.length))) {
+                bos.write(buff, 0, byteRead);
+            }
+        } finally {
+            BufferCloseUtil.closeBufferInput(bis);
+            BufferCloseUtil.closeBufferOutput(bos);
+        }
+
     }
 }

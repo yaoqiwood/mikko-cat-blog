@@ -1,13 +1,15 @@
 package com.summer.cat.entity;
 
-import java.io.Serializable;
-import java.util.Date;
-
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -17,7 +19,9 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
  * @author summerCats
  * @since 2020-01-19
  */
+@EqualsAndHashCode(callSuper = true)
 @TableName("sys_annex_config_info")
+@Data
 public class SysAnnexConfigInfo extends Model<SysAnnexConfigInfo> {
 
     private static final long serialVersionUID = 1L;
@@ -88,93 +92,6 @@ public class SysAnnexConfigInfo extends Model<SysAnnexConfigInfo> {
     @TableField("saci_remark")
     private String saciRemark;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getSaciAnnexNum() {
-        return saciAnnexNum;
-    }
-
-    public void setSaciAnnexNum(String saciAnnexNum) {
-        this.saciAnnexNum = saciAnnexNum;
-    }
-
-    public String getSaciAnnexType() {
-        return saciAnnexType;
-    }
-
-    public void setSaciAnnexType(String saciAnnexType) {
-        this.saciAnnexType = saciAnnexType;
-    }
-
-    public String getSaciOldAnnexName() {
-        return saciOldAnnexName;
-    }
-
-    public void setSaciOldAnnexName(String saciOldAnnexName) {
-        this.saciOldAnnexName = saciOldAnnexName;
-    }
-
-    public String getSaciNewAnnexName() {
-        return saciNewAnnexName;
-    }
-
-    public void setSaciNewAnnexName(String saciNewAnnexName) {
-        this.saciNewAnnexName = saciNewAnnexName;
-    }
-
-    public String getSaciStoragePath() {
-        return saciStoragePath;
-    }
-
-    public void setSaciStoragePath(String saciStoragePath) {
-        this.saciStoragePath = saciStoragePath;
-    }
-
-    public Date getSaciCreateTime() {
-        return saciCreateTime;
-    }
-
-    public void setSaciCreateTime(Date saciCreateTime) {
-        this.saciCreateTime = saciCreateTime;
-    }
-
-    public String getSaciCreator() {
-        return saciCreator;
-    }
-
-    public void setSaciCreator(String saciCreator) {
-        this.saciCreator = saciCreator;
-    }
-
-    public Date getSaciUpdateTime() {
-        return saciUpdateTime;
-    }
-
-    public void setSaciUpdateTime(Date saciUpdateTime) {
-        this.saciUpdateTime = saciUpdateTime;
-    }
-
-    public String getSaciUpdater() {
-        return saciUpdater;
-    }
-
-    public void setSaciUpdater(String saciUpdater) {
-        this.saciUpdater = saciUpdater;
-    }
-
-    public String getSaciRemark() {
-        return saciRemark;
-    }
-
-    public void setSaciRemark(String saciRemark) {
-        this.saciRemark = saciRemark;
-    }
 
     @Override
     protected Serializable pkVal() {

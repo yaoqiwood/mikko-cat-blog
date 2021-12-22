@@ -1,17 +1,5 @@
 package com.summer.cat.shiro;
 
-import java.io.PrintWriter;
-
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.RequestMethod;
-
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Strings;
 import com.summer.cat.base.Constant;
@@ -26,10 +14,20 @@ import com.summer.cat.util.ComUtil;
 import com.summer.cat.util.GsonUtil;
 import com.summer.cat.util.JWTUtil;
 import com.summer.cat.vo.UserRoleVo;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
 
 /**
  * @author grm
- *
+ * <p>
  * 代码的执行流程 preHandle->isAccessAllowed->isLoginAttempt->executeLogin
  */
 public class JWTFilter extends BasicHttpAuthenticationFilter {
@@ -45,7 +43,7 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
     @Override
     protected boolean isLoginAttempt(ServletRequest request, ServletResponse response) {
         HttpServletRequest req = (HttpServletRequest) request;
-        String authorization = req.getHeader("Authorization");
+        String authorization = req.getHeader(Constant.AUTHORIZATION);
         return authorization != null;
     }
 
@@ -55,7 +53,7 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
     @Override
     protected boolean executeLogin(ServletRequest request, ServletResponse response) throws Exception {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        String authorization = httpServletRequest.getHeader("Authorization");
+        String authorization = httpServletRequest.getHeader(Constant.AUTHORIZATION);
         JWTToken token = new JWTToken(authorization);
         // 提交给realm进行登入，如果错误他会抛出异常并被捕获
         getSubject(request, response).login(token);
@@ -126,7 +124,7 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
             httpServletResponse.setStatus(HttpStatus.OK.value());
             return false;
         }
-        String authorization = httpServletRequest.getHeader("Authorization");
+        String authorization = httpServletRequest.getHeader(Constant.AUTHORIZATION);
         if (verificationPassAnnotation(request, response, httpServletRequest, authorization)) {
             return true;
         }
@@ -139,6 +137,7 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
 
     /**
      * 验证请求方法是否有@Pass注解,有则直接放行
+     *
      * @param request
      * @param response
      * @param httpServletRequest
@@ -147,7 +146,7 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
      * @throws Exception
      */
     private boolean verificationPassAnnotation(ServletRequest request, ServletResponse response,
-            HttpServletRequest httpServletRequest, String authorization) throws Exception {
+                                               HttpServletRequest httpServletRequest, String authorization) throws Exception {
         for (String urlMethod : Constant.METHOD_URL_SET) {
             String[] split = urlMethod.split(":--:");
             if (split[0].equals(httpServletRequest.getRequestURI())
@@ -181,6 +180,7 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
 
     /**
      * 判断路径参数的url是否和controller方法url一致
+     *
      * @param localUrl
      * @param requestUrl
      * @return

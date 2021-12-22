@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.summer.cat.mapper.UserInfMapper">
+
+    <!--  findProfileByUserNo  -->
+    <select id="findProfileByUserNo" resultType="com.summer.cat.dto.UserInfoProfileDto">
+        SELECT A.id,
+               A.user_no,
+               B.saci_annex_type,
+               B.saci_old_annex_name,
+               B.saci_new_annex_name,
+               B.saci_storage_path,
+               B.saci_creator,
+               B.saci_create_time
+        FROM user_inf A
+                 LEFT JOIN sys_annex_config_info B ON A.user_blog_profile_img_name = B.id
+        WHERE A.user_no = #{userNo}
+    </select>
+
+    <select id="selectUserInfByRoleName" resultType="com.summer.cat.dto.UserInfWithImgDto">
+        SELECT A.user_introduce_word,
+               A.user_blog_title_word,
+               B.saci_new_annex_name,
+               B.saci_storage_path
+        FROM user_inf A
+                 LEFT JOIN sys_annex_config_info B ON A.user_blog_inf_frame_background_img = B.id
+                 LEFT JOIN user_to_role C ON A.user_no = C.user_no
+                 LEFT JOIN role D ON C.role_code = D.role_code
+        WHERE D.role_name = #{roleName}
+    </select>
+</mapper>

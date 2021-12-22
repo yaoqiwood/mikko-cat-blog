@@ -1,37 +1,39 @@
 package com.summer.cat.util;
 
-import com.summer.cat.base.Constant;
-import net.coobird.thumbnailator.Thumbnails;
-import org.apache.tools.zip.ZipEntry;
-import org.apache.tools.zip.ZipFile;
-import org.apache.tools.zip.ZipOutputStream;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
-
-import javax.imageio.ImageIO;
-import javax.imageio.stream.ImageInputStream;
 import java.io.*;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import java.util.*;
 
+import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageInputStream;
+
+import org.apache.tools.zip.ZipEntry;
+import org.apache.tools.zip.ZipFile;
+import org.apache.tools.zip.ZipOutputStream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.summer.cat.base.Constant;
+
+import net.coobird.thumbnailator.Thumbnails;
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
+
 /**
  * @author summer
  * @since on 2018/5/8.
  */
-public class FileUtil {
+public class FileUtils {
 
-    //2M
+    // 2M
     public static final int FILE_SIZE = 1000000;
 
-    private static final Logger logger = LoggerFactory.getLogger(FileUtil.class);
-
+    private static final Logger logger = LoggerFactory.getLogger(FileUtils.class);
 
     private static ResourceBundle bundle = ResourceBundle.getBundle("config/constant");
 
-    public static String fileUploadPath =bundle.getString("file-upload.dir");
+    public static String fileUploadPath = bundle.getString("file-upload.dir");
 
     /**
      * 判断当前文件是否是zip文件
@@ -44,27 +46,23 @@ public class FileUtil {
         return fileName.toLowerCase().endsWith(Constant.FilePostFix.ZIP_FILE);
     }
 
-
-    public static void removeDocument(String fileName){
-        File file=new File(fileName);
-        if(file.exists() && file.isFile()) {
+    public static void removeDocument(String fileName) {
+        File file = new File(fileName);
+        if (file.exists() && file.isFile()) {
             file.delete();
         }
-        if(file.isDirectory()){
+        if (file.isDirectory()) {
             delDir(fileName);
         }
         if (fileName.lastIndexOf(Constant.FilePostFix.ZIP_FILE) > 0) {
-            delDir(fileName.substring(0,fileName.lastIndexOf(Constant.FilePostFix.ZIP_FILE))+"/");
+            delDir(fileName.substring(0, fileName.lastIndexOf(Constant.FilePostFix.ZIP_FILE)) + "/");
         }
 
     }
 
-
-
-
-    public static boolean checkZipFile(String sourcePath){
+    public static boolean checkZipFile(String sourcePath) {
         System.setProperty("sun.zip.encoding", System.getProperty("sun.jnu.encoding"));
-        ZipFile zipFile =null;
+        ZipFile zipFile = null;
         try {
             File sourceFile = new File(sourcePath);
             zipFile = new ZipFile(sourcePath, "gbk");
@@ -77,7 +75,7 @@ public class FileUtil {
                 if (zipEnt.isDirectory()) {
                     return false;
                 }
-                if(zipEnt.getName().endsWith(".shp")){
+                if (zipEnt.getName().endsWith(".shp")) {
                     return true;
                 }
             }
@@ -85,9 +83,9 @@ public class FileUtil {
         } catch (Exception e) {
             e.printStackTrace();
             return false;
-        }finally {
+        } finally {
             try {
-                if(null!=zipFile){
+                if (null != zipFile) {
                     zipFile.close();
                 }
             } catch (IOException e) {
@@ -110,40 +108,40 @@ public class FileUtil {
      *            :压缩后文件的名称
      * @return
      */
-    public static boolean fileToZip(String sourceFilePath,String zipFilePath,String fileName)throws  Exception{
+    public static boolean fileToZip(String sourceFilePath, String zipFilePath, String fileName) throws Exception {
         boolean flag = false;
-        FileOutputStream fos =null;
-        ZipOutputStream zos =null;
-        BufferedInputStream bis =null;
-        FileInputStream  fis =null;
-        BufferedOutputStream bufferedOutputStream =null;
+        FileOutputStream fos = null;
+        ZipOutputStream zos = null;
+        BufferedInputStream bis = null;
+        FileInputStream fis = null;
+        BufferedOutputStream bufferedOutputStream = null;
         File sourceFile = new File(sourceFilePath);
-        if(sourceFile.exists() == false){
-            throw new Exception("待压缩的文件目录："+sourceFilePath+"不存在.");
-        }else{
+        if (sourceFile.exists() == false) {
+            throw new Exception("待压缩的文件目录：" + sourceFilePath + "不存在.");
+        } else {
             try {
-                File zipFile = new File(zipFilePath +fileName );
-                if(zipFile.exists()){
-                    throw new Exception(zipFilePath + "目录下存在名字为:" + fileName +Constant.FilePostFix.ZIP_FILE +"打包文件.");
-                }else{
+                File zipFile = new File(zipFilePath + fileName);
+                if (zipFile.exists()) {
+                    throw new Exception(zipFilePath + "目录下存在名字为:" + fileName + Constant.FilePostFix.ZIP_FILE + "打包文件.");
+                } else {
                     File[] sourceFiles = sourceFile.listFiles();
-                    if(null == sourceFiles || sourceFiles.length<1){
+                    if (null == sourceFiles || sourceFiles.length < 1) {
                         throw new Exception("待压缩的文件目录：" + sourceFilePath + "里面不存在文件，无需压缩.");
-                    }else{
+                    } else {
                         fos = new FileOutputStream(zipFile);
                         bufferedOutputStream = new BufferedOutputStream(fos);
                         zos = new ZipOutputStream(bufferedOutputStream);
-                        byte[] bufs = new byte[1024*10];
-                        for(int i=0;i<sourceFiles.length;i++){
-                            //创建ZIP实体，并添加进压缩包
+                        byte[] bufs = new byte[1024 * 10];
+                        for (int i = 0; i < sourceFiles.length; i++) {
+                            // 创建ZIP实体，并添加进压缩包
                             ZipEntry zipEntry = new ZipEntry(sourceFiles[i].getName());
                             zos.putNextEntry(zipEntry);
-                            //读取待压缩的文件并写进压缩包里
+                            // 读取待压缩的文件并写进压缩包里
                             fis = new FileInputStream(sourceFiles[i]);
-                            bis = new BufferedInputStream(fis, Constant.BYTE_BUFFER *Constant.BUFFER_MULTIPLE);
+                            bis = new BufferedInputStream(fis, Constant.BYTE_BUFFER * Constant.BUFFER_MULTIPLE);
                             int read;
-                            while((read=bis.read(bufs, 0, Constant.BYTE_BUFFER *Constant.BUFFER_MULTIPLE)) != -1){
-                                zos.write(bufs,0,read);
+                            while ((read = bis.read(bufs, 0, Constant.BYTE_BUFFER * Constant.BUFFER_MULTIPLE)) != -1) {
+                                zos.write(bufs, 0, read);
                             }
                             fis.close();
                             bis.close();
@@ -157,8 +155,8 @@ public class FileUtil {
             } catch (IOException e) {
                 e.printStackTrace();
                 throw new RuntimeException(e);
-            } finally{
-                //关闭流
+            } finally {
+                // 关闭流
                 try {
                     if (null != bis) {
                         bis.close();
@@ -193,7 +191,6 @@ public class FileUtil {
 
     }
 
-
     /**
      * 保存文件到临时目录
      * @param inputStream 文件输入流
@@ -217,7 +214,7 @@ public class FileUtil {
             while ((len = inputStream.read(bs)) != -1) {
                 os.write(bs, 0, len);
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             // 完毕，关闭所有链接
@@ -232,7 +229,7 @@ public class FileUtil {
 
     public static String saveFile(InputStream file, int type, String name, String tag) throws Exception {
         Date time = new Date();
-        String fileName = fileName(time, type, name,tag);
+        String fileName = fileName(time, type, name, tag);
         File newFile = getNewFile(fileName);
         File oldFile = createTemporaryFile(file, name);
         copyFile(newFile, new FileInputStream(oldFile));
@@ -252,17 +249,14 @@ public class FileUtil {
                 byteCount += bytesRead;
             }
             out.flush();
-        }
-        finally {
+        } finally {
             try {
                 file.close();
-            }
-            catch (IOException ex) {
+            } catch (IOException ex) {
             }
             try {
                 out.close();
-            }
-            catch (IOException ex) {
+            } catch (IOException ex) {
             }
         }
         return temp;
@@ -279,11 +273,11 @@ public class FileUtil {
                 outC.close();
                 outFile.close();
                 file.close();
-                return ;
+                return;
             }
             if ((inC.size() - inC.position()) < 20971520) {
                 length = (int) (inC.size() - inC.position());
-            }else {
+            } else {
                 length = 20971520;
             }
             inC.transferTo(inC.position(), length, outC);
@@ -296,10 +290,10 @@ public class FileUtil {
         String filePath = fileUploadPath + fileName;
         File newFile = new File(filePath);
         File fileParent = newFile.getParentFile();
-        if(!fileParent.exists()){
+        if (!fileParent.exists()) {
             fileParent.mkdirs();
         }
-        if (!newFile.exists()){
+        if (!newFile.exists()) {
             newFile.createNewFile();
         }
         return newFile;
@@ -312,49 +306,49 @@ public class FileUtil {
      * @param name
      * @return
      */
-    private static String fileName(Date time, int type, String name,String tag) {
+    private static String fileName(Date time, int type, String name, String tag) {
         StringBuffer str = new StringBuffer();
-        if (type== Constant.FileType.FILE_IMG) {
+        if (type == Constant.FileType.FILE_IMG) {
             str.append(Constant.FileType.FILE_IMG_DIR);
         }
-        if (type==Constant.FileType.FILE_ZIP) {
+        if (type == Constant.FileType.FILE_ZIP) {
             str.append(Constant.FileType.FILE_ZIP_DIR);
         }
-        if (type==Constant.FileType.FILE_VEDIO) {
+        if (type == Constant.FileType.FILE_VEDIO) {
             str.append(Constant.FileType.FILE_VEDIO_DIR);
         }
-        if (type==Constant.FileType.FILE_APK) {
+        if (type == Constant.FileType.FILE_APK) {
             str.append(Constant.FileType.FILE_APK_DIR);
         }
-        if (type==Constant.FileType.FIVE_OFFICE) {
+        if (type == Constant.FileType.FIVE_OFFICE) {
             str.append(Constant.FileType.FIVE_OFFICE_DIR);
         }
         str.append(DateTimeUtil.formatDatetoString(time));
         str.append("/");
         str.append(System.currentTimeMillis());
-        if(!ComUtil.isEmpty(tag)) {
+        if (!ComUtil.isEmpty(tag)) {
             str.append(tag);
         }
         str.append(name.substring(name.indexOf(".")));
         return str.toString();
     }
-    public static String getFileUrl(String fileDir){
+
+    public static String getFileUrl(String fileDir) {
         return bundle.getString("file-upload.url") + fileDir;
     }
-
 
     /**
      * 删除文件目录
      * @param path
      */
-    private static void delDir(String path){
-        File dir=new File(path);
-        if(dir.exists()){
-            File[] tmp=dir.listFiles();
-            for(int i=0;i<tmp.length;i++){
-                if(tmp[i].isDirectory()){
-                    delDir(path+File.separator+tmp[i].getName());
-                }else{
+    private static void delDir(String path) {
+        File dir = new File(path);
+        if (dir.exists()) {
+            File[] tmp = dir.listFiles();
+            for (int i = 0; i < tmp.length; i++) {
+                if (tmp[i].isDirectory()) {
+                    delDir(path + File.separator + tmp[i].getName());
+                } else {
                     tmp[i].delete();
                 }
             }
@@ -368,10 +362,9 @@ public class FileUtil {
      * @return
      */
     public static String cutNameSuffix(String fileName) {
-        String suffix = fileName.substring(0,fileName.lastIndexOf("."));
+        String suffix = fileName.substring(0, fileName.lastIndexOf("."));
         return suffix;
     }
-
 
     /**
      * 解压zip格式的压缩文件到指定位置
@@ -384,8 +377,8 @@ public class FileUtil {
      */
     public static boolean unZipFiles(String sourcePath, String targetPath) throws Exception {
         System.setProperty("sun.zip.encoding", System.getProperty("sun.jnu.encoding"));
-        InputStream is =null;
-        BufferedInputStream bis =null;
+        InputStream is = null;
+        BufferedInputStream bis = null;
         try {
             (new File(targetPath)).mkdirs();
             File sourceFile = new File(sourcePath);
@@ -439,7 +432,7 @@ public class FileUtil {
         } catch (Exception e) {
             e.printStackTrace();
             return false;
-        }finally {
+        } finally {
             try {
                 if (is != null) {
                     is.close();
@@ -455,34 +448,34 @@ public class FileUtil {
 
     public static boolean deleteUploadedFile(String fileName) {
         String filePath = bundle.getString("file-upload.dir") + fileName;
-        File file =  new File(filePath);
-        if(file.exists()){
-            if(file.isFile()) {
+        File file = new File(filePath);
+        if (file.exists()) {
+            if (file.isFile()) {
                 file.delete();
-            }else{
+            } else {
                 removeDocument(fileName);
             }
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
     public static int getFileType(String originalFilename) {
-        String postFix = originalFilename.split("//.")[originalFilename.split("//.").length-1];
-        if(Arrays.asList(Constant.FilePostFix.IMAGES).contains(postFix)){
+        String postFix = originalFilename.split("//.")[originalFilename.split("//.").length - 1];
+        if (Arrays.asList(Constant.FilePostFix.IMAGES).contains(postFix)) {
             return Constant.FileType.FILE_IMG;
         }
-        if(Arrays.asList(Constant.FilePostFix.ZIP).contains(postFix)){
+        if (Arrays.asList(Constant.FilePostFix.ZIP).contains(postFix)) {
             return Constant.FileType.FILE_ZIP;
         }
-        if(Arrays.asList(Constant.FilePostFix.VIDEO).contains(postFix)){
+        if (Arrays.asList(Constant.FilePostFix.VIDEO).contains(postFix)) {
             return Constant.FileType.FILE_VEDIO;
         }
-        if(Arrays.asList(Constant.FilePostFix.APK).contains(postFix)){
+        if (Arrays.asList(Constant.FilePostFix.APK).contains(postFix)) {
             return Constant.FileType.FILE_APK;
         }
-        if(Arrays.asList(Constant.FilePostFix.OFFICE).contains(postFix)){
+        if (Arrays.asList(Constant.FilePostFix.OFFICE).contains(postFix)) {
             return Constant.FileType.FIVE_OFFICE;
         }
         return Constant.FileType.FILE_IMG;
@@ -521,7 +514,7 @@ public class FileUtil {
      * @return
      */
     public static String getJarPath() {
-        return FileUtil.getParent(FileUtil.getTopClassPath(FileUtil.class), 1) + File.separator + "lib";
+        return FileUtils.getParent(FileUtils.getTopClassPath(FileUtils.class), 1) + File.separator + "lib";
     }
 
     public static String getClassPath(String folderName) {
@@ -727,7 +720,6 @@ public class FileUtil {
         return flag;
     }
 
-
     /**
      * 压缩超过2m的图片
      * @param url
@@ -739,19 +731,16 @@ public class FileUtil {
         str.append("/img/");
         str.append(DateTimeUtil.formatDatetoString(new Date()));
         str.append("/pre/");
-        str.append(url.substring(url.lastIndexOf("/")+1));
+        str.append(url.substring(url.lastIndexOf("/") + 1));
         String preUrl = fileUploadPath + str.toString();
-        File filePath = new File(StringUtil.utf8Decoding(preUrl.substring(0,preUrl.lastIndexOf("/"))));
-        if(!filePath.exists()){
+        File filePath = new File(StringUtil.utf8Decoding(preUrl.substring(0, preUrl.lastIndexOf("/"))));
+        if (!filePath.exists()) {
             filePath.mkdirs();
         }
         createFile(preUrl);
-        //其中的scale是可以指定图片的大小，值在0到1之间，1f就是原图大小，0.5就是原图的一半大小，这里的大小是指图片的长宽。
-        //而outputQuality是图片的质量，值也是在0到1，越接近于1质量越好，越接近于0质量越差。
-        Thumbnails.of(fileUploadPath+url)
-                .scale(1f)
-                .outputQuality(0.5f)
-                .toFile(preUrl);
+        // 其中的scale是可以指定图片的大小，值在0到1之间，1f就是原图大小，0.5就是原图的一半大小，这里的大小是指图片的长宽。
+        // 而outputQuality是图片的质量，值也是在0到1，越接近于1质量越好，越接近于0质量越差。
+        Thumbnails.of(fileUploadPath + url).scale(1f).outputQuality(0.5f).toFile(preUrl);
         return str.toString();
     }
 
@@ -867,8 +856,7 @@ public class FileUtil {
         pos = filePathName.lastIndexOf('.');
         if (pos != -1) {
             return filePathName.substring(pos + 1, filePathName.length());
-        }
-        else {
+        } else {
             return "";
         }
     }
@@ -1048,7 +1036,8 @@ public class FileUtil {
     }
 
     public static String readFileContent(File file, Charset charset) throws Exception {
-        if (!file.exists() || file.isDirectory()) throw new Exception("file is not exists or is a directory");
+        if (!file.exists() || file.isDirectory())
+            throw new Exception("file is not exists or is a directory");
         StringWriter out = new StringWriter();
         FileInputStream in = new FileInputStream(file);
         try {
@@ -1058,8 +1047,10 @@ public class FileUtil {
                 out.write(new String(buffer, 0, length, charset));
             }
         } finally {
-            if (in != null) in.close();
-            if (out != null) out.close();
+            if (in != null)
+                in.close();
+            if (out != null)
+                out.close();
         }
         return out.toString();
     }
@@ -1069,36 +1060,42 @@ public class FileUtil {
         try {
             int length = 0;
             byte[] buffer = new byte[1024];
-            while((length = content.read(buffer)) > 0){
-                out.write(buffer,0,length);
+            while ((length = content.read(buffer)) > 0) {
+                out.write(buffer, 0, length);
             }
         } finally {
-            if (content != null) content.close();
-            if(out != null) out.close();
+            if (content != null)
+                content.close();
+            if (out != null)
+                out.close();
         }
         BASE64Encoder encoder = new BASE64Encoder();
         return encoder.encode(out.toByteArray());
     }
 
-    public static byte[] base64String2Image(String base64String) throws Exception{
-        if(ComUtil.isEmpty(base64String)) return null;
-        base64String = base64String.replaceAll("data:image/(jpg|png|jpeg);base64,","");
+    public static byte[] base64String2Image(String base64String) throws Exception {
+        if (ComUtil.isEmpty(base64String))
+            return null;
+        base64String = base64String.replaceAll("data:image/(jpg|png|jpeg);base64,", "");
         BASE64Decoder decoder = new BASE64Decoder();
         return decoder.decodeBuffer(base64String);
     }
 
-//    public static void main(String[] args) throws Exception {
-//        //System.out.println(Jsoup.parse(new File("D:\\result.htm"),"GBK").outerHtml());
-//        //System.out.println(readFileContent(new File("D:\\result.htm"),Charset.forName("GBK")));
-//        //System.out.println(image2Base64String(new FileInputStream(new File("D://123.png"))));
-//        System.out.println("data:image/png;base64,".replaceAll("data:image/(jpg|png|jpeg);base64,",""));
-//    }
+    // public static void main(String[] args) throws Exception {
+    // //System.out.println(Jsoup.parse(new
+    // File("D:\\result.htm"),"GBK").outerHtml());
+    // //System.out.println(readFileContent(new
+    // File("D:\\result.htm"),Charset.forName("GBK")));
+    // //System.out.println(image2Base64String(new FileInputStream(new
+    // File("D://123.png"))));
+    // System.out.println("data:image/png;base64,".replaceAll("data:image/(jpg|png|jpeg);base64,",""));
+    // }
     /**
      * 创建文件路径(文件夹)
      * @param fileName
      */
-    public  static void fileMkdir(String fileName) {
-        File fileTotal=new File(fileName);
+    public static void fileMkdir(String fileName) {
+        File fileTotal = new File(fileName);
         if (!fileTotal.exists()) {
             fileTotal.mkdirs();
         }

@@ -22,4 +22,10 @@ public interface UserMapper extends BaseMapper<User> {
     List<User> selectPageByConditionUser(Page<User> page, @Param("info") String info, @Param("status") Integer[] status,
             @Param("startTime") String startTime, @Param("endTime") String endTime);
 
+    /**
+     * selectUserNoByUserRole
+     * @param roleName
+     * @return
+     */
+    String selectUserNoByUserRole(@Param("userRole") String roleName);
 }
