@@ -11,7 +11,11 @@ const POSTJSON_HEADERS = {
   'Content-Type': 'application/json'
 }
 
-const PROJECT_NAME_PATH = '/summerCat/blog/'
+const RESPONSE_TYPE_BUFFER_ARRAY = {
+  'responseType': 'arraybuffer'
+}
+
+const PROJECT_NAME_PATH = '/mikko/blog/'
 
 const POST_OPTIONS = {
   emulateJSON: true,
@@ -29,5 +33,6 @@ export default {
   POST_HEADERS,
   POSTJSON_HEADERS,
   POSTJSON_OPTIONS,
-  PROJECT_NAME_PATH
+  PROJECT_NAME_PATH,
+  RESPONSE_TYPE_BUFFER_ARRAY
 }

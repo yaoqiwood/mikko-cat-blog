@@ -10,7 +10,7 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/summerCat/blog': {
+      '/mikko/blog': {
         target: 'http://127.0.0.1:8084',
         changeOrigin: true
       }

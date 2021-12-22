@@ -35,4 +35,9 @@ const FrontPageComponent = {
   component: RoutersComponents.FrontPage
 }
 
-export default [MainComponent, LoginComponent, FrontPageComponent]
+const P404PageComponent = {
+  path: Urls.P404PageUrl,
+  component: RoutersComponents.P404Page
+}
+
+export default [MainComponent, LoginComponent, FrontPageComponent, P404PageComponent]

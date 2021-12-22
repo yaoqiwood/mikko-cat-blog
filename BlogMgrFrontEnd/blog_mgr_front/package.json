@@ -22,7 +22,6 @@
     "view-design": "^4.2.0",
     "vue": "^2.5.2",
     "vue-cookies": "^1.7.0",
-    "vue-live2d": "^1.0.3",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.0.1"
   },

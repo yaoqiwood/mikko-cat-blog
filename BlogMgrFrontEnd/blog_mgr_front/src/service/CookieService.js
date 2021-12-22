@@ -19,6 +19,7 @@ export default {
   getUserToken (token) {
     NetConstants.POST_HEADERS.Authorization = token
     NetConstants.POSTJSON_HEADERS.Authorization = token
+    NetConstants.RESPONSE_TYPE_BUFFER_ARRAY.Authorization = token
   },
   saveUserToken (token) {
     Vue.$cookies.set(Constants.TOKEN_COOKIE, token, Constants.EXPIRE_TIME)

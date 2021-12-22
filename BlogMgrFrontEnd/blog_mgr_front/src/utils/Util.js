@@ -2,11 +2,10 @@
 import Vue from 'vue'
 import NetConstants from '../constants/NetConstants'
 import CookieService from '@/service/CookieService'
-import RouterUtil from '@/router/routersUtil'
-import RouterUrl from '@/router/routersUrl'
+// import RouterUtil from '@/router/routersUtil'
+// import RouterUrl from '@/router/routersUrl'
 import ColorConstant from '@/constants/ColorConstant'
-import {Message} from 'view-design'
-
+// import {Message} from 'view-design'
 export default {
   httpGet (url) {
     return new Promise((resolve, reject) => {
@@ -19,6 +18,17 @@ export default {
           reject(rejectResp.data)
         }
       )
+    })
+  },
+  httpGetWithHeader (url, option) {
+    return new Promise((resolve, reject) => {
+      let promise = Vue.http.get(url, option)
+      promise.then(resp => {
+        resolve(resp.data)
+      },
+      rejectResp => {
+        reject(rejectResp.data)
+      })
     })
   },
   httpPost (url, params) {
@@ -51,13 +61,6 @@ export default {
   },
   checkRespError (resp) {
     if (resp.data.errorValidation) {
-      Message.error('当前用户登录信息失效，请重新登录')
-      setTimeout(() => {
-        // 清空cookie
-        CookieService.userLogout()
-        RouterUtil.routerReplace(RouterUrl.NLogin)
-        this.$Spin.hide()
-      }, 2000)
     }
   },
   mountLoginToken () {

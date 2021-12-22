@@ -14,6 +14,8 @@ import PassagesManager from '@/view/passages/PassagesManager'
 // frontPage
 import FrontPage from '@/components/front/FrontPage'
 
+import P404Page from '@/view/p404Page/P404'
+
 export default {
-  MainIndex, Login, ChartsIndexPage, PassagesManager, FrontPage
+  MainIndex, Login, ChartsIndexPage, PassagesManager, FrontPage, P404Page
 }

@@ -26,6 +26,10 @@ const MPassagesManager = {
 const RFrontPageUrl = '/'
 const NFrontPage = 'frontPage'
 
+// 404Page
+const P404PageUrl = '*'
+// const P404Page = '404NotFound'
+
 export default {
   RIndexMainUrl,
   NIndexMain,
@@ -38,5 +42,6 @@ export default {
   MPassagesManager,
   MLogin,
   RFrontPageUrl,
-  NFrontPage
+  NFrontPage,
+  P404PageUrl
 }

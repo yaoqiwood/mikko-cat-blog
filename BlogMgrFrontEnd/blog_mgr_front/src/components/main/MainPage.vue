@@ -88,7 +88,7 @@
         </Layout>
       </Layout>
     </Layout>
-    <live2d :zIndex="999"/>
+    <!-- <live2d :zIndex="999"/> -->
   </div>
 </template>
 <script>
@@ -102,8 +102,8 @@ import RouterUrls from '@/router/routersUrl'
 import Constants from '@/constants/Constants'
 import CustomBreadCrumb from './customBreadCrumb'
 // live-2d
-import Live2d from 'vue-live2d'
-import 'vue-live2d/dist/vue-live2d.css'
+// import Live2d from 'vue-live2d'
+// import 'vue-live2d/dist/vue-live2d.css'
 
 export default {
   name: 'MainPage',
@@ -198,7 +198,7 @@ export default {
     }
   },
   components: {
-    MainPageSideSubMenuItem, IndexCollapse, CollapsedMenu, CustomBreadCrumb, Live2d
+    MainPageSideSubMenuItem, IndexCollapse, CollapsedMenu, CustomBreadCrumb
   }
 }
 </script>

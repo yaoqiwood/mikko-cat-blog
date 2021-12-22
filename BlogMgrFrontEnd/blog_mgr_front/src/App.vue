@@ -6,7 +6,6 @@
 
 <script>
 // import '@/assets/css/Common.less'
-
 export default {
   name: 'App'
 }

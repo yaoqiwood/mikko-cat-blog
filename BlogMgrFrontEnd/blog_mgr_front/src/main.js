@@ -25,6 +25,12 @@ import VueCookies from 'vue-cookies'
 import MavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 
+// mikko-util
+import MikkoUtil from '../mikko-util'
+
+// interceptor
+import httpInterceptor from './utils//Http.interceptor'
+
 Vue.config.productionTip = false
 Vue.use(ViewUI)
 Vue.use(VueResource)
@@ -32,6 +38,8 @@ Vue.use(Locale)
 Vue.use(VueParticles)
 Vue.use(VueCookies)
 Vue.use(MavonEditor)
+Vue.use(MikkoUtil)
+Vue.use(httpInterceptor)
 
 // const RouterConfig = {
 //   routes: Routers
@@ -46,6 +54,9 @@ new Vue({
   // components: {
   //   App
   // },
+  // ...App
   render: h => h(App)
   // template: '<App/>'
 })
+
+// Vue.use(MikkoApi, app)
