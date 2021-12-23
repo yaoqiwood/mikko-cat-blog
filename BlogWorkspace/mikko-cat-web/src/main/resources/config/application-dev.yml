@@ -51,6 +51,7 @@ mikko:
   system:
     upload:
       dir: D:/upload/
+      tempDir: temp
     user:
       dir: user
       profile: profile

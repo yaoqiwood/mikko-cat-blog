@@ -1,7 +1,7 @@
 package com.summer.cat.enums;
 
 public enum EnumSaciAnnexType {
-    MENHARA("menhara");
+    MENHARA("menhara"), TEMP_UPLOAD_IMG("temp_upload_img");
 
     private EnumSaciAnnexType(String label) {
         this.label = label;

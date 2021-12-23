@@ -10,10 +10,14 @@ public class TestMain {
         // System.out.println(GeneratorConfig.dbUrl);
         // System.out.println(Charsets.UTF_8.name());
         // System.out.println(Charsets.ISO_8859_1.name());
-        logger.debug("This is debug message.");
-
-        Thread thread = new Thread();
-        thread.start();
-        String name = thread.getName();
+        // logger.debug("This is debug message.");
+        //
+        // Thread thread = new Thread();
+        // thread.start();
+        // String name = thread.getName();
+        // File file = new File(
+        // "F:\\BlogWorkspaces\\BlogWorkspace\\mikko-cat-web\\src\\test\\WeChat
+        // Image_20211222141120.jpg");
+        // System.out.println(FileUtils.isImgSuffixNameError(file));
     }
 }

@@ -1,5 +1,4 @@
-package com.summer.cat.config;
-
+package com.summer.cat.service.system;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -7,9 +6,14 @@ import org.springframework.stereotype.Component;
 @Component("SystemConfig")
 public class SystemConfig {
     public static String globalAuthor;
+
     public static String systemUploadDir;
+
     public static String userUploadDir;
+
     public static String userProfileDir;
+
+    public static String tempDir;
 
     @Value("${mikko.global.author}")
     public void setGlobalAuthor(String globalAuthor) {
@@ -29,5 +33,10 @@ public class SystemConfig {
     @Value("${mikko.system.user.profile}")
     public void setUserProfileDir(String userProfileDir) {
         SystemConfig.userProfileDir = userProfileDir;
+    }
+
+    @Value("${mikko.system.upload.tempDir}")
+    public void setTempDir(String tempDir) {
+        SystemConfig.tempDir = tempDir;
     }
 }

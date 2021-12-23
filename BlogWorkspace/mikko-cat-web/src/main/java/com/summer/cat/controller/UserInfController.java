@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.summer.cat.annotation.Pass;
-import com.summer.cat.config.SystemConfig;
 import com.summer.cat.dto.UserInfWithImgDto;
 import com.summer.cat.entity.UserInf;
 import com.summer.cat.service.service.IUserInfService;
+import com.summer.cat.service.system.SystemConfig;
 import com.summer.cat.util.Returns;
 
 import lombok.extern.slf4j.Slf4j;

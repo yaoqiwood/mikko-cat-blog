@@ -1,7 +1,10 @@
 package com.summer.cat.service.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -23,4 +26,12 @@ public interface ISysAnnexConfigInfoService extends IService<SysAnnexConfigInfo>
      * @return
      */
     public List<Map<String, Integer>> getMenharaItems();
+
+    /**
+     * 上传图片
+     * @param file
+     * @param userNo
+     */
+    SysAnnexConfigInfo uploadImgFile(MultipartFile file, String userNo) throws IOException;
+
 }

@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import com.summer.cat.base.Constant;
 
+import cn.hutool.core.io.FileTypeUtil;
 import net.coobird.thumbnailator.Thumbnails;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
@@ -38,8 +39,7 @@ public class FileUtils {
     /**
      * 判断当前文件是否是zip文件
      *
-     * @param fileName
-     *            文件名
+     * @param fileName 文件名
      * @return true 是
      */
     public static boolean isZip(String fileName) {
@@ -100,12 +100,10 @@ public class FileUtils {
     /**
      * 将存放在sourceFilePath目录下的源文件，打包成fileName名称的zip文件，并存放到zipFilePath路径下
      * (把指定文件夹下的所有文件目录和文件都压缩到指定文件夹下)
-     * @param sourceFilePath
-     *            :待压缩的文件路径
-     * @param zipFilePath
-     *            :压缩后存放路径
-     * @param fileName
-     *            :压缩后文件的名称
+     *
+     * @param sourceFilePath :待压缩的文件路径
+     * @param zipFilePath    :压缩后存放路径
+     * @param fileName       :压缩后文件的名称
      * @return
      */
     public static boolean fileToZip(String sourceFilePath, String zipFilePath, String fileName) throws Exception {
@@ -193,8 +191,9 @@ public class FileUtils {
 
     /**
      * 保存文件到临时目录
+     *
      * @param inputStream 文件输入流
-     * @param fileName 文件名
+     * @param fileName    文件名
      */
     public static void savePic(InputStream inputStream, String fileName) {
         OutputStream os = null;
@@ -301,6 +300,7 @@ public class FileUtils {
 
     /**
      * 文件保存路径
+     *
      * @param time
      * @param type
      * @param name
@@ -339,6 +339,7 @@ public class FileUtils {
 
     /**
      * 删除文件目录
+     *
      * @param path
      */
     private static void delDir(String path) {
@@ -357,7 +358,8 @@ public class FileUtils {
     }
 
     /**
-     *  截取文件排除后缀名
+     * 截取文件排除后缀名
+     *
      * @param fileName 文件名
      * @return
      */
@@ -369,10 +371,8 @@ public class FileUtils {
     /**
      * 解压zip格式的压缩文件到指定位置
      *
-     * @param sourcePath
-     *            压缩文件
-     * @param targetPath
-     *            解压目录
+     * @param sourcePath 压缩文件
+     * @param targetPath 解压目录
      * @throws Exception
      */
     public static boolean unZipFiles(String sourcePath, String targetPath) throws Exception {
@@ -722,6 +722,7 @@ public class FileUtils {
 
     /**
      * 压缩超过2m的图片
+     *
      * @param url
      * @return
      * @throws Exception
@@ -1090,8 +1091,10 @@ public class FileUtils {
     // File("D://123.png"))));
     // System.out.println("data:image/png;base64,".replaceAll("data:image/(jpg|png|jpeg);base64,",""));
     // }
+
     /**
      * 创建文件路径(文件夹)
+     *
      * @param fileName
      */
     public static void fileMkdir(String fileName) {
@@ -1099,5 +1102,68 @@ public class FileUtils {
         if (!fileTotal.exists()) {
             fileTotal.mkdirs();
         }
+    }
+
+    /**
+     * 检查文件大小限制
+     *
+     * @param fileSize
+     * @param checkSize
+     * @param unit
+     */
+    public static boolean isOutOfCheckSize(long fileSize, long checkSize, String unit) {
+        if (!(unit.equals("GB") || unit.equals("MB") || unit.equals("KB") || unit.equals("BYTE"))) {
+            return true;
+        }
+        boolean flag = true;
+        switch (unit.toUpperCase()) {
+        case "BYTE":
+            flag = fileSize >= checkSize;
+            break;
+        case "KB":
+            flag = fileSize >= checkSize * 1024;
+            break;
+        case "MB":
+            flag = fileSize >= checkSize * 1024 * 1024;
+            break;
+        case "GB":
+            flag = fileSize >= checkSize * 1024 * 1024 * 1024;
+            break;
+        }
+        return flag;
+    }
+
+    /**
+     * 检查文件后缀是否错误
+     * @param file
+     * @return
+     */
+    public static boolean isImgSuffixNameError(File file) {
+        String[] imgSuffix = { "jpg", "png", "gif", "webp" };
+        for (String suffix : imgSuffix) {
+            // 与上面文件类型比对 如果有一个相等则退出
+            if (suffix.equals(FileTypeUtil.getType(file))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 检查文件后缀是否错误
+     * @param file
+     * @return
+     */
+    public static boolean isImgSuffixNameError(InputStream file) {
+        // TODO "webp"
+        String[] imgSuffix = { "jpg", "png", "gif" };
+        System.out.println(FileTypeUtil.getType(file));
+        for (String suffix : imgSuffix) {
+            // 与上面文件类型比对 如果有一个相等则退出
+            if (suffix.equals(FileTypeUtil.getType(file))) {
+                return false;
+            }
+        }
+        return true;
     }
 }

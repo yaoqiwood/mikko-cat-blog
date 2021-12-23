@@ -22,11 +22,11 @@ import com.summer.cat.base.Constant;
 import com.summer.cat.base.PublicResultConstant;
 import com.summer.cat.config.ResponseHelper;
 import com.summer.cat.config.ResponseModel;
-import com.summer.cat.config.SystemConfig;
 import com.summer.cat.dto.UserInfoProfileDto;
 import com.summer.cat.entity.User;
 import com.summer.cat.service.service.IUserInfService;
 import com.summer.cat.service.service.IUserService;
+import com.summer.cat.service.system.SystemConfig;
 import com.summer.cat.shiro.JWTToken;
 import com.summer.cat.util.*;
 

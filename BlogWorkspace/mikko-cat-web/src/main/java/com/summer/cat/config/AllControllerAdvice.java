@@ -48,7 +48,7 @@ public class AllControllerAdvice {
     public ResponseModel<String> errorHandler(Exception ex) {
         ex.printStackTrace();
         logger.error("接口出现严重异常：{}", ex.getMessage());
-        return ResponseHelper.badRequest(PublicResultConstant.FAILED);
+        return ResponseHelper.badRequest(PublicResultConstant.FAILED + " : " + ex.getMessage());
     }
 
     /**
