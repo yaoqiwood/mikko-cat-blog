@@ -28,4 +28,5 @@ export default {
   updatePassage (params) {
     return Util.httpPost(UrlConstants.PASSAGES_URLS.POST_UPDATE_PASSAGE, params)
   }
+
 }

@@ -5,6 +5,7 @@ import CookieService from '@/service/CookieService'
 // import RouterUtil from '@/router/routersUtil'
 // import RouterUrl from '@/router/routersUrl'
 import ColorConstant from '@/constants/ColorConstant'
+// import { resolve } from 'build/webpack.base.conf'
 // import {Message} from 'view-design'
 export default {
   httpGet (url) {
@@ -48,6 +49,22 @@ export default {
   httpPostJSON (url, params) {
     return new Promise((resolve, reject) => {
       let promise = Vue.http.post(url, params, NetConstants.POSTJSON_OPTIONS)
+      promise.then(
+        resResp => {
+          this.checkRespError(resResp)
+          resolve(resResp.data)
+        },
+        rejectResp => {
+          reject(rejectResp.data)
+        }
+      )
+    })
+  },
+  httpPostFormData (url, params) {
+    return new Promise((resolve, reject) => {
+      console.log(params)
+      let promise = Vue.http.post(url, params, NetConstants.FORM_DATA_HEADER)
+      // console.log(NetConstants.FORM_DATA_HEADER)
       promise.then(
         resResp => {
           this.checkRespError(resResp)

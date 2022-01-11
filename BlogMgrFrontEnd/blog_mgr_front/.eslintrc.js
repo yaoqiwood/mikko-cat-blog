@@ -23,6 +23,7 @@ module.exports = {
   rules: {
     // "prettier/prettier": "error",
     // allow async-await
+    'camelcase':'off',
     'generator-star-spacing': 'off',
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',

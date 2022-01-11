@@ -26,13 +26,16 @@ export default {
   },
   saveAndGetToken (token) {
     this.saveUserToken(token)
-    this.getUserToken(token)
+    // this.getUserToken(token)
   },
   mountUserToken () {
     if (!Vue.$cookies.isKey(Constants.TOKEN_COOKIE) || !Vue.$cookies.isKey(Constants.CURRENT_USER)) {
       throw new Error('token' + '||' + '用户' + '不存在 ')
     }
-    this.getUserToken(Vue.$cookies.get(Constants.TOKEN_COOKIE))
+    // this.getUserToken(Vue.$cookies.get(Constants.TOKEN_COOKIE))
+  },
+  getToken () {
+    return Vue.$cookies.get(Constants.TOKEN_COOKIE)
   },
   judgeMountUserToken () {
     try {

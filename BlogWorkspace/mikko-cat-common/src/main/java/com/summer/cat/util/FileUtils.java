@@ -1157,10 +1157,11 @@ public class FileUtils {
     public static boolean isImgSuffixNameError(InputStream file) {
         // TODO "webp"
         String[] imgSuffix = { "jpg", "png", "gif" };
-        System.out.println(FileTypeUtil.getType(file));
+        String type = FileTypeUtil.getType(file);
+        System.out.println(type);
         for (String suffix : imgSuffix) {
             // 与上面文件类型比对 如果有一个相等则退出
-            if (suffix.equals(FileTypeUtil.getType(file))) {
+            if (suffix.equals(type)) {
                 return false;
             }
         }

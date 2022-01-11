@@ -11,6 +11,10 @@ const POSTJSON_HEADERS = {
   'Content-Type': 'application/json'
 }
 
+const FORM_DATA_HEADER = {
+  'Content-Type': 'multipart/form-data'
+}
+
 const RESPONSE_TYPE_BUFFER_ARRAY = {
   'responseType': 'arraybuffer'
 }
@@ -34,5 +38,6 @@ export default {
   POSTJSON_HEADERS,
   POSTJSON_OPTIONS,
   PROJECT_NAME_PATH,
-  RESPONSE_TYPE_BUFFER_ARRAY
+  RESPONSE_TYPE_BUFFER_ARRAY,
+  FORM_DATA_HEADER
 }

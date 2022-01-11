@@ -22,8 +22,8 @@ import VueParticles from 'vue-particles'
 import VueCookies from 'vue-cookies'
 
 // mavonEditor
-import MavonEditor from 'mavon-editor'
-import 'mavon-editor/dist/css/index.css'
+import MikkoMavonEditor from 'mikko-mavon-editor'
+import 'mikko-mavon-editor/dist/css/index.css'
 
 // mikko-util
 import MikkoUtil from '../mikko-util'
@@ -37,7 +37,7 @@ Vue.use(VueResource)
 Vue.use(Locale)
 Vue.use(VueParticles)
 Vue.use(VueCookies)
-Vue.use(MavonEditor)
+Vue.use(MikkoMavonEditor)
 Vue.use(MikkoUtil)
 Vue.use(httpInterceptor)
 

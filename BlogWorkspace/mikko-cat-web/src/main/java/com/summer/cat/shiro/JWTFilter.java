@@ -1,5 +1,17 @@
 package com.summer.cat.shiro;
 
+import java.io.PrintWriter;
+
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Strings;
 import com.summer.cat.base.Constant;
@@ -14,16 +26,6 @@ import com.summer.cat.util.ComUtil;
 import com.summer.cat.util.GsonUtil;
 import com.summer.cat.util.JWTUtil;
 import com.summer.cat.vo.UserRoleVo;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.RequestMethod;
-
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.PrintWriter;
 
 /**
  * @author grm
@@ -146,7 +148,7 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
      * @throws Exception
      */
     private boolean verificationPassAnnotation(ServletRequest request, ServletResponse response,
-                                               HttpServletRequest httpServletRequest, String authorization) throws Exception {
+            HttpServletRequest httpServletRequest, String authorization) throws Exception {
         for (String urlMethod : Constant.METHOD_URL_SET) {
             String[] split = urlMethod.split(":--:");
             if (split[0].equals(httpServletRequest.getRequestURI())
@@ -155,10 +157,11 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
                 if (ComUtil.isEmpty(authorization)) {
                     // 如果当前url不需要认证，则注入当前登录用户时，给一个空的
                     httpServletRequest.setAttribute(Constant.CURRENT_USER_REQUEST_NAME, new User());
-                    return true;
-                } else {
-                    super.preHandle(request, response);
                 }
+                return true;
+                // else {
+                // super.preHandle(request, response);
+                // }
             }
             if (StringUtils.countMatches(urlMethod, "{") > 0
                     && StringUtils.countMatches(urlMethod, "/") == StringUtils.countMatches(split[0], "/")
@@ -167,10 +170,11 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
                     // Constant.isPass = true;
                     if (ComUtil.isEmpty(authorization)) {
                         httpServletRequest.setAttribute(Constant.CURRENT_USER_REQUEST_NAME, new User());
-                        return true;
-                    } else {
-                        super.preHandle(request, response);
                     }
+                    return true;
+                    // else {
+                    // super.preHandle(request, response);
+                    // }
                 }
             }
         }

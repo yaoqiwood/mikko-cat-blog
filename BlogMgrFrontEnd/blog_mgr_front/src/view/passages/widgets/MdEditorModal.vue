@@ -16,6 +16,11 @@
           </FormItem>
         </Form>
         <mavon-editor v-model="dataModel.baContent"
+                      ref="md"
+                      @imgAdd="$imgAdd"
+                      @imgDel="$imgDel"
+                      :transition="true"
+                      toolbarsBackground="#8570b3"
                       @save="onDraftManualSave"
                       style="min-height:440px"/>
       </div>
@@ -34,7 +39,6 @@
 <script>
 import PassagesConfirmModal from './PassagesConfirmModal'
 import ENUM from '@/constants/Enum'
-
 export default {
   data: () => {
     return {
@@ -81,6 +85,8 @@ export default {
         baStatus: formItem.baStatus ? ENUM.ENUM_BLOCK_COMMENT.YES.code : ENUM.ENUM_BLOCK_COMMENT.NO.code
       })
       let tagsJSON = JSON.stringify(formItem.tagList)
+      // 获取图片上传队列
+      console.log(this.$refs['md'].getUploadImgList())
       this.$emit('onPassagesConfirm', {passageJSON: passageJSON, tagsJSON: tagsJSON})
     },
     onConfirmSucThenClose () {
@@ -104,6 +110,14 @@ export default {
     },
     clearEditorForm () {
       this.dataModel = {}
+    },
+    $imgAdd (pos, $file) {
+      var formData = new FormData()
+      formData.append('imgFile', $file)
+      this.$emit('imgAdd', formData)
+    },
+    $imgDel () {
+      console.log('del')
     }
   },
   components: {
@@ -122,4 +136,15 @@ export default {
       top: 0;
     }
   }
+
+  /deep/ .v-note-wrapper .v-note-op .v-left-item .op-icon, .v-note-wrapper .v-note-op .v-right-item .op-icon{
+    color: #000000 !important;
+  }
+
+  /deep/ .v-right-item transition{
+    button{
+      color: #000000;
+    }
+  }
+
 </style>

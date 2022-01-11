@@ -17,6 +17,7 @@
         </Form>
         <mavon-editor v-model="dataModel.baContent"
                       @save="onDraftManualSave"
+                      @imgAdd="$imgAdd"
                       style="min-height:440px"/>
       </div>
       <div slot="footer">
@@ -117,6 +118,11 @@ export default {
       this.$refs['passageUpdateConfirmModal'].formItem.tagList = this.dataModel.tagList
       this.$refs['passageUpdateConfirmModal'].formItem.baStatus = this.dataModel.baStatus === ENUM.TRUE_OR_FALSE.YES.code
       this.$refs['passageUpdateConfirmModal'].formItem.baBlockComment = this.dataModel.baBlockComment === ENUM.TRUE_OR_FALSE.YES.code
+    },
+    $imgAdd (pos, $file) {
+      // var formData = new FormData()
+      // formData.append('imgFile', $file)
+      // this.$emit('imgAdd', formData)
     }
   },
   components: {

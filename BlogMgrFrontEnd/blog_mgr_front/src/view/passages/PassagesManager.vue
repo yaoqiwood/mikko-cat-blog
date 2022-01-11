@@ -10,12 +10,14 @@
                     @deletePassage="deletePassage"/>
     <md-editor-modal ref="mdEditorModal"
                      @onPassagesConfirm="onPassagesConfirm"
-                     @onDraftManualSave="onDraftManualSave"/>
+                     @onDraftManualSave="onDraftManualSave"
+                     @imgAdd="uploadImgFile"/>
     <passages-modal ref="passagesModal"
                     :dataModel="viewDataModel"
                     @cleanViewDataModel="cleanViewDataModel"/>
     <md-article-edit-modal ref="mdArticleEditorModal"
                            @onPassageUpdateConfirm="onPassageUpdateConfirm"
+                           @imgAdd="uploadImgFile"
                            @saveEditDraft="saveEditDraft"/>
   </div>
 </template>
@@ -29,6 +31,7 @@ import MdEditorModal from './widgets/MdEditorModal'
 import PassagesModal from './PassagesModal'
 import MdArticleEditModal from './widgets/MdArticleEditModal'
 import ENUM from '@/constants/Enum'
+import SysAnnexConfigInfoApi from '@/api/sysAnnexConfigInfo/SysAnnexConfigInfo'
 
 export default {
   data: () => {
@@ -49,7 +52,7 @@ export default {
       this.loadData(this.params)
     },
     loadData (params) {
-      this.$Spin.show()
+      // this.$Spin.show()
       params = this.cleanNullSearchParams(params)
       PassagesApi.searchPassages({
         page: this.currentPage,
@@ -59,7 +62,7 @@ export default {
         if (resp.success) {
           this.tableData = resp.data
           this.total = resp.total
-          this.$Spin.hide()
+          // this.$Spin.hide()
         }
       })
     },
@@ -73,7 +76,7 @@ export default {
       this.findDraftAddPassage()
     },
     findDraftAddPassage () {
-      this.$Spin.show()
+      // this.$Spin.show()
       DraftApi.findDraftAddPassage().then(resp => {
         if (!resp.success) {
           this.$Modal.error({
@@ -88,17 +91,20 @@ export default {
             title: '确认？',
             content: '检测到先前已有保存过的草稿，是否加载？',
             onOk: () => {
-              that.$refs['mdEditorModal'].dataModel.baTitle = resp.data.draft.badTitle
-              that.$refs['mdEditorModal'].dataModel.baContent = resp.data.draft.badContent
-              that.$refs['mdEditorModal'].dataModel.id = resp.data.draft.id
+              // that.$refs['mdEditorModal'].dataModel.baTitle = resp.data.draft.badTitle
+              // that.$refs['mdEditorModal'].dataModel.baContent = resp.data.draft.badContent
+              // that.$refs['mdEditorModal'].dataModel.id = resp.data.draft.id
+              that.$set(that.$refs['mdEditorModal'].dataModel, 'baTitle', resp.data.draft.badTitle)
+              that.$set(that.$refs['mdEditorModal'].dataModel, 'baContent', resp.data.draft.badContent)
+              that.$set(that.$refs['mdEditorModal'].dataModel, 'id', resp.data.draft.id)
             }
           })
         }
-        this.$Spin.hide()
+        // this.$Spin.hide()
       })
     },
     onPassagesConfirm (jsonItem) {
-      this.$Spin.show()
+      // this.$Spin.show()
       PassagesApi.createItem(jsonItem).then(resp => {
         if (resp.success) {
           this.$Modal.success({title: '提示', content: '发布成功'})
@@ -107,7 +113,7 @@ export default {
         } else {
           this.$Modal.error({title: '失败', content: '发布失败:' + resp.message})
         }
-        this.$Spin.hide()
+        // this.$Spin.hide()
       })
     },
     cleanNullSearchParams (params) {
@@ -124,7 +130,7 @@ export default {
       this.findViewInfById(id)
     },
     findViewInfById (id) {
-      this.$Spin.show()
+      // this.$Spin.show()
       PassagesApi.findItemTagsById({id}).then(resp => {
         if (resp.success) {
           this.viewDataModel = resp.data.blogArticle
@@ -135,11 +141,11 @@ export default {
             content: resp.message
           })
         }
-        this.$Spin.hide()
+        // this.$Spin.hide()
       })
     },
     findUpdateInfById (id) {
-      this.$Spin.show()
+      // this.$Spin.show()
       PassagesApi.findItemTagsById({id}).then(resp => {
         if (resp.success) {
           this.$refs['mdArticleEditorModal'].dataModel = resp.data.blogArticle
@@ -152,16 +158,16 @@ export default {
             content: resp.message
           })
         }
-        this.$Spin.hide()
+        // this.$Spin.hide()
       })
     },
     findDraftOnEdit (id) {
-      this.$Spin.show()
+      // this.$Spin.show()
       let that = this
       DraftApi.findDraftOnEdit({articleId: id}).then(resp => {
         try {
           if (resp.success) {
-            this.$Spin.hide()
+            // this.$Spin.hide()
             that.findUpdateInfById(id)
             if (resp.data.hasDraft) {
               this.$Modal.confirm({
@@ -193,7 +199,7 @@ export default {
     },
     deletePassage (id) {
       let json = {id: id, baStatus: ENUM.ENUM_BA_STATUS.DELETED.code}
-      this.$Spin.show()
+      // this.$Spin.show()
       PassagesApi.updateItemById(json).then(resp => {
         if (resp.success) {
           this.$Notice.success({
@@ -207,11 +213,11 @@ export default {
             desc: '删除失败：' + resp.message
           })
         }
-        this.$Spin.hide()
+        // this.$Spin.hide()
       })
     },
     onDraftManualSave (params) {
-      this.$Spin.show()
+      // this.$Spin.show()
       DraftApi.saveAddDraft(params).then(resp => {
         if (resp.success) {
           this.$Notice.success({
@@ -224,11 +230,11 @@ export default {
             content: '保存草稿失败' + resp.message
           })
         }
-        this.$Spin.hide()
+        // this.$Spin.hide()
       })
     },
     saveEditDraft (params) {
-      this.$Spin.show()
+      // this.$Spin.show()
       DraftApi.saveEditDraft(params).then(resp => {
         if (resp.success) {
           this.$Notice.success({
@@ -241,7 +247,7 @@ export default {
             content: '保存草稿失败' + resp.message
           })
         }
-        this.$Spin.hide()
+        // this.$Spin.hide()
       })
     },
     openUpdateModal (id) {
@@ -249,7 +255,7 @@ export default {
       this.findDraftOnEdit(id)
     },
     onPassageUpdateConfirm (jsonItem) {
-      this.$Spin.show()
+      // this.$Spin.show()
       PassagesApi.updatePassage(jsonItem).then(resp => {
         if (resp.success) {
           this.$Modal.success({title: '提示', content: '修改成功'})
@@ -258,11 +264,16 @@ export default {
         } else {
           this.$Modal.error({title: '失败', content: '修改失败:' + resp.message})
         }
-        this.$Spin.hide()
+        // this.$Spin.hide()
       })
     },
     cleanDataModel () {
       this.viewDataModel = {}
+    },
+    uploadImgFile (params) {
+      SysAnnexConfigInfoApi.uploadImgFile(params).then(resp => {
+        console.log(resp)
+      })
     }
   },
   mounted () {

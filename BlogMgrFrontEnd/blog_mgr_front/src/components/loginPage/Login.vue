@@ -84,20 +84,20 @@ export default {
       this.verificationCodeSrc = LoginApi.getVerificationCodeImgSrc()
     },
     onSubmit (params) {
-      this.$Spin.show()
+      // this.$Spin.show()
       UserService.login(params).then(resp => {
         if (resp.success) {
           CookieService.saveAndGetToken(resp.data.token)
           // 存入用户信息至cookie
           CookieService.saveCookie(Constants.CURRENT_USER, resp.data.user)
           RouterUtil.routerPush(Urls.NIndexMain, {})
-          this.$Spin.hide()
+          // this.$Spin.hide()
         } else {
           this.getVerificationCodeSrc()
           this.$Message.error({
             content: resp.message
           })
-          this.$Spin.hide()
+          // this.$Spin.hide()
         }
       })
     },
@@ -111,9 +111,9 @@ export default {
     isLoginCheck () {
       if (UserService.isLoginCheck()) {
         // this.$Message.error('当前用户已登录，将强制跳转页面')
-        this.$Spin.show()
+        // this.$Spin.show()
         setTimeout(() => {
-          this.$Spin.hide()
+          // this.$Spin.hide()
           RouterUtil.routerPush(Urls.NIndexMain, {})
         }, 2000)
       }

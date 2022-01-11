@@ -14,7 +14,9 @@ const SYS_ANNEX_CONFIG_INFO_URLS = {
   // 附件MenharaItems 获取
   MENHARAITEMS_ID_LIST_POST: 'sysAnnexConfigInfo/getMenharaItems.action',
   // downloadImgById 获取Id
-  DOWNLOAD_IMG_BY_ID_GET: 'sysAnnexConfigInfo/downloadImgById.action?id='
+  DOWNLOAD_IMG_BY_ID_GET: 'sysAnnexConfigInfo/downloadImgById.action?id=',
+  // 图片上传
+  UPLOAD_IMG_FILE_POST: 'sysAnnexConfigInfo/uploadImgFile'
 }
 
 /**
