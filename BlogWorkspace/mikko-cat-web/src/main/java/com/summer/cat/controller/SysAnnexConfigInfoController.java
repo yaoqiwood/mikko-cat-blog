@@ -1,6 +1,8 @@
 package com.summer.cat.controller;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -122,6 +126,7 @@ public class SysAnnexConfigInfoController {
     /**
      * 上传照片
      * uploadImgFile
+     *
      * @param imgFile
      * @param request
      * @return
@@ -134,5 +139,29 @@ public class SysAnnexConfigInfoController {
         String userNo = JWTUtil.getUserNo(token);
         SysAnnexConfigInfo annexConfigInfo = this.service.uploadImgFile(imgFile, userNo);
         return Returns.mapOk(annexConfigInfo, "上传成功");
+    }
+
+    /**
+     * 多文件上传
+     * @param request
+     * @return
+     * @throws IOException
+     */
+    @PostMapping("uploadImgListFile")
+    @ResponseBody
+    public Map<String, ?> uploadImgListFile(HttpServletRequest request) throws IOException {
+        String token = request.getHeader(Constant.AUTHORIZATION);
+        String userNo = JWTUtil.getUserNo(token);
+        CommonsMultipartResolver cResolver = new CommonsMultipartResolver();
+        List<SysAnnexConfigInfo> sysAnnexConfigInfoList = new ArrayList<>();
+        if (cResolver.isMultipart(request)) {
+            MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
+            List<MultipartFile> fileList = multipartHttpServletRequest.getFiles("imgFile");
+            for (MultipartFile multipartFile : fileList) {
+                SysAnnexConfigInfo annexConfigInfo = this.service.uploadImgFile(multipartFile, userNo);
+                sysAnnexConfigInfoList.add(annexConfigInfo);
+            }
+        }
+        return Returns.mapOk(sysAnnexConfigInfoList, "上传成功");
     }
 }
