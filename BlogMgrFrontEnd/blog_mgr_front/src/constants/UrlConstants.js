@@ -16,7 +16,9 @@ const SYS_ANNEX_CONFIG_INFO_URLS = {
   // downloadImgById 获取Id
   DOWNLOAD_IMG_BY_ID_GET: 'sysAnnexConfigInfo/downloadImgById.action?id=',
   // 图片上传
-  UPLOAD_IMG_FILE_POST: 'sysAnnexConfigInfo/uploadImgFile'
+  UPLOAD_IMG_FILE_POST: 'sysAnnexConfigInfo/uploadImgFile',
+  // 多图片上传
+  UPLOAD_IMG_LIST_FILE: 'sysAnnexConfigInfo/uploadImgListFile'
 }
 
 /**

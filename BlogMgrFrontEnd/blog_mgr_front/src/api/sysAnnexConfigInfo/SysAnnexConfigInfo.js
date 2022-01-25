@@ -11,6 +11,9 @@ export default {
   },
   uploadImgFile (params) {
     return Util.httpPostFormData(UrlConstants.SYS_ANNEX_CONFIG_INFO_URLS.UPLOAD_IMG_FILE_POST, params)
+  },
+  uploadImgListFile (params) {
+    return Util.httpPostFormData(UrlConstants.SYS_ANNEX_CONFIG_INFO_URLS.UPLOAD_IMG_LIST_FILE, params)
   }
 
 }
