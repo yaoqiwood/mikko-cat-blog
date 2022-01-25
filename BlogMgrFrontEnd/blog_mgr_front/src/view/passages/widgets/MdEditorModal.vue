@@ -86,8 +86,14 @@ export default {
       })
       let tagsJSON = JSON.stringify(formItem.tagList)
       // 获取图片上传队列
-      console.log(this.$refs['md'].getUploadImgList())
-      this.$emit('onPassagesConfirm', {passageJSON: passageJSON, tagsJSON: tagsJSON})
+      // console.log(this.$refs['md'].getUploadImgList())
+      var formData = new FormData()
+      let uploadImgList = this.$refs['md'].getUploadImgList()
+      for (const key in uploadImgList) {
+        formData.append('imgFiles', uploadImgList[key][1])
+      }
+      console.log(formData.get('imgFiles'))
+      this.$emit('onPassagesConfirm', {passageJSON: passageJSON, tagsJSON: tagsJSON}, formData)
     },
     onConfirmSucThenClose () {
       this.$refs['passagesConfirmModal'].onCancel()
@@ -112,9 +118,11 @@ export default {
       this.dataModel = {}
     },
     $imgAdd (pos, $file) {
-      var formData = new FormData()
-      formData.append('imgFile', $file)
-      this.$emit('imgAdd', formData)
+      // console.log($file)
+      // var formData = new FormData()
+      // formData.append('imgFile', $file)
+      // console.log(formData.get('imgFile'))
+      // this.$emit('imgAdd', formData)
     },
     $imgDel () {
       console.log('del')

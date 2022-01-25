@@ -103,7 +103,11 @@ export default {
         // this.$Spin.hide()
       })
     },
-    onPassagesConfirm (jsonItem) {
+    onPassagesConfirm (jsonItem, imgList) {
+      console.log(imgList)
+      SysAnnexConfigInfoApi.uploadImgListFile(imgList).then(resp => {
+
+      })
       // this.$Spin.show()
       PassagesApi.createItem(jsonItem).then(resp => {
         if (resp.success) {
