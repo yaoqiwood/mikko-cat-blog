@@ -16,8 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -149,18 +147,14 @@ public class SysAnnexConfigInfoController {
      */
     @PostMapping("uploadImgListFile")
     @ResponseBody
-    public Map<String, ?> uploadImgListFile(HttpServletRequest request) throws IOException {
+    public Map<String, ?> uploadImgListFile(@RequestParam List<MultipartFile> imgFiles, HttpServletRequest request)
+            throws IOException {
         String token = request.getHeader(Constant.AUTHORIZATION);
         String userNo = JWTUtil.getUserNo(token);
-        CommonsMultipartResolver cResolver = new CommonsMultipartResolver();
         List<SysAnnexConfigInfo> sysAnnexConfigInfoList = new ArrayList<>();
-        if (cResolver.isMultipart(request)) {
-            MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
-            List<MultipartFile> fileList = multipartHttpServletRequest.getFiles("imgFile");
-            for (MultipartFile multipartFile : fileList) {
-                SysAnnexConfigInfo annexConfigInfo = this.service.uploadImgFile(multipartFile, userNo);
-                sysAnnexConfigInfoList.add(annexConfigInfo);
-            }
+        for (MultipartFile multipartFile : imgFiles) {
+            SysAnnexConfigInfo annexConfigInfo = this.service.uploadImgFile(multipartFile, userNo);
+            sysAnnexConfigInfoList.add(annexConfigInfo);
         }
         return Returns.mapOk(sysAnnexConfigInfoList, "上传成功");
     }
